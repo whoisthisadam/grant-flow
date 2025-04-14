@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Database connection settings -->
+        <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+        <property name="hibernate.connection.url">jdbc:sqlserver://${db.server}:1433;database=${db.name};encrypt=true;trustServerCertificate=true;</property>
+        <property name="hibernate.connection.username">${db.username}</property>
+        <property name="hibernate.connection.password">${db.password}</property>
+        
+        <!-- Connection pool settings -->
+        <property name="hibernate.hikari.connectionTimeout">20000</property>
+        <property name="hibernate.hikari.minimumIdle">5</property>
+        <property name="hibernate.hikari.maximumPoolSize">20</property>
+        <property name="hibernate.hikari.idleTimeout">300000</property>
+        
+        <!-- SQL dialect -->
+        <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+        
+        <!-- Echo all executed SQL to stdout -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        
+        <!-- Drop and re-create the database schema on startup -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        
+        <!-- Names the annotated entity classes -->
+        <!-- Entity mappings will be added here as we create them -->
+        <mapping class="com.kasperovich.entities.User" />
+        <mapping class="com.kasperovich.entities.StudentProfile" />
+        <mapping class="com.kasperovich.entities.AcademicPeriod" />
+        <mapping class="com.kasperovich.entities.ScholarshipApplication" />
+        <mapping class="com.kasperovich.entities.CourseGrade" />
+        <mapping class="com.kasperovich.entities.ScholarshipProgram" />
+        <mapping class="com.kasperovich.entities.Payment" />
+        <mapping class="com.kasperovich.entities.Course" />
+        
+    </session-factory>
+</hibernate-configuration>

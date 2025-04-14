@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.kasperovich.ui.DashboardScreenController"
+            prefHeight="600.0" prefWidth="800.0">
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="10" left="20"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Label text="Grant Flow Dashboard" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label text="Welcome, " />
+                <Label fx:id="userNameLabel" style="-fx-font-weight: bold;" />
+                <Button fx:id="logoutButton" text="Logout" onAction="#handleLogoutAction" />
+            </HBox>
+            <Separator/>
+        </VBox>
+    </top>
+    
+    <left>
+        <VBox spacing="5" style="-fx-background-color: #f0f0f0;" prefWidth="200">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Label text="Navigation" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+            <Separator/>
+            <Button fx:id="dashboardButton" text="Dashboard" maxWidth="Infinity" styleClass="nav-button" />
+            <Button fx:id="scholarshipsButton" text="Scholarships" maxWidth="Infinity" styleClass="nav-button" />
+            <Button fx:id="applicationsButton" text="My Applications" maxWidth="Infinity" styleClass="nav-button" />
+            <Button fx:id="profileButton" text="Profile" maxWidth="Infinity" styleClass="nav-button" />
+            
+            <Region VBox.vgrow="ALWAYS" />
+            
+            <Label fx:id="roleLabel" text="Role: Student" />
+            <Label fx:id="versionLabel" text="Version: 1.0" />
+        </VBox>
+    </left>
+    
+    <center>
+        <VBox>
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            
+            <Label text="Dashboard" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <Separator/>
+            
+            <GridPane hgap="20" vgap="20" alignment="CENTER">
+                <padding>
+                    <Insets top="30" />
+                </padding>
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="50" />
+                    <ColumnConstraints percentWidth="50" />
+                </columnConstraints>
+                
+                <VBox styleClass="dashboard-card" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                    <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                    </padding>
+                    <Label text="Available Scholarships" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <Separator/>
+                    <Label fx:id="availableScholarshipsCount" text="0" style="-fx-font-size: 24px;"/>
+                    <Button text="View All" onAction="#handleViewScholarshipsAction" />
+                </VBox>
+                
+                <VBox styleClass="dashboard-card" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                    <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                    </padding>
+                    <Label text="My Applications" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <Separator/>
+                    <Label fx:id="myApplicationsCount" text="0" style="-fx-font-size: 24px;"/>
+                    <Button text="View All" onAction="#handleViewApplicationsAction" />
+                </VBox>
+                
+                <VBox styleClass="dashboard-card" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                    <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                    </padding>
+                    <Label text="Recent Activity" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <Separator/>
+                    <ListView fx:id="recentActivityList" prefHeight="150" />
+                </VBox>
+                
+                <VBox styleClass="dashboard-card" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                    <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                    </padding>
+                    <Label text="Quick Actions" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <Separator/>
+                    <Button text="Apply for Scholarship" onAction="#handleApplyAction" maxWidth="Infinity" />
+                    <Button text="Update Profile" onAction="#handleUpdateProfileAction" maxWidth="Infinity" />
+                    <Button text="Check Application Status" onAction="#handleCheckStatusAction" maxWidth="Infinity" />
+                </VBox>
+            </GridPane>
+        </VBox>
+    </center>
+    
+    <bottom>
+        <HBox alignment="CENTER_RIGHT">
+            <padding>
+                <Insets top="10" right="20" bottom="20" left="20"/>
+            </padding>
+            <Label text="© 2025 Grant Flow System" style="-fx-font-size: 12px;"/>
+        </HBox>
+    </bottom>
+</BorderPane>

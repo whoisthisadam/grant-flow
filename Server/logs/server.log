@@ -1,0 +1,873 @@
+2025-04-14 10:43:19.747 [main] INFO  com.kasperovich.RunServer - Starting scholarship calculation server...
+2025-04-14 10:43:19.749 [main] ERROR com.kasperovich.RunServer - Failed to start server
+java.io.FileNotFoundException: Server\src\main\resources\config.properties (The system cannot find the path specified)
+	at java.base/java.io.FileInputStream.open0(Native Method) ~[?:?]
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:213) ~[?:?]
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:152) ~[?:?]
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:106) ~[?:?]
+	at com.kasperovich.RunServer.getPropertiesFromConfig(RunServer.java:32) ~[classes/:?]
+	at com.kasperovich.RunServer.main(RunServer.java:45) [classes/:?]
+2025-04-14 10:44:15.732 [main] INFO  com.kasperovich.RunServer - Starting scholarship calculation server...
+2025-04-14 10:44:15.741 [main] DEBUG com.kasperovich.RunServer - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 10:44:15.741 [main] DEBUG com.kasperovich.RunServer - Loaded properties from: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 10:44:15.741 [main] INFO  com.kasperovich.RunServer - Server configured to run on port: 15000
+2025-04-14 10:44:15.741 [main] INFO  com.kasperovich.RunServer - Testing database connection...
+2025-04-14 10:44:15.742 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Testing database connection...
+2025-04-14 10:44:15.743 [main] INFO  com.kasperovich.database.HibernateUtil - Initializing Hibernate SessionFactory
+2025-04-14 10:44:15.743 [main] DEBUG com.kasperovich.database.HibernateUtil - Loading database properties from configuration file
+2025-04-14 10:44:15.744 [main] ERROR com.kasperovich.database.HibernateUtil - Error loading database properties
+java.io.FileNotFoundException: Server\src\main\resources\config.properties (The system cannot find the path specified)
+	at java.base/java.io.FileInputStream.open0(Native Method) ~[?:?]
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:213) ~[?:?]
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:152) ~[?:?]
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:106) ~[?:?]
+	at com.kasperovich.database.HibernateUtil.loadDatabaseProperties(HibernateUtil.java:73) [classes/:?]
+	at com.kasperovich.database.HibernateUtil.getSessionFactory(HibernateUtil.java:38) [classes/:?]
+	at com.kasperovich.database.DatabaseConnectionTest.testConnection(DatabaseConnectionTest.java:23) [classes/:?]
+	at com.kasperovich.RunServer.main(RunServer.java:64) [classes/:?]
+2025-04-14 10:44:15.756 [main] ERROR com.kasperovich.database.HibernateUtil - Error initializing Hibernate SessionFactory
+java.io.FileNotFoundException: Server\src\main\resources\config.properties (The system cannot find the path specified)
+	at java.base/java.io.FileInputStream.open0(Native Method) ~[?:?]
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:213) ~[?:?]
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:152) ~[?:?]
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:106) ~[?:?]
+	at com.kasperovich.database.HibernateUtil.loadDatabaseProperties(HibernateUtil.java:73) ~[classes/:?]
+	at com.kasperovich.database.HibernateUtil.getSessionFactory(HibernateUtil.java:38) [classes/:?]
+	at com.kasperovich.database.DatabaseConnectionTest.testConnection(DatabaseConnectionTest.java:23) [classes/:?]
+	at com.kasperovich.RunServer.main(RunServer.java:64) [classes/:?]
+2025-04-14 10:45:00.285 [main] INFO  com.kasperovich.RunServer - Starting scholarship calculation server...
+2025-04-14 10:45:00.293 [main] DEBUG com.kasperovich.RunServer - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 10:45:00.294 [main] DEBUG com.kasperovich.RunServer - Loaded properties from: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 10:45:00.294 [main] INFO  com.kasperovich.RunServer - Server configured to run on port: 15000
+2025-04-14 10:45:00.294 [main] INFO  com.kasperovich.RunServer - Testing database connection...
+2025-04-14 10:45:00.296 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Testing database connection...
+2025-04-14 10:45:00.307 [main] INFO  com.kasperovich.database.HibernateUtil - Initializing Hibernate SessionFactory
+2025-04-14 10:45:00.308 [main] DEBUG com.kasperovich.database.HibernateUtil - Loading database properties from configuration file
+2025-04-14 10:45:00.308 [main] DEBUG com.kasperovich.database.HibernateUtil - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 10:45:00.308 [main] DEBUG com.kasperovich.database.HibernateUtil - Database properties loaded successfully
+2025-04-14 10:45:00.365 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2025-04-14 10:45:00.563 [main] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-04-14 10:45:00.675 [main] WARN  org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000472: Hikari properties were encountered, but the Hikari ConnectionProvider was not found on the classpath; these properties are going to be ignored.
+2025-04-14 10:45:00.677 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-04-14 10:45:00.741 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2025-04-14 10:45:00.741 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 10:45:00.741 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=sacrypt}
+2025-04-14 10:45:00.741 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-04-14 10:45:00.743 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-04-14 10:45:02.010 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-14 10:45:02.792 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-14 10:45:02.798 [main] INFO  com.kasperovich.database.HibernateUtil - Hibernate SessionFactory initialized successfully
+2025-04-14 10:45:03.305 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database connection test successful!
+2025-04-14 10:45:03.308 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 10:45:03.310 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Retrieving database information...
+2025-04-14 10:45:03.310 [main] ERROR com.kasperovich.database.DatabaseConnectionTest - Failed to retrieve database information
+java.lang.IllegalStateException: EntityManagerFactory is closed
+	at org.hibernate.internal.SessionFactoryImpl.validateNotClosed(SessionFactoryImpl.java:681) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.getCache(SessionFactoryImpl.java:954) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.AbstractSharedSessionContract.<init>(AbstractSharedSessionContract.java:182) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionImpl.<init>(SessionImpl.java:228) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl$SessionBuilderImpl.openSession(SessionFactoryImpl.java:1364) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.openSession(SessionFactoryImpl.java:620) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.openSession(SessionFactoryImpl.java:164) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at com.kasperovich.database.DatabaseConnectionTest.showDatabaseInfo(DatabaseConnectionTest.java:51) [classes/:?]
+	at com.kasperovich.RunServer.main(RunServer.java:66) [classes/:?]
+2025-04-14 10:45:03.317 [main] INFO  com.kasperovich.serverinfo.ServerProcessingThread - Initializing server processing thread on port: 15000
+2025-04-14 10:45:03.319 [main] INFO  com.kasperovich.serverinfo.ServerConfig - Creating server socket on port: 15000
+2025-04-14 10:45:03.319 [main] INFO  com.kasperovich.serverinfo.ServerConfig - Server socket created successfully
+2025-04-14 10:45:03.320 [main] INFO  com.kasperovich.RunServer - Starting server processing thread
+2025-04-14 10:45:03.320 [main] INFO  com.kasperovich.RunServer - Server successfully started and listening on port: 15000
+2025-04-14 10:45:03.320 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerProcessingThread - Starting server on port: 15000
+2025-04-14 10:45:03.320 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerConfig - Server started and listening on port: 15000
+2025-04-14 10:45:03.321 [Server processing thread] DEBUG com.kasperovich.serverinfo.ServerConfig - Waiting for client connections...
+2025-04-14 10:49:06.628 [main] INFO  com.kasperovich.RunServer - Starting scholarship calculation server...
+2025-04-14 10:49:06.636 [main] DEBUG com.kasperovich.RunServer - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 10:49:06.636 [main] DEBUG com.kasperovich.RunServer - Loaded properties from: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 10:49:06.636 [main] INFO  com.kasperovich.RunServer - Server configured to run on port: 15000
+2025-04-14 10:49:06.636 [main] INFO  com.kasperovich.RunServer - Testing database connection...
+2025-04-14 10:49:06.646 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Testing database connection...
+2025-04-14 10:49:06.647 [main] INFO  com.kasperovich.database.HibernateUtil - Initializing Hibernate SessionFactory
+2025-04-14 10:49:06.648 [main] DEBUG com.kasperovich.database.HibernateUtil - Loading database properties from configuration file
+2025-04-14 10:49:06.648 [main] DEBUG com.kasperovich.database.HibernateUtil - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 10:49:06.648 [main] DEBUG com.kasperovich.database.HibernateUtil - Database properties loaded successfully
+2025-04-14 10:49:06.703 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2025-04-14 10:49:06.879 [main] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-04-14 10:49:06.990 [main] WARN  org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000472: Hikari properties were encountered, but the Hikari ConnectionProvider was not found on the classpath; these properties are going to be ignored.
+2025-04-14 10:49:06.992 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-04-14 10:49:07.053 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2025-04-14 10:49:07.053 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 10:49:07.053 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=sacrypt}
+2025-04-14 10:49:07.053 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-04-14 10:49:07.055 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-04-14 10:49:08.377 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-14 10:49:09.145 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-14 10:49:09.151 [main] INFO  com.kasperovich.database.HibernateUtil - Hibernate SessionFactory initialized successfully
+2025-04-14 10:49:09.661 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database connection test successful!
+2025-04-14 10:49:09.662 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 10:49:09.664 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Retrieving database information...
+2025-04-14 10:49:09.665 [main] ERROR com.kasperovich.database.DatabaseConnectionTest - Failed to retrieve database information
+java.lang.IllegalStateException: EntityManagerFactory is closed
+	at org.hibernate.internal.SessionFactoryImpl.validateNotClosed(SessionFactoryImpl.java:681) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.getCache(SessionFactoryImpl.java:954) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.AbstractSharedSessionContract.<init>(AbstractSharedSessionContract.java:182) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionImpl.<init>(SessionImpl.java:228) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl$SessionBuilderImpl.openSession(SessionFactoryImpl.java:1364) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.openSession(SessionFactoryImpl.java:620) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.openSession(SessionFactoryImpl.java:164) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at com.kasperovich.database.DatabaseConnectionTest.showDatabaseInfo(DatabaseConnectionTest.java:50) [classes/:?]
+	at com.kasperovich.RunServer.main(RunServer.java:66) [classes/:?]
+2025-04-14 10:49:09.673 [main] INFO  com.kasperovich.serverinfo.ServerProcessingThread - Initializing server processing thread on port: 15000
+2025-04-14 10:49:09.674 [main] INFO  com.kasperovich.serverinfo.ServerConfig - Creating server socket on port: 15000
+2025-04-14 10:49:09.675 [main] ERROR com.kasperovich.RunServer - Failed to start server
+java.net.BindException: Address already in use: bind
+	at java.base/sun.nio.ch.Net.bind0(Native Method) ~[?:?]
+	at java.base/sun.nio.ch.Net.bind(Net.java:565) ~[?:?]
+	at java.base/sun.nio.ch.Net.bind(Net.java:554) ~[?:?]
+	at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:636) ~[?:?]
+	at java.base/java.net.ServerSocket.bind(ServerSocket.java:390) ~[?:?]
+	at java.base/java.net.ServerSocket.<init>(ServerSocket.java:277) ~[?:?]
+	at java.base/java.net.ServerSocket.<init>(ServerSocket.java:170) ~[?:?]
+	at com.kasperovich.serverinfo.ServerConfig.<init>(ServerConfig.java:41) ~[classes/:?]
+	at com.kasperovich.serverinfo.ServerProcessingThread.<init>(ServerProcessingThread.java:15) ~[classes/:?]
+	at com.kasperovich.RunServer.main(RunServer.java:71) [classes/:?]
+2025-04-14 10:50:17.226 [main] INFO  com.kasperovich.RunServer - Starting scholarship calculation server...
+2025-04-14 10:50:17.235 [main] DEBUG com.kasperovich.RunServer - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 10:50:17.235 [main] DEBUG com.kasperovich.RunServer - Loaded properties from: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 10:50:17.235 [main] INFO  com.kasperovich.RunServer - Server configured to run on port: 15000
+2025-04-14 10:50:17.235 [main] INFO  com.kasperovich.RunServer - Testing database connection...
+2025-04-14 10:50:17.245 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Testing database connection...
+2025-04-14 10:50:17.247 [main] INFO  com.kasperovich.database.HibernateUtil - Initializing Hibernate SessionFactory
+2025-04-14 10:50:17.247 [main] DEBUG com.kasperovich.database.HibernateUtil - Loading database properties from configuration file
+2025-04-14 10:50:17.247 [main] DEBUG com.kasperovich.database.HibernateUtil - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 10:50:17.247 [main] DEBUG com.kasperovich.database.HibernateUtil - Database properties loaded successfully
+2025-04-14 10:50:17.303 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2025-04-14 10:50:17.486 [main] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-04-14 10:50:17.596 [main] WARN  org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000472: Hikari properties were encountered, but the Hikari ConnectionProvider was not found on the classpath; these properties are going to be ignored.
+2025-04-14 10:50:17.599 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-04-14 10:50:17.657 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2025-04-14 10:50:17.658 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 10:50:17.658 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=sacrypt}
+2025-04-14 10:50:17.658 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-04-14 10:50:17.659 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-04-14 10:50:18.993 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-14 10:50:19.772 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-14 10:50:19.778 [main] INFO  com.kasperovich.database.HibernateUtil - Hibernate SessionFactory initialized successfully
+2025-04-14 10:50:20.301 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database connection test successful!
+2025-04-14 10:50:20.306 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 10:50:20.308 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Retrieving database information...
+2025-04-14 10:50:20.308 [main] ERROR com.kasperovich.database.DatabaseConnectionTest - Failed to retrieve database information
+java.lang.IllegalStateException: EntityManagerFactory is closed
+	at org.hibernate.internal.SessionFactoryImpl.validateNotClosed(SessionFactoryImpl.java:681) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.getCache(SessionFactoryImpl.java:954) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.AbstractSharedSessionContract.<init>(AbstractSharedSessionContract.java:182) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionImpl.<init>(SessionImpl.java:228) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl$SessionBuilderImpl.openSession(SessionFactoryImpl.java:1364) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.openSession(SessionFactoryImpl.java:620) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.openSession(SessionFactoryImpl.java:164) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at com.kasperovich.database.DatabaseConnectionTest.showDatabaseInfo(DatabaseConnectionTest.java:51) [classes/:?]
+	at com.kasperovich.RunServer.main(RunServer.java:66) [classes/:?]
+2025-04-14 10:50:20.315 [main] INFO  com.kasperovich.serverinfo.ServerProcessingThread - Initializing server processing thread on port: 15000
+2025-04-14 10:50:20.316 [main] INFO  com.kasperovich.serverinfo.ServerConfig - Creating server socket on port: 15000
+2025-04-14 10:50:20.317 [main] INFO  com.kasperovich.serverinfo.ServerConfig - Server socket created successfully
+2025-04-14 10:50:20.318 [main] INFO  com.kasperovich.RunServer - Starting server processing thread
+2025-04-14 10:50:20.318 [main] INFO  com.kasperovich.RunServer - Server successfully started and listening on port: 15000
+2025-04-14 10:50:20.318 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerProcessingThread - Starting server on port: 15000
+2025-04-14 10:50:20.318 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerConfig - Server started and listening on port: 15000
+2025-04-14 10:50:20.319 [Server processing thread] DEBUG com.kasperovich.serverinfo.ServerConfig - Waiting for client connections...
+2025-04-14 10:51:29.480 [main] INFO  com.kasperovich.RunServer - Starting scholarship calculation server...
+2025-04-14 10:51:29.488 [main] DEBUG com.kasperovich.RunServer - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 10:51:29.489 [main] DEBUG com.kasperovich.RunServer - Loaded properties from: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 10:51:29.489 [main] INFO  com.kasperovich.RunServer - Server configured to run on port: 15000
+2025-04-14 10:51:29.489 [main] INFO  com.kasperovich.RunServer - Testing database connection...
+2025-04-14 10:51:29.500 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Testing database connection...
+2025-04-14 10:51:29.501 [main] INFO  com.kasperovich.database.HibernateUtil - Initializing Hibernate SessionFactory
+2025-04-14 10:51:29.501 [main] DEBUG com.kasperovich.database.HibernateUtil - Loading database properties from configuration file
+2025-04-14 10:51:29.501 [main] DEBUG com.kasperovich.database.HibernateUtil - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 10:51:29.501 [main] DEBUG com.kasperovich.database.HibernateUtil - Database properties loaded successfully
+2025-04-14 10:51:29.556 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2025-04-14 10:51:29.747 [main] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-04-14 10:51:29.857 [main] WARN  org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000472: Hikari properties were encountered, but the Hikari ConnectionProvider was not found on the classpath; these properties are going to be ignored.
+2025-04-14 10:51:29.859 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-04-14 10:51:29.920 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2025-04-14 10:51:29.920 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 10:51:29.922 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=sacrypt}
+2025-04-14 10:51:29.922 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-04-14 10:51:29.923 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-04-14 10:51:31.339 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-14 10:51:32.117 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-14 10:51:32.123 [main] INFO  com.kasperovich.database.HibernateUtil - Hibernate SessionFactory initialized successfully
+2025-04-14 10:51:32.627 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database connection test successful!
+2025-04-14 10:51:32.629 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 10:51:32.631 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Retrieving database information...
+2025-04-14 10:51:32.631 [main] ERROR com.kasperovich.database.DatabaseConnectionTest - Failed to retrieve database information
+java.lang.IllegalStateException: EntityManagerFactory is closed
+	at org.hibernate.internal.SessionFactoryImpl.validateNotClosed(SessionFactoryImpl.java:681) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.getCache(SessionFactoryImpl.java:954) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.AbstractSharedSessionContract.<init>(AbstractSharedSessionContract.java:182) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionImpl.<init>(SessionImpl.java:228) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl$SessionBuilderImpl.openSession(SessionFactoryImpl.java:1364) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.openSession(SessionFactoryImpl.java:620) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.openSession(SessionFactoryImpl.java:164) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at com.kasperovich.database.DatabaseConnectionTest.showDatabaseInfo(DatabaseConnectionTest.java:58) [classes/:?]
+	at com.kasperovich.RunServer.main(RunServer.java:66) [classes/:?]
+2025-04-14 10:51:32.638 [main] INFO  com.kasperovich.serverinfo.ServerProcessingThread - Initializing server processing thread on port: 15000
+2025-04-14 10:51:32.640 [main] INFO  com.kasperovich.serverinfo.ServerConfig - Creating server socket on port: 15000
+2025-04-14 10:51:32.640 [main] ERROR com.kasperovich.RunServer - Failed to start server
+java.net.BindException: Address already in use: bind
+	at java.base/sun.nio.ch.Net.bind0(Native Method) ~[?:?]
+	at java.base/sun.nio.ch.Net.bind(Net.java:565) ~[?:?]
+	at java.base/sun.nio.ch.Net.bind(Net.java:554) ~[?:?]
+	at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:636) ~[?:?]
+	at java.base/java.net.ServerSocket.bind(ServerSocket.java:390) ~[?:?]
+	at java.base/java.net.ServerSocket.<init>(ServerSocket.java:277) ~[?:?]
+	at java.base/java.net.ServerSocket.<init>(ServerSocket.java:170) ~[?:?]
+	at com.kasperovich.serverinfo.ServerConfig.<init>(ServerConfig.java:41) ~[classes/:?]
+	at com.kasperovich.serverinfo.ServerProcessingThread.<init>(ServerProcessingThread.java:15) ~[classes/:?]
+	at com.kasperovich.RunServer.main(RunServer.java:71) [classes/:?]
+2025-04-14 10:57:14.716 [main] INFO  com.kasperovich.RunServer - Starting scholarship calculation server...
+2025-04-14 10:57:14.723 [main] DEBUG com.kasperovich.RunServer - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 10:57:14.723 [main] DEBUG com.kasperovich.RunServer - Loaded properties from: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 10:57:14.724 [main] INFO  com.kasperovich.RunServer - Server configured to run on port: 15000
+2025-04-14 10:57:14.724 [main] INFO  com.kasperovich.RunServer - Testing database connection...
+2025-04-14 10:57:14.734 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Testing database connection...
+2025-04-14 10:57:14.735 [main] INFO  com.kasperovich.database.HibernateUtil - Initializing Hibernate SessionFactory
+2025-04-14 10:57:14.736 [main] DEBUG com.kasperovich.database.HibernateUtil - Loading database properties from configuration file
+2025-04-14 10:57:14.736 [main] DEBUG com.kasperovich.database.HibernateUtil - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 10:57:14.736 [main] DEBUG com.kasperovich.database.HibernateUtil - Database properties loaded successfully
+2025-04-14 10:57:14.787 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2025-04-14 10:57:14.967 [main] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-04-14 10:57:15.074 [main] WARN  org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000472: Hikari properties were encountered, but the Hikari ConnectionProvider was not found on the classpath; these properties are going to be ignored.
+2025-04-14 10:57:15.077 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-04-14 10:57:15.134 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2025-04-14 10:57:15.135 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 10:57:15.135 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=sacrypt}
+2025-04-14 10:57:15.135 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-04-14 10:57:15.137 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-04-14 10:57:16.408 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-14 10:57:17.161 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-14 10:57:17.166 [main] INFO  com.kasperovich.database.HibernateUtil - Hibernate SessionFactory initialized successfully
+2025-04-14 10:57:17.669 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database connection test successful!
+2025-04-14 10:57:17.669 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Retrieving database information...
+2025-04-14 10:57:17.804 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Connected to: Microsoft SQL Server 12.00.429
+2025-04-14 10:57:17.805 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - JDBC Driver: Microsoft JDBC Driver 12.4 for SQL Server 12.4.2.0
+2025-04-14 10:57:17.806 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database URL: jdbc:sqlserver://avroprod.database.windows.net:1433;connectRetryInterval=10;connectRetryCount=1;maxResultBuffer=-1;sendTemporalDataTypesAsStringForBulkCopy=true;delayLoadingLobs=true;useFmtOnly=false;useBulkCopyForBatchInsert=false;cancelQueryTimeout=-1;sslProtocol=TLS;jaasConfigurationName=SQLJDBCDriver;statementPoolingCacheSize=0;serverPreparedStatementDiscardThreshold=10;enablePrepareOnFirstPreparedStatementCall=false;fips=false;socketTimeout=0;authentication=NotSpecified;authenticationScheme=nativeAuthentication;xopenStates=false;datetimeParameterType=datetime2;sendTimeAsDatetime=true;replication=false;trustStoreType=JKS;trustServerCertificate=true;TransparentNetworkIPResolution=true;iPAddressPreference=IPv4First;serverNameAsACE=false;sendStringParametersAsUnicode=true;selectMethod=direct;responseBuffering=adaptive;queryTimeout=-1;packetSize=8000;multiSubnetFailover=false;loginTimeout=30;lockTimeout=-1;lastUpdateCount=true;prepareMethod=prepexec;encrypt=true;disableStatementPooling=true;databaseName=grant_flow;columnEncryptionSetting=Disabled;applicationName=Microsoft JDBC Driver for SQL Server;applicationIntent=readwrite;
+2025-04-14 10:57:17.939 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database User: sacrypt
+2025-04-14 10:57:18.181 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Tables found in the database:
+2025-04-14 10:57:18.181 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - academic_periods
+2025-04-14 10:57:18.181 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - course_grades
+2025-04-14 10:57:18.181 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - courses
+2025-04-14 10:57:18.181 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - payments
+2025-04-14 10:57:18.181 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - scholarship_applications
+2025-04-14 10:57:18.181 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - scholarship_programs
+2025-04-14 10:57:18.181 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - student_profiles
+2025-04-14 10:57:18.181 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - users
+2025-04-14 10:57:18.181 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - trace_xe_action_map
+2025-04-14 10:57:18.181 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - trace_xe_event_map
+2025-04-14 10:57:18.318 [main] INFO  com.kasperovich.serverinfo.ServerProcessingThread - Initializing server processing thread on port: 15000
+2025-04-14 10:57:18.320 [main] INFO  com.kasperovich.serverinfo.ServerConfig - Creating server socket on port: 15000
+2025-04-14 10:57:18.321 [main] INFO  com.kasperovich.serverinfo.ServerConfig - Server socket created successfully
+2025-04-14 10:57:18.321 [main] INFO  com.kasperovich.RunServer - Starting server processing thread
+2025-04-14 10:57:18.321 [main] INFO  com.kasperovich.RunServer - Server successfully started and listening on port: 15000
+2025-04-14 10:57:18.321 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerProcessingThread - Starting server on port: 15000
+2025-04-14 10:57:18.322 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerConfig - Server started and listening on port: 15000
+2025-04-14 10:57:18.322 [Server processing thread] DEBUG com.kasperovich.serverinfo.ServerConfig - Waiting for client connections...
+2025-04-14 11:30:36.720 [main] INFO  com.kasperovich.RunServer - Starting scholarship calculation server...
+2025-04-14 11:30:36.728 [main] DEBUG com.kasperovich.RunServer - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 11:30:36.729 [main] DEBUG com.kasperovich.RunServer - Loaded properties from: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 11:30:36.729 [main] INFO  com.kasperovich.RunServer - Server configured to run on port: 15000
+2025-04-14 11:30:36.729 [main] INFO  com.kasperovich.RunServer - Testing database connection...
+2025-04-14 11:30:36.730 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Testing database connection...
+2025-04-14 11:30:36.731 [main] INFO  com.kasperovich.database.HibernateUtil - Initializing Hibernate SessionFactory
+2025-04-14 11:30:36.731 [main] DEBUG com.kasperovich.database.HibernateUtil - Loading database properties from configuration file
+2025-04-14 11:30:36.731 [main] DEBUG com.kasperovich.database.HibernateUtil - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 11:30:36.732 [main] DEBUG com.kasperovich.database.HibernateUtil - Database properties loaded successfully
+2025-04-14 11:30:36.785 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2025-04-14 11:30:36.976 [main] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-04-14 11:30:37.084 [main] WARN  org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000472: Hikari properties were encountered, but the Hikari ConnectionProvider was not found on the classpath; these properties are going to be ignored.
+2025-04-14 11:30:37.088 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-04-14 11:30:37.151 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2025-04-14 11:30:37.152 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 11:30:37.152 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=sacrypt}
+2025-04-14 11:30:37.152 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-04-14 11:30:37.154 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-04-14 11:30:38.965 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-14 11:30:39.740 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-14 11:30:39.746 [main] INFO  com.kasperovich.database.HibernateUtil - Hibernate SessionFactory initialized successfully
+2025-04-14 11:30:40.249 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database connection test successful!
+2025-04-14 11:30:40.250 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Retrieving database information...
+2025-04-14 11:30:40.387 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Connected to: Microsoft SQL Server 12.00.429
+2025-04-14 11:30:40.388 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - JDBC Driver: Microsoft JDBC Driver 12.4 for SQL Server 12.4.2.0
+2025-04-14 11:30:40.388 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database URL: jdbc:sqlserver://avroprod.database.windows.net:1433;connectRetryInterval=10;connectRetryCount=1;maxResultBuffer=-1;sendTemporalDataTypesAsStringForBulkCopy=true;delayLoadingLobs=true;useFmtOnly=false;useBulkCopyForBatchInsert=false;cancelQueryTimeout=-1;sslProtocol=TLS;jaasConfigurationName=SQLJDBCDriver;statementPoolingCacheSize=0;serverPreparedStatementDiscardThreshold=10;enablePrepareOnFirstPreparedStatementCall=false;fips=false;socketTimeout=0;authentication=NotSpecified;authenticationScheme=nativeAuthentication;xopenStates=false;datetimeParameterType=datetime2;sendTimeAsDatetime=true;replication=false;trustStoreType=JKS;trustServerCertificate=true;TransparentNetworkIPResolution=true;iPAddressPreference=IPv4First;serverNameAsACE=false;sendStringParametersAsUnicode=true;selectMethod=direct;responseBuffering=adaptive;queryTimeout=-1;packetSize=8000;multiSubnetFailover=false;loginTimeout=30;lockTimeout=-1;lastUpdateCount=true;prepareMethod=prepexec;encrypt=true;disableStatementPooling=true;databaseName=grant_flow;columnEncryptionSetting=Disabled;applicationName=Microsoft JDBC Driver for SQL Server;applicationIntent=readwrite;
+2025-04-14 11:30:40.523 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database User: sacrypt
+2025-04-14 11:30:40.669 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Tables found in the database:
+2025-04-14 11:30:40.669 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - academic_periods
+2025-04-14 11:30:40.669 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - course_grades
+2025-04-14 11:30:40.669 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - courses
+2025-04-14 11:30:40.669 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - payments
+2025-04-14 11:30:40.669 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - scholarship_applications
+2025-04-14 11:30:40.669 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - scholarship_programs
+2025-04-14 11:30:40.669 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - student_profiles
+2025-04-14 11:30:40.669 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - users
+2025-04-14 11:30:40.669 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - trace_xe_action_map
+2025-04-14 11:30:40.669 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - trace_xe_event_map
+2025-04-14 11:30:40.810 [main] INFO  com.kasperovich.serverinfo.ServerProcessingThread - Initializing server processing thread on port: 15000
+2025-04-14 11:30:40.812 [main] INFO  com.kasperovich.serverinfo.ServerConfig - Creating server socket on port: 15000
+2025-04-14 11:30:40.812 [main] INFO  com.kasperovich.serverinfo.ServerConfig - Server socket created successfully
+2025-04-14 11:30:40.812 [main] INFO  com.kasperovich.RunServer - Starting server processing thread
+2025-04-14 11:30:40.813 [main] INFO  com.kasperovich.RunServer - Server successfully started and listening on port: 15000
+2025-04-14 11:30:40.813 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerProcessingThread - Starting server on port: 15000
+2025-04-14 11:30:40.813 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerConfig - Server started and listening on port: 15000
+2025-04-14 11:30:40.813 [Server processing thread] DEBUG com.kasperovich.serverinfo.ServerConfig - Waiting for client connections...
+2025-04-14 11:34:15.809 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerConfig - New client connected from: /127.0.0.1
+2025-04-14 11:34:15.875 [Server processing thread] DEBUG com.kasperovich.dao.impl.UserDaoImpl - Initialized DAO for entity class: User
+2025-04-14 11:34:15.884 [Server processing thread] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Created new client processing thread for client: /127.0.0.1
+2025-04-14 11:34:15.885 [Server processing thread] DEBUG com.kasperovich.serverinfo.ServerConfig - Starting client processing thread: 0
+2025-04-14 11:34:15.885 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerConfig - Client thread 0 started successfully
+2025-04-14 11:34:15.885 [Server processing thread] DEBUG com.kasperovich.serverinfo.ServerConfig - Waiting for client connections...
+2025-04-14 11:34:15.885 [0] INFO  com.kasperovich.serverinfo.ClientProcessingThread - Client processing thread started for client: /127.0.0.1
+2025-04-14 11:34:15.891 [0] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Received object from client /127.0.0.1: CommandWrapper{command=HEALTH_CHECK, hasData=false, hasAuthToken=false}
+2025-04-14 11:34:15.891 [0] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Processing command: CommandWrapper{command=HEALTH_CHECK, hasData=false, hasAuthToken=false}
+2025-04-14 11:34:15.898 [0] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Responding to health check with SUCCESS
+2025-04-14 11:34:15.902 [0] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Sending object to client /127.0.0.1: ResponseWrapper{response=SUCCESS, hasData=false, hasAuthToken=false, hasMessage=false}
+2025-04-14 11:49:26.878 [main] INFO  com.kasperovich.RunServer - Starting scholarship calculation server...
+2025-04-14 11:49:26.886 [main] DEBUG com.kasperovich.RunServer - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 11:49:26.887 [main] DEBUG com.kasperovich.RunServer - Loaded properties from: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 11:49:26.887 [main] INFO  com.kasperovich.RunServer - Server configured to run on port: 15000
+2025-04-14 11:49:26.887 [main] INFO  com.kasperovich.RunServer - Testing database connection...
+2025-04-14 11:49:26.890 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Testing database connection...
+2025-04-14 11:49:26.891 [main] INFO  com.kasperovich.database.HibernateUtil - Initializing Hibernate SessionFactory
+2025-04-14 11:49:26.891 [main] DEBUG com.kasperovich.database.HibernateUtil - Loading database properties from configuration file
+2025-04-14 11:49:26.891 [main] DEBUG com.kasperovich.database.HibernateUtil - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 11:49:26.891 [main] DEBUG com.kasperovich.database.HibernateUtil - Database properties loaded successfully
+2025-04-14 11:49:26.950 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2025-04-14 11:49:27.147 [main] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-04-14 11:49:27.257 [main] WARN  org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000472: Hikari properties were encountered, but the Hikari ConnectionProvider was not found on the classpath; these properties are going to be ignored.
+2025-04-14 11:49:27.260 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-04-14 11:49:27.319 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2025-04-14 11:49:27.320 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 11:49:27.320 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=sacrypt}
+2025-04-14 11:49:27.320 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-04-14 11:49:27.322 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-04-14 11:49:28.612 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-14 11:49:29.384 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-14 11:49:29.390 [main] INFO  com.kasperovich.database.HibernateUtil - Hibernate SessionFactory initialized successfully
+2025-04-14 11:49:29.896 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database connection test successful!
+2025-04-14 11:49:29.897 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Retrieving database information...
+2025-04-14 11:49:30.033 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Connected to: Microsoft SQL Server 12.00.429
+2025-04-14 11:49:30.033 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - JDBC Driver: Microsoft JDBC Driver 12.4 for SQL Server 12.4.2.0
+2025-04-14 11:49:30.034 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database URL: jdbc:sqlserver://avroprod.database.windows.net:1433;connectRetryInterval=10;connectRetryCount=1;maxResultBuffer=-1;sendTemporalDataTypesAsStringForBulkCopy=true;delayLoadingLobs=true;useFmtOnly=false;useBulkCopyForBatchInsert=false;cancelQueryTimeout=-1;sslProtocol=TLS;jaasConfigurationName=SQLJDBCDriver;statementPoolingCacheSize=0;serverPreparedStatementDiscardThreshold=10;enablePrepareOnFirstPreparedStatementCall=false;fips=false;socketTimeout=0;authentication=NotSpecified;authenticationScheme=nativeAuthentication;xopenStates=false;datetimeParameterType=datetime2;sendTimeAsDatetime=true;replication=false;trustStoreType=JKS;trustServerCertificate=true;TransparentNetworkIPResolution=true;iPAddressPreference=IPv4First;serverNameAsACE=false;sendStringParametersAsUnicode=true;selectMethod=direct;responseBuffering=adaptive;queryTimeout=-1;packetSize=8000;multiSubnetFailover=false;loginTimeout=30;lockTimeout=-1;lastUpdateCount=true;prepareMethod=prepexec;encrypt=true;disableStatementPooling=true;databaseName=grant_flow;columnEncryptionSetting=Disabled;applicationName=Microsoft JDBC Driver for SQL Server;applicationIntent=readwrite;
+2025-04-14 11:49:30.172 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database User: sacrypt
+2025-04-14 11:49:30.326 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Tables found in the database:
+2025-04-14 11:49:30.326 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - academic_periods
+2025-04-14 11:49:30.326 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - course_grades
+2025-04-14 11:49:30.326 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - courses
+2025-04-14 11:49:30.326 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - payments
+2025-04-14 11:49:30.326 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - scholarship_applications
+2025-04-14 11:49:30.326 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - scholarship_programs
+2025-04-14 11:49:30.326 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - student_profiles
+2025-04-14 11:49:30.326 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - users
+2025-04-14 11:49:30.326 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - trace_xe_action_map
+2025-04-14 11:49:30.326 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - trace_xe_event_map
+2025-04-14 11:49:30.464 [main] INFO  com.kasperovich.serverinfo.ServerProcessingThread - Initializing server processing thread on port: 15000
+2025-04-14 11:49:30.468 [main] INFO  com.kasperovich.serverinfo.ServerConfig - Creating server socket on port: 15000
+2025-04-14 11:49:30.468 [main] INFO  com.kasperovich.serverinfo.ServerConfig - Server socket created successfully
+2025-04-14 11:49:30.468 [main] INFO  com.kasperovich.RunServer - Starting server processing thread
+2025-04-14 11:49:30.469 [main] INFO  com.kasperovich.RunServer - Server successfully started and listening on port: 15000
+2025-04-14 11:49:30.469 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerProcessingThread - Starting server on port: 15000
+2025-04-14 11:49:30.469 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerConfig - Server started and listening on port: 15000
+2025-04-14 11:49:30.469 [Server processing thread] DEBUG com.kasperovich.serverinfo.ServerConfig - Waiting for client connections...
+2025-04-14 11:49:56.553 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerConfig - New client connected from: /127.0.0.1
+2025-04-14 11:49:56.584 [Server processing thread] DEBUG com.kasperovich.dao.impl.UserDaoImpl - Initialized DAO for entity class: User
+2025-04-14 11:49:56.586 [Server processing thread] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Created new client processing thread for client: /127.0.0.1
+2025-04-14 11:49:56.586 [Server processing thread] DEBUG com.kasperovich.serverinfo.ServerConfig - Starting client processing thread: 0
+2025-04-14 11:49:56.586 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerConfig - Client thread 0 started successfully
+2025-04-14 11:49:56.586 [Server processing thread] DEBUG com.kasperovich.serverinfo.ServerConfig - Waiting for client connections...
+2025-04-14 11:49:56.586 [0] INFO  com.kasperovich.serverinfo.ClientProcessingThread - Client processing thread started for client: /127.0.0.1
+2025-04-14 11:49:56.592 [0] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Received object from client /127.0.0.1: CommandWrapper{command=HEALTH_CHECK, hasData=false, hasAuthToken=false}
+2025-04-14 11:49:56.593 [0] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Processing command: CommandWrapper{command=HEALTH_CHECK, hasData=false, hasAuthToken=false}
+2025-04-14 11:49:56.594 [0] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Responding to health check with SUCCESS
+2025-04-14 11:49:56.596 [0] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Sending object to client /127.0.0.1: ResponseWrapper{response=SUCCESS, hasData=false, hasAuthToken=false, hasMessage=false}
+2025-04-14 11:50:20.340 [0] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Received object from client /127.0.0.1: CommandWrapper{command=REGISTER, hasData=true, hasAuthToken=false}
+2025-04-14 11:50:20.340 [0] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Processing command: CommandWrapper{command=REGISTER, hasData=true, hasAuthToken=false}
+2025-04-14 11:50:20.341 [0] INFO  com.kasperovich.service.AuthenticationService - Processing registration request for username: test
+2025-04-14 11:50:20.341 [0] DEBUG com.kasperovich.dao.impl.UserDaoImpl - Checking if user exists by username: test
+2025-04-14 11:50:20.695 [0] ERROR com.kasperovich.dao.impl.UserDaoImpl - Error checking if user exists by username
+java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEntityException: Could not resolve root entity 'User'
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:143) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:167) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:173) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:827) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:133) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at com.kasperovich.dao.impl.UserDaoImpl.existsByUsername(UserDaoImpl.java:50) [classes/:?]
+	at com.kasperovich.service.AuthenticationService.register(AuthenticationService.java:55) [classes/:?]
+	at com.kasperovich.serverinfo.ClientProcessingThread.handleRegistration(ClientProcessingThread.java:212) [classes/:?]
+	at com.kasperovich.serverinfo.ClientProcessingThread.startClient(ClientProcessingThread.java:147) [classes/:?]
+	at com.kasperovich.serverinfo.ClientProcessingThread.run(ClientProcessingThread.java:82) [classes/:?]
+Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve root entity 'User'
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.resolveRootEntity(SemanticQueryBuilder.java:2013) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitRootEntity(SemanticQueryBuilder.java:1944) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitRootEntity(SemanticQueryBuilder.java:269) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.grammars.hql.HqlParser$RootEntityContext.accept(HqlParser.java:2549) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitEntityWithJoins(SemanticQueryBuilder.java:1914) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitFromClause(SemanticQueryBuilder.java:1901) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitQuery(SemanticQueryBuilder.java:1148) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitQuerySpecExpression(SemanticQueryBuilder.java:941) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitQuerySpecExpression(SemanticQueryBuilder.java:269) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.grammars.hql.HqlParser$QuerySpecExpressionContext.accept(HqlParser.java:1869) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitSimpleQueryGroup(SemanticQueryBuilder.java:926) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitSimpleQueryGroup(SemanticQueryBuilder.java:269) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.grammars.hql.HqlParser$SimpleQueryGroupContext.accept(HqlParser.java:1740) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitSelectStatement(SemanticQueryBuilder.java:443) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitStatement(SemanticQueryBuilder.java:402) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.buildSemanticModel(SemanticQueryBuilder.java:311) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.StandardHqlTranslator.translate(StandardHqlTranslator.java:71) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.internal.QueryInterpretationCacheStandardImpl.createHqlInterpretation(QueryInterpretationCacheStandardImpl.java:165) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.internal.QueryInterpretationCacheStandardImpl.resolveHqlInterpretation(QueryInterpretationCacheStandardImpl.java:147) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.AbstractSharedSessionContract.interpretHql(AbstractSharedSessionContract.java:769) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:819) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	... 6 more
+2025-04-14 11:50:20.707 [0] ERROR com.kasperovich.serverinfo.ClientProcessingThread - Unexpected error while processing client request
+java.lang.RuntimeException: Error checking if user exists by username
+	at com.kasperovich.dao.impl.UserDaoImpl.existsByUsername(UserDaoImpl.java:56) ~[classes/:?]
+	at com.kasperovich.service.AuthenticationService.register(AuthenticationService.java:55) ~[classes/:?]
+	at com.kasperovich.serverinfo.ClientProcessingThread.handleRegistration(ClientProcessingThread.java:212) ~[classes/:?]
+	at com.kasperovich.serverinfo.ClientProcessingThread.startClient(ClientProcessingThread.java:147) ~[classes/:?]
+	at com.kasperovich.serverinfo.ClientProcessingThread.run(ClientProcessingThread.java:82) [classes/:?]
+Caused by: java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEntityException: Could not resolve root entity 'User'
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:143) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:167) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:173) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:827) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:133) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at com.kasperovich.dao.impl.UserDaoImpl.existsByUsername(UserDaoImpl.java:50) ~[classes/:?]
+	... 4 more
+Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve root entity 'User'
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.resolveRootEntity(SemanticQueryBuilder.java:2013) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitRootEntity(SemanticQueryBuilder.java:1944) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitRootEntity(SemanticQueryBuilder.java:269) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.grammars.hql.HqlParser$RootEntityContext.accept(HqlParser.java:2549) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitEntityWithJoins(SemanticQueryBuilder.java:1914) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitFromClause(SemanticQueryBuilder.java:1901) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitQuery(SemanticQueryBuilder.java:1148) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitQuerySpecExpression(SemanticQueryBuilder.java:941) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitQuerySpecExpression(SemanticQueryBuilder.java:269) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.grammars.hql.HqlParser$QuerySpecExpressionContext.accept(HqlParser.java:1869) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitSimpleQueryGroup(SemanticQueryBuilder.java:926) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitSimpleQueryGroup(SemanticQueryBuilder.java:269) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.grammars.hql.HqlParser$SimpleQueryGroupContext.accept(HqlParser.java:1740) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitSelectStatement(SemanticQueryBuilder.java:443) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.visitStatement(SemanticQueryBuilder.java:402) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.SemanticQueryBuilder.buildSemanticModel(SemanticQueryBuilder.java:311) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.hql.internal.StandardHqlTranslator.translate(StandardHqlTranslator.java:71) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.internal.QueryInterpretationCacheStandardImpl.createHqlInterpretation(QueryInterpretationCacheStandardImpl.java:165) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.query.internal.QueryInterpretationCacheStandardImpl.resolveHqlInterpretation(QueryInterpretationCacheStandardImpl.java:147) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.AbstractSharedSessionContract.interpretHql(AbstractSharedSessionContract.java:769) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:819) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:133) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at com.kasperovich.dao.impl.UserDaoImpl.existsByUsername(UserDaoImpl.java:50) ~[classes/:?]
+	... 4 more
+2025-04-14 11:50:20.708 [0] INFO  com.kasperovich.serverinfo.ClientProcessingThread - Client processing thread terminated for client: /127.0.0.1
+2025-04-14 11:51:56.989 [main] INFO  com.kasperovich.RunServer - Starting scholarship calculation server...
+2025-04-14 11:51:56.997 [main] DEBUG com.kasperovich.RunServer - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 11:51:56.998 [main] DEBUG com.kasperovich.RunServer - Loaded properties from: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 11:51:56.998 [main] INFO  com.kasperovich.RunServer - Server configured to run on port: 15000
+2025-04-14 11:51:56.998 [main] INFO  com.kasperovich.RunServer - Testing database connection...
+2025-04-14 11:51:57.000 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Testing database connection...
+2025-04-14 11:51:57.001 [main] INFO  com.kasperovich.database.HibernateUtil - Initializing Hibernate SessionFactory
+2025-04-14 11:51:57.001 [main] DEBUG com.kasperovich.database.HibernateUtil - Loading database properties from configuration file
+2025-04-14 11:51:57.002 [main] DEBUG com.kasperovich.database.HibernateUtil - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 11:51:57.002 [main] DEBUG com.kasperovich.database.HibernateUtil - Database properties loaded successfully
+2025-04-14 11:51:57.062 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2025-04-14 11:51:57.258 [main] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-04-14 11:51:57.370 [main] WARN  org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000472: Hikari properties were encountered, but the Hikari ConnectionProvider was not found on the classpath; these properties are going to be ignored.
+2025-04-14 11:51:57.373 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-04-14 11:51:57.441 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2025-04-14 11:51:57.441 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 11:51:57.441 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=sacrypt}
+2025-04-14 11:51:57.441 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-04-14 11:51:57.443 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-04-14 11:51:59.283 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-14 11:52:00.489 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-14 11:52:00.639 [main] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6df11e91] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-04-14 11:52:01.830 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table users 
+       add firstName varchar(255) not null" via JDBC [ALTER TABLE only allows columns to be added that can contain nulls, or have a DEFAULT definition specified, or the column being added is an identity or timestamp column, or alternatively if none of the previous conditions are satisfied the table must be empty to allow addition of this column. Column 'firstName' cannot be added to non-empty table 'users' because it does not satisfy these conditions.]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table users 
+       add firstName varchar(255) not null" via JDBC [ALTER TABLE only allows columns to be added that can contain nulls, or have a DEFAULT definition specified, or the column being added is an identity or timestamp column, or alternatively if none of the previous conditions are satisfied the table must be empty to allow addition of this column. Column 'firstName' cannot be added to non-empty table 'users' because it does not satisfy these conditions.]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.migrateTable(AbstractSchemaMigrator.java:333) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:84) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:286) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429) [?:?]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:941) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:960) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at com.kasperovich.database.HibernateUtil.getSessionFactory(HibernateUtil.java:54) [classes/:?]
+	at com.kasperovich.database.DatabaseConnectionTest.testConnection(DatabaseConnectionTest.java:29) [classes/:?]
+	at com.kasperovich.RunServer.main(RunServer.java:81) [classes/:?]
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: ALTER TABLE only allows columns to be added that can contain nulls, or have a DEFAULT definition specified, or the column being added is an identity or timestamp column, or alternatively if none of the previous conditions are satisfied the table must be empty to allow addition of this column. Column 'firstName' cannot be added to non-empty table 'users' because it does not satisfy these conditions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:259) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1695) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:920) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:814) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7675) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4137) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:272) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:246) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:787) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	... 19 more
+2025-04-14 11:52:01.981 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table users 
+       add lastName varchar(255) not null" via JDBC [ALTER TABLE only allows columns to be added that can contain nulls, or have a DEFAULT definition specified, or the column being added is an identity or timestamp column, or alternatively if none of the previous conditions are satisfied the table must be empty to allow addition of this column. Column 'lastName' cannot be added to non-empty table 'users' because it does not satisfy these conditions.]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table users 
+       add lastName varchar(255) not null" via JDBC [ALTER TABLE only allows columns to be added that can contain nulls, or have a DEFAULT definition specified, or the column being added is an identity or timestamp column, or alternatively if none of the previous conditions are satisfied the table must be empty to allow addition of this column. Column 'lastName' cannot be added to non-empty table 'users' because it does not satisfy these conditions.]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.migrateTable(AbstractSchemaMigrator.java:333) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:84) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:286) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429) [?:?]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:941) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:960) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at com.kasperovich.database.HibernateUtil.getSessionFactory(HibernateUtil.java:54) [classes/:?]
+	at com.kasperovich.database.DatabaseConnectionTest.testConnection(DatabaseConnectionTest.java:29) [classes/:?]
+	at com.kasperovich.RunServer.main(RunServer.java:81) [classes/:?]
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: ALTER TABLE only allows columns to be added that can contain nulls, or have a DEFAULT definition specified, or the column being added is an identity or timestamp column, or alternatively if none of the previous conditions are satisfied the table must be empty to allow addition of this column. Column 'lastName' cannot be added to non-empty table 'users' because it does not satisfy these conditions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:259) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1695) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:920) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:814) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7675) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4137) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:272) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:246) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:787) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	... 19 more
+2025-04-14 11:52:02.123 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table users 
+       add passwordHash varchar(255) not null" via JDBC [ALTER TABLE only allows columns to be added that can contain nulls, or have a DEFAULT definition specified, or the column being added is an identity or timestamp column, or alternatively if none of the previous conditions are satisfied the table must be empty to allow addition of this column. Column 'passwordHash' cannot be added to non-empty table 'users' because it does not satisfy these conditions.]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table users 
+       add passwordHash varchar(255) not null" via JDBC [ALTER TABLE only allows columns to be added that can contain nulls, or have a DEFAULT definition specified, or the column being added is an identity or timestamp column, or alternatively if none of the previous conditions are satisfied the table must be empty to allow addition of this column. Column 'passwordHash' cannot be added to non-empty table 'users' because it does not satisfy these conditions.]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.migrateTable(AbstractSchemaMigrator.java:333) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:84) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:286) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429) [?:?]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:941) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:960) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at com.kasperovich.database.HibernateUtil.getSessionFactory(HibernateUtil.java:54) [classes/:?]
+	at com.kasperovich.database.DatabaseConnectionTest.testConnection(DatabaseConnectionTest.java:29) [classes/:?]
+	at com.kasperovich.RunServer.main(RunServer.java:81) [classes/:?]
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: ALTER TABLE only allows columns to be added that can contain nulls, or have a DEFAULT definition specified, or the column being added is an identity or timestamp column, or alternatively if none of the previous conditions are satisfied the table must be empty to allow addition of this column. Column 'passwordHash' cannot be added to non-empty table 'users' because it does not satisfy these conditions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:259) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1695) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:920) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:814) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7675) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4137) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:272) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:246) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:787) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	... 19 more
+2025-04-14 11:52:02.406 [main] INFO  com.kasperovich.database.HibernateUtil - Hibernate SessionFactory initialized successfully
+2025-04-14 11:52:02.877 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database connection test successful!
+2025-04-14 11:52:02.878 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Retrieving database information...
+2025-04-14 11:52:03.013 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Connected to: Microsoft SQL Server 12.00.429
+2025-04-14 11:52:03.014 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - JDBC Driver: Microsoft JDBC Driver 12.4 for SQL Server 12.4.2.0
+2025-04-14 11:52:03.015 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database URL: jdbc:sqlserver://avroprod.database.windows.net:1433;connectRetryInterval=10;connectRetryCount=1;maxResultBuffer=-1;sendTemporalDataTypesAsStringForBulkCopy=true;delayLoadingLobs=true;useFmtOnly=false;useBulkCopyForBatchInsert=false;cancelQueryTimeout=-1;sslProtocol=TLS;jaasConfigurationName=SQLJDBCDriver;statementPoolingCacheSize=0;serverPreparedStatementDiscardThreshold=10;enablePrepareOnFirstPreparedStatementCall=false;fips=false;socketTimeout=0;authentication=NotSpecified;authenticationScheme=nativeAuthentication;xopenStates=false;datetimeParameterType=datetime2;sendTimeAsDatetime=true;replication=false;trustStoreType=JKS;trustServerCertificate=true;TransparentNetworkIPResolution=true;iPAddressPreference=IPv4First;serverNameAsACE=false;sendStringParametersAsUnicode=true;selectMethod=direct;responseBuffering=adaptive;queryTimeout=-1;packetSize=8000;multiSubnetFailover=false;loginTimeout=30;lockTimeout=-1;lastUpdateCount=true;prepareMethod=prepexec;encrypt=true;disableStatementPooling=true;databaseName=grant_flow;columnEncryptionSetting=Disabled;applicationName=Microsoft JDBC Driver for SQL Server;applicationIntent=readwrite;
+2025-04-14 11:52:03.150 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database User: sacrypt
+2025-04-14 11:52:03.297 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Tables found in the database:
+2025-04-14 11:52:03.297 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - academic_periods
+2025-04-14 11:52:03.297 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - course_grades
+2025-04-14 11:52:03.297 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - courses
+2025-04-14 11:52:03.297 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - payments
+2025-04-14 11:52:03.297 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - scholarship_applications
+2025-04-14 11:52:03.297 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - scholarship_programs
+2025-04-14 11:52:03.297 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - student_profiles
+2025-04-14 11:52:03.297 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - users
+2025-04-14 11:52:03.297 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - trace_xe_action_map
+2025-04-14 11:52:03.297 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - trace_xe_event_map
+2025-04-14 11:52:03.435 [main] INFO  com.kasperovich.serverinfo.ServerProcessingThread - Initializing server processing thread on port: 15000
+2025-04-14 11:52:03.437 [main] INFO  com.kasperovich.serverinfo.ServerConfig - Creating server socket on port: 15000
+2025-04-14 11:52:03.438 [main] INFO  com.kasperovich.serverinfo.ServerConfig - Server socket created successfully
+2025-04-14 11:52:03.439 [main] INFO  com.kasperovich.RunServer - Starting server processing thread
+2025-04-14 11:52:03.439 [main] INFO  com.kasperovich.RunServer - Server successfully started and listening on port: 15000
+2025-04-14 11:52:03.439 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerProcessingThread - Starting server on port: 15000
+2025-04-14 11:52:03.440 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerConfig - Server started and listening on port: 15000
+2025-04-14 11:52:03.440 [Server processing thread] DEBUG com.kasperovich.serverinfo.ServerConfig - Waiting for client connections...
+2025-04-14 11:52:16.189 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerConfig - New client connected from: /127.0.0.1
+2025-04-14 11:52:16.208 [Server processing thread] DEBUG com.kasperovich.dao.impl.UserDaoImpl - Initialized DAO for entity class: User
+2025-04-14 11:52:16.210 [Server processing thread] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Created new client processing thread for client: /127.0.0.1
+2025-04-14 11:52:16.210 [Server processing thread] DEBUG com.kasperovich.serverinfo.ServerConfig - Starting client processing thread: 0
+2025-04-14 11:52:16.210 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerConfig - Client thread 0 started successfully
+2025-04-14 11:52:16.210 [Server processing thread] DEBUG com.kasperovich.serverinfo.ServerConfig - Waiting for client connections...
+2025-04-14 11:52:16.210 [0] INFO  com.kasperovich.serverinfo.ClientProcessingThread - Client processing thread started for client: /127.0.0.1
+2025-04-14 11:52:16.216 [0] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Received object from client /127.0.0.1: CommandWrapper{command=HEALTH_CHECK, hasData=false, hasAuthToken=false}
+2025-04-14 11:52:16.216 [0] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Processing command: CommandWrapper{command=HEALTH_CHECK, hasData=false, hasAuthToken=false}
+2025-04-14 11:52:16.217 [0] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Responding to health check with SUCCESS
+2025-04-14 11:52:16.220 [0] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Sending object to client /127.0.0.1: ResponseWrapper{response=SUCCESS, hasData=false, hasAuthToken=false, hasMessage=false}
+2025-04-14 11:52:46.159 [0] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Received object from client /127.0.0.1: CommandWrapper{command=REGISTER, hasData=true, hasAuthToken=false}
+2025-04-14 11:52:46.160 [0] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Processing command: CommandWrapper{command=REGISTER, hasData=true, hasAuthToken=false}
+2025-04-14 11:52:46.160 [0] INFO  com.kasperovich.service.AuthenticationService - Processing registration request for username: Test
+2025-04-14 11:52:46.160 [0] DEBUG com.kasperovich.dao.impl.UserDaoImpl - Checking if user exists by username: Test
+2025-04-14 11:52:47.067 [0] DEBUG com.kasperovich.dao.impl.UserDaoImpl - Checking if user exists by email: test@test.com
+2025-04-14 11:52:47.503 [0] DEBUG com.kasperovich.dao.impl.UserDaoImpl - Saving entity of type User
+2025-04-14 11:52:47.813 [0] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper - SQL Error: 207, SQLState: S0001
+2025-04-14 11:52:47.813 [0] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Invalid column name 'firstName'.
+2025-04-14 11:52:47.954 [0] ERROR com.kasperovich.service.AuthenticationService - Error registering user
+java.lang.IllegalStateException: org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl@5763e96f is closed
+	at org.hibernate.resource.jdbc.internal.AbstractLogicalConnectionImplementor.errorIfClosed(AbstractLogicalConnectionImplementor.java:37) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getPhysicalConnection(LogicalConnectionManagedImpl.java:142) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getConnectionForTransactionManagement(LogicalConnectionManagedImpl.java:273) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.resource.jdbc.internal.AbstractLogicalConnectionImplementor.rollback(AbstractLogicalConnectionImplementor.java:121) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.rollback(JdbcResourceLocalTransactionCoordinatorImpl.java:290) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.engine.transaction.internal.TransactionImpl.rollback(TransactionImpl.java:142) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at com.kasperovich.dao.impl.BaseDaoImpl.save(BaseDaoImpl.java:50) ~[classes/:?]
+	at com.kasperovich.service.AuthenticationService.register(AuthenticationService.java:87) [classes/:?]
+	at com.kasperovich.serverinfo.ClientProcessingThread.handleRegistration(ClientProcessingThread.java:212) [classes/:?]
+	at com.kasperovich.serverinfo.ClientProcessingThread.startClient(ClientProcessingThread.java:147) [classes/:?]
+	at com.kasperovich.serverinfo.ClientProcessingThread.run(ClientProcessingThread.java:82) [classes/:?]
+2025-04-14 11:52:47.955 [0] WARN  com.kasperovich.serverinfo.ClientProcessingThread - Registration failed for username: Test
+2025-04-14 11:52:47.955 [0] DEBUG com.kasperovich.serverinfo.ClientProcessingThread - Sending object to client /127.0.0.1: ResponseWrapper{response=REGISTRATION_FAILED_USERNAME_EXISTS, hasData=true, hasAuthToken=false, hasMessage=false}
+2025-04-14 11:56:27.610 [main] INFO  com.kasperovich.RunServer - Starting scholarship calculation server...
+2025-04-14 11:56:27.619 [main] DEBUG com.kasperovich.RunServer - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 11:56:27.619 [main] DEBUG com.kasperovich.RunServer - Loaded properties from: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 11:56:27.619 [main] INFO  com.kasperovich.RunServer - Server configured to run on port: 15000
+2025-04-14 11:56:27.619 [main] INFO  com.kasperovich.RunServer - Testing database connection...
+2025-04-14 11:56:27.621 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Testing database connection...
+2025-04-14 11:56:27.621 [main] INFO  com.kasperovich.database.HibernateUtil - Initializing Hibernate SessionFactory
+2025-04-14 11:56:27.621 [main] DEBUG com.kasperovich.database.HibernateUtil - Loading database properties from configuration file
+2025-04-14 11:56:27.621 [main] DEBUG com.kasperovich.database.HibernateUtil - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 11:56:27.621 [main] DEBUG com.kasperovich.database.HibernateUtil - Database properties loaded successfully
+2025-04-14 11:56:27.680 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2025-04-14 11:56:27.882 [main] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-04-14 11:56:27.994 [main] WARN  org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000472: Hikari properties were encountered, but the Hikari ConnectionProvider was not found on the classpath; these properties are going to be ignored.
+2025-04-14 11:56:27.996 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-04-14 11:56:28.058 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2025-04-14 11:56:28.058 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 11:56:28.058 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=sacrypt}
+2025-04-14 11:56:28.058 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-04-14 11:56:28.059 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-04-14 11:56:29.908 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-14 11:56:30.518 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 11:56:30.520 [main] ERROR com.kasperovich.database.HibernateUtil - Error initializing Hibernate SessionFactory
+java.lang.IllegalArgumentException: scale has no meaning for SQL floating point types
+	at org.hibernate.dialect.Dialect$SizeStrategyImpl.resolveSize(Dialect.java:5046) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.mapping.Column.calculateColumnSize(Column.java:435) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.mapping.BasicValue.resolve(BasicValue.java:356) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.mapping.BasicValue.resolve(BasicValue.java:335) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.lambda$processValueResolvers$4(InFlightMetadataCollectorImpl.java:1800) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at java.base/java.util.ArrayList.removeIf(ArrayList.java:1766) ~[?:?]
+	at java.base/java.util.ArrayList.removeIf(ArrayList.java:1744) ~[?:?]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.processValueResolvers(InFlightMetadataCollectorImpl.java:1799) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.processSecondPasses(InFlightMetadataCollectorImpl.java:1785) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:332) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.build(MetadataBuildingProcess.java:129) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.MetadataBuilderImpl.build(MetadataBuilderImpl.java:449) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.MetadataBuilderImpl.build(MetadataBuilderImpl.java:101) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:910) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:960) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at com.kasperovich.database.HibernateUtil.getSessionFactory(HibernateUtil.java:54) [classes/:?]
+	at com.kasperovich.database.DatabaseConnectionTest.testConnection(DatabaseConnectionTest.java:29) [classes/:?]
+	at com.kasperovich.RunServer.main(RunServer.java:81) [classes/:?]
+2025-04-14 11:59:29.912 [main] INFO  com.kasperovich.RunServer - Starting scholarship calculation server...
+2025-04-14 11:59:29.920 [main] DEBUG com.kasperovich.RunServer - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 11:59:29.921 [main] DEBUG com.kasperovich.RunServer - Loaded properties from: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 11:59:29.921 [main] INFO  com.kasperovich.RunServer - Server configured to run on port: 15000
+2025-04-14 11:59:29.921 [main] INFO  com.kasperovich.RunServer - Testing database connection...
+2025-04-14 11:59:29.922 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Testing database connection...
+2025-04-14 11:59:29.923 [main] INFO  com.kasperovich.database.HibernateUtil - Initializing Hibernate SessionFactory
+2025-04-14 11:59:29.924 [main] DEBUG com.kasperovich.database.HibernateUtil - Loading database properties from configuration file
+2025-04-14 11:59:29.924 [main] DEBUG com.kasperovich.database.HibernateUtil - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 11:59:29.924 [main] DEBUG com.kasperovich.database.HibernateUtil - Database properties loaded successfully
+2025-04-14 11:59:29.981 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2025-04-14 11:59:30.172 [main] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-04-14 11:59:30.302 [main] WARN  org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000472: Hikari properties were encountered, but the Hikari ConnectionProvider was not found on the classpath; these properties are going to be ignored.
+2025-04-14 11:59:30.305 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-04-14 11:59:30.364 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2025-04-14 11:59:30.365 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 11:59:30.365 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=sacrypt}
+2025-04-14 11:59:30.365 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-04-14 11:59:30.367 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-04-14 11:59:31.647 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-14 11:59:32.265 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 11:59:32.268 [main] ERROR com.kasperovich.database.HibernateUtil - Error initializing Hibernate SessionFactory
+java.lang.IllegalArgumentException: scale has no meaning for SQL floating point types
+	at org.hibernate.dialect.Dialect$SizeStrategyImpl.resolveSize(Dialect.java:5046) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.mapping.Column.calculateColumnSize(Column.java:435) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.mapping.BasicValue.resolve(BasicValue.java:356) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.mapping.BasicValue.resolve(BasicValue.java:335) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.lambda$processValueResolvers$4(InFlightMetadataCollectorImpl.java:1800) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at java.base/java.util.ArrayList.removeIf(ArrayList.java:1766) ~[?:?]
+	at java.base/java.util.ArrayList.removeIf(ArrayList.java:1744) ~[?:?]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.processValueResolvers(InFlightMetadataCollectorImpl.java:1799) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.processSecondPasses(InFlightMetadataCollectorImpl.java:1785) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:332) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.build(MetadataBuildingProcess.java:129) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.MetadataBuilderImpl.build(MetadataBuilderImpl.java:449) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.MetadataBuilderImpl.build(MetadataBuilderImpl.java:101) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:910) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:960) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at com.kasperovich.database.HibernateUtil.getSessionFactory(HibernateUtil.java:54) [classes/:?]
+	at com.kasperovich.database.DatabaseConnectionTest.testConnection(DatabaseConnectionTest.java:29) [classes/:?]
+	at com.kasperovich.RunServer.main(RunServer.java:81) [classes/:?]
+2025-04-14 12:01:34.302 [main] INFO  com.kasperovich.RunServer - Starting scholarship calculation server...
+2025-04-14 12:01:34.311 [main] DEBUG com.kasperovich.RunServer - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 12:01:34.311 [main] DEBUG com.kasperovich.RunServer - Loaded properties from: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 12:01:34.311 [main] INFO  com.kasperovich.RunServer - Server configured to run on port: 15000
+2025-04-14 12:01:34.311 [main] INFO  com.kasperovich.RunServer - Testing database connection...
+2025-04-14 12:01:34.312 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Testing database connection...
+2025-04-14 12:01:34.312 [main] INFO  com.kasperovich.database.HibernateUtil - Initializing Hibernate SessionFactory
+2025-04-14 12:01:34.313 [main] DEBUG com.kasperovich.database.HibernateUtil - Loading database properties from configuration file
+2025-04-14 12:01:34.313 [main] DEBUG com.kasperovich.database.HibernateUtil - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 12:01:34.313 [main] DEBUG com.kasperovich.database.HibernateUtil - Database properties loaded successfully
+2025-04-14 12:01:34.378 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2025-04-14 12:01:34.554 [main] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-04-14 12:01:34.674 [main] WARN  org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000472: Hikari properties were encountered, but the Hikari ConnectionProvider was not found on the classpath; these properties are going to be ignored.
+2025-04-14 12:01:34.677 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-04-14 12:01:34.738 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2025-04-14 12:01:34.738 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 12:01:34.738 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=sacrypt}
+2025-04-14 12:01:34.738 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-04-14 12:01:34.740 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-04-14 12:01:36.080 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-14 12:01:36.733 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 12:01:36.735 [main] ERROR com.kasperovich.database.HibernateUtil - Error initializing Hibernate SessionFactory
+java.lang.IllegalArgumentException: scale has no meaning for SQL floating point types
+	at org.hibernate.dialect.Dialect$SizeStrategyImpl.resolveSize(Dialect.java:5046) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.mapping.Column.calculateColumnSize(Column.java:435) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.mapping.BasicValue.resolve(BasicValue.java:356) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.mapping.BasicValue.resolve(BasicValue.java:335) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.lambda$processValueResolvers$4(InFlightMetadataCollectorImpl.java:1800) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at java.base/java.util.ArrayList.removeIf(ArrayList.java:1766) ~[?:?]
+	at java.base/java.util.ArrayList.removeIf(ArrayList.java:1744) ~[?:?]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.processValueResolvers(InFlightMetadataCollectorImpl.java:1799) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.processSecondPasses(InFlightMetadataCollectorImpl.java:1785) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:332) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.build(MetadataBuildingProcess.java:129) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.MetadataBuilderImpl.build(MetadataBuilderImpl.java:449) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.MetadataBuilderImpl.build(MetadataBuilderImpl.java:101) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:910) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:960) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at com.kasperovich.database.HibernateUtil.getSessionFactory(HibernateUtil.java:54) [classes/:?]
+	at com.kasperovich.database.DatabaseConnectionTest.testConnection(DatabaseConnectionTest.java:29) [classes/:?]
+	at com.kasperovich.RunServer.main(RunServer.java:81) [classes/:?]
+2025-04-14 12:02:30.272 [main] INFO  com.kasperovich.RunServer - Starting scholarship calculation server...
+2025-04-14 12:02:30.280 [main] DEBUG com.kasperovich.RunServer - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 12:02:30.280 [main] DEBUG com.kasperovich.RunServer - Loaded properties from: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 12:02:30.280 [main] INFO  com.kasperovich.RunServer - Server configured to run on port: 15000
+2025-04-14 12:02:30.280 [main] INFO  com.kasperovich.RunServer - Testing database connection...
+2025-04-14 12:02:30.281 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Testing database connection...
+2025-04-14 12:02:30.282 [main] INFO  com.kasperovich.database.HibernateUtil - Initializing Hibernate SessionFactory
+2025-04-14 12:02:30.282 [main] DEBUG com.kasperovich.database.HibernateUtil - Loading database properties from configuration file
+2025-04-14 12:02:30.282 [main] DEBUG com.kasperovich.database.HibernateUtil - Looking for configuration file at: D:\bsuir\networkdev\grant-flow\Server\src\main\resources\config.properties
+2025-04-14 12:02:30.282 [main] DEBUG com.kasperovich.database.HibernateUtil - Database properties loaded successfully
+2025-04-14 12:02:30.341 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2025-04-14 12:02:30.539 [main] INFO  org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-04-14 12:02:30.645 [main] WARN  org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000472: Hikari properties were encountered, but the Hikari ConnectionProvider was not found on the classpath; these properties are going to be ignored.
+2025-04-14 12:02:30.647 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2025-04-14 12:02:30.714 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2025-04-14 12:02:30.714 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:sqlserver://avroprod.database.windows.net:1433;database=grant_flow;encrypt=true;trustServerCertificate=true;]
+2025-04-14 12:02:30.715 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=sacrypt}
+2025-04-14 12:02:30.715 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2025-04-14 12:02:30.716 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2025-04-14 12:02:32.569 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-14 12:02:33.879 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-14 12:02:34.029 [main] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@21f50d2c] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2025-04-14 12:02:35.543 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table users 
+       add email_address varchar(255) not null" via JDBC [ALTER TABLE only allows columns to be added that can contain nulls, or have a DEFAULT definition specified, or the column being added is an identity or timestamp column, or alternatively if none of the previous conditions are satisfied the table must be empty to allow addition of this column. Column 'email_address' cannot be added to non-empty table 'users' because it does not satisfy these conditions.]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table users 
+       add email_address varchar(255) not null" via JDBC [ALTER TABLE only allows columns to be added that can contain nulls, or have a DEFAULT definition specified, or the column being added is an identity or timestamp column, or alternatively if none of the previous conditions are satisfied the table must be empty to allow addition of this column. Column 'email_address' cannot be added to non-empty table 'users' because it does not satisfy these conditions.]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.migrateTable(AbstractSchemaMigrator.java:333) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:84) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:286) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429) [?:?]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:941) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:960) [hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at com.kasperovich.database.HibernateUtil.getSessionFactory(HibernateUtil.java:54) [classes/:?]
+	at com.kasperovich.database.DatabaseConnectionTest.testConnection(DatabaseConnectionTest.java:29) [classes/:?]
+	at com.kasperovich.RunServer.main(RunServer.java:81) [classes/:?]
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: ALTER TABLE only allows columns to be added that can contain nulls, or have a DEFAULT definition specified, or the column being added is an identity or timestamp column, or alternatively if none of the previous conditions are satisfied the table must be empty to allow addition of this column. Column 'email_address' cannot be added to non-empty table 'users' because it does not satisfy these conditions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:259) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1695) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:920) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:814) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7675) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4137) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:272) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:246) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:787) ~[mssql-jdbc-12.4.2.jre11.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	... 19 more
+2025-04-14 12:02:40.201 [main] INFO  com.kasperovich.database.HibernateUtil - Hibernate SessionFactory initialized successfully
+2025-04-14 12:02:40.676 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database connection test successful!
+2025-04-14 12:02:40.677 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Retrieving database information...
+2025-04-14 12:02:40.822 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Connected to: Microsoft SQL Server 12.00.429
+2025-04-14 12:02:40.823 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - JDBC Driver: Microsoft JDBC Driver 12.4 for SQL Server 12.4.2.0
+2025-04-14 12:02:40.824 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database URL: jdbc:sqlserver://avroprod.database.windows.net:1433;connectRetryInterval=10;connectRetryCount=1;maxResultBuffer=-1;sendTemporalDataTypesAsStringForBulkCopy=true;delayLoadingLobs=true;useFmtOnly=false;useBulkCopyForBatchInsert=false;cancelQueryTimeout=-1;sslProtocol=TLS;jaasConfigurationName=SQLJDBCDriver;statementPoolingCacheSize=0;serverPreparedStatementDiscardThreshold=10;enablePrepareOnFirstPreparedStatementCall=false;fips=false;socketTimeout=0;authentication=NotSpecified;authenticationScheme=nativeAuthentication;xopenStates=false;datetimeParameterType=datetime2;sendTimeAsDatetime=true;replication=false;trustStoreType=JKS;trustServerCertificate=true;TransparentNetworkIPResolution=true;iPAddressPreference=IPv4First;serverNameAsACE=false;sendStringParametersAsUnicode=true;selectMethod=direct;responseBuffering=adaptive;queryTimeout=-1;packetSize=8000;multiSubnetFailover=false;loginTimeout=30;lockTimeout=-1;lastUpdateCount=true;prepareMethod=prepexec;encrypt=true;disableStatementPooling=true;databaseName=grant_flow;columnEncryptionSetting=Disabled;applicationName=Microsoft JDBC Driver for SQL Server;applicationIntent=readwrite;
+2025-04-14 12:02:40.962 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Database User: sacrypt
+2025-04-14 12:02:41.102 [main] INFO  com.kasperovich.database.DatabaseConnectionTest - Tables found in the database:
+2025-04-14 12:02:41.102 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - academic_periods
+2025-04-14 12:02:41.103 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - course_grades
+2025-04-14 12:02:41.103 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - courses
+2025-04-14 12:02:41.103 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - payments
+2025-04-14 12:02:41.103 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - scholarship_applications
+2025-04-14 12:02:41.103 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - scholarship_programs
+2025-04-14 12:02:41.103 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - student_profiles
+2025-04-14 12:02:41.103 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - users
+2025-04-14 12:02:41.103 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - trace_xe_action_map
+2025-04-14 12:02:41.103 [main] INFO  com.kasperovich.database.DatabaseConnectionTest -   - trace_xe_event_map
+2025-04-14 12:02:41.240 [main] INFO  com.kasperovich.serverinfo.ServerProcessingThread - Initializing server processing thread on port: 15000
+2025-04-14 12:02:41.241 [main] INFO  com.kasperovich.serverinfo.ServerConfig - Creating server socket on port: 15000
+2025-04-14 12:02:41.241 [main] INFO  com.kasperovich.serverinfo.ServerConfig - Server socket created successfully
+2025-04-14 12:02:41.242 [main] INFO  com.kasperovich.RunServer - Starting server processing thread
+2025-04-14 12:02:41.242 [main] INFO  com.kasperovich.RunServer - Server successfully started and listening on port: 15000
+2025-04-14 12:02:41.242 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerProcessingThread - Starting server on port: 15000
+2025-04-14 12:02:41.242 [Server processing thread] INFO  com.kasperovich.serverinfo.ServerConfig - Server started and listening on port: 15000
+2025-04-14 12:02:41.242 [Server processing thread] DEBUG com.kasperovich.serverinfo.ServerConfig - Waiting for client connections...

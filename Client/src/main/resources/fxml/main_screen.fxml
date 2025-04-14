@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.kasperovich.ui.MainScreenController"
+            prefHeight="600.0" prefWidth="800.0">
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <Label text="Grant Flow Application" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            <Separator/>
+        </VBox>
+    </top>
+    <center>
+        <VBox alignment="CENTER" spacing="20">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <Label text="Welcome to Grant Flow" style="-fx-font-size: 18px;"/>
+            <Label text="Please use the navigation options below" style="-fx-font-size: 14px;"/>
+            
+            <HBox alignment="CENTER" spacing="20">
+                <Button fx:id="loginButton" text="Login" onAction="#handleLoginAction" prefWidth="150"/>
+                <Button fx:id="registerButton" text="Register" onAction="#handleRegisterAction" prefWidth="150"/>
+            </HBox>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT">
+            <padding>
+                <Insets top="10" right="20" bottom="20" left="20"/>
+            </padding>
+            <Label text="© 2025 Grant Flow System" style="-fx-font-size: 12px;"/>
+        </HBox>
+    </bottom>
+</BorderPane>
