@@ -8,7 +8,9 @@ import com.kasperovich.config.ConnectedClientConfig;
 import com.kasperovich.dto.auth.LoginRequest;
 import com.kasperovich.dto.auth.RegistrationRequest;
 import com.kasperovich.dto.auth.UserDTO;
+import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
 import com.kasperovich.service.AuthenticationService;
+import com.kasperovich.service.ScholarshipService;
 import com.kasperovich.utils.LoggerUtil;
 import org.apache.logging.log4j.Logger;
 
@@ -16,6 +18,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Thread responsible for handling client connections.
@@ -27,6 +31,7 @@ public class ClientProcessingThread extends Thread {
     private final ObjectOutputStream objectOutputStream;
     private final ObjectInputStream objectInputStream;
     private final AuthenticationService authService;
+    private final ScholarshipService scholarshipService;
     private Long authenticatedUserId;
 
     /**
@@ -41,6 +46,7 @@ public class ClientProcessingThread extends Thread {
         objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         objectInputStream = new ObjectInputStream(socket.getInputStream());
         this.authService = AuthenticationService.getInstance();
+        this.scholarshipService = new ScholarshipService();
         logger.debug("Created new client processing thread for client: {}", clientInfo.getConnectionSocket().getInetAddress());
     }
 
@@ -151,6 +157,10 @@ public class ClientProcessingThread extends Thread {
                 handleLogout(commandWrapper);
                 break;
             }
+            case GET_SCHOLARSHIP_PROGRAMS: {
+                handleGetScholarshipPrograms(commandWrapper);
+                break;
+            }
             default: {
                 logger.warn("Received unknown command: {}", commandWrapper.getCommand());
                 sendObject(new ResponseWrapper(ResponseFromServer.UNKNOWN_COMMAND));
@@ -175,23 +185,24 @@ public class ClientProcessingThread extends Thread {
         
         UserDTO user = authService.login(loginRequest);
         
-        if (user != null) {
-            // Generate token
-            String token = authService.generateToken(user.getId());
-            
-            // Create response
-            ResponseWrapper response = new ResponseWrapper(ResponseFromServer.LOGIN_SUCCESS, user);
-            response.setAuthToken(token);
-            
-            // Set authenticated user ID
-            authenticatedUserId = user.getId();
-            
-            logger.info("User logged in successfully: {}", user.getUsername());
-            sendObject(response);
-        } else {
+        if (user == null) {
             logger.warn("Login failed for username: {}", loginRequest.getUsername());
             sendObject(new ResponseWrapper(ResponseFromServer.LOGIN_FAILED, "Invalid username or password"));
+            return;
         }
+        
+        // Generate token
+        String token = authService.generateToken(user.getId());
+        
+        // Create response
+        ResponseWrapper response = new ResponseWrapper(ResponseFromServer.LOGIN_SUCCESS, user);
+        response.setAuthToken(token);
+        
+        // Store the authenticated user ID for future requests
+        authenticatedUserId = user.getId();
+        
+        logger.info("User logged in successfully: {}", user.getUsername());
+        sendObject(response);
     }
     
     /**
@@ -209,26 +220,40 @@ public class ClientProcessingThread extends Thread {
             return;
         }
         
+        // Validate registration data
+        if (registrationRequest.getUsername() == null || registrationRequest.getUsername().isEmpty()) {
+            logger.warn("Registration failed: username is missing");
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Username is required"));
+            return;
+        }
+        
+        if (registrationRequest.getPassword() == null || registrationRequest.getPassword().isEmpty()) {
+            logger.warn("Registration failed: password is missing");
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Password is required"));
+            return;
+        }
+        
+        // Attempt to register the user
         UserDTO user = authService.register(registrationRequest);
         
-        if (user != null) {
-            // Generate token
-            String token = authService.generateToken(user.getId());
-            
-            // Create response
-            ResponseWrapper response = new ResponseWrapper(ResponseFromServer.REGISTRATION_SUCCESS, user);
-            response.setAuthToken(token);
-            
-            // Set authenticated user ID
-            authenticatedUserId = user.getId();
-            
-            logger.info("User registered successfully: {}", user.getUsername());
-            sendObject(response);
-        } else {
+        if (user == null) {
             logger.warn("Registration failed for username: {}", registrationRequest.getUsername());
-            sendObject(new ResponseWrapper(ResponseFromServer.REGISTRATION_FAILED_USERNAME_EXISTS, 
-                    "Username or email already exists"));
+            sendObject(new ResponseWrapper(ResponseFromServer.REGISTRATION_FAILED_USERNAME_EXISTS, "Registration failed. Username may already be taken."));
+            return;
         }
+        
+        // Generate token
+        String token = authService.generateToken(user.getId());
+        
+        // Create response
+        ResponseWrapper response = new ResponseWrapper(ResponseFromServer.REGISTRATION_SUCCESS, user);
+        response.setAuthToken(token);
+        
+        // Store the authenticated user ID for future requests
+        authenticatedUserId = user.getId();
+        
+        logger.info("User registered successfully: {}", user.getUsername());
+        sendObject(response);
     }
     
     /**
@@ -238,17 +263,46 @@ public class ClientProcessingThread extends Thread {
      * @throws IOException if an I/O error occurs
      */
     private void handleLogout(CommandWrapper commandWrapper) throws IOException {
-        String token = commandWrapper.getAuthToken();
+        String authToken = commandWrapper.getAuthToken();
         
-        if (token != null) {
-            authService.logout(token);
+        if (authToken == null || authToken.isEmpty()) {
+            logger.warn("Logout failed: auth token is missing");
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Authentication token is required"));
+            return;
         }
         
-        // Clear authenticated user ID
+        // Invalidate the token
+        authService.logout(authToken);
+        
+        // Clear the authenticated user ID
         authenticatedUserId = null;
         
         logger.info("User logged out successfully");
         sendObject(new ResponseWrapper(ResponseFromServer.LOGOUT_SUCCESS));
+    }
+    
+    /**
+     * Handles getting scholarship programs.
+     *
+     * @param commandWrapper the command wrapper
+     * @throws IOException if an I/O error occurs
+     */
+    private void handleGetScholarshipPrograms(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling GET_SCHOLARSHIP_PROGRAMS command");
+        
+        try {
+            // Get all scholarship programs
+            List<ScholarshipProgramDTO> programs = scholarshipService.getAllScholarshipPrograms();
+            
+            // Create response with the programs list wrapped as a serializable ArrayList
+            ResponseWrapper response = new ResponseWrapper(ResponseFromServer.SCHOLARSHIP_PROGRAMS_FOUND, new ArrayList<>(programs));
+            
+            logger.info("Returning {} scholarship programs", programs.size());
+            sendObject(response);
+        } catch (Exception e) {
+            logger.error("Error getting scholarship programs", e);
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Error getting scholarship programs: " + e.getMessage()));
+        }
     }
     
     /**
@@ -258,14 +312,10 @@ public class ClientProcessingThread extends Thread {
      * @return true if the command requires authentication, false otherwise
      */
     private boolean requiresAuthentication(Command command) {
-        switch (command) {
-            case HEALTH_CHECK:
-            case LOGIN:
-            case REGISTER:
-                return false;
-            default:
-                return true;
-        }
+        // List of commands that require authentication
+        return command != Command.LOGIN && 
+               command != Command.REGISTER && 
+               command != Command.HEALTH_CHECK;
     }
     
     /**
@@ -275,13 +325,14 @@ public class ClientProcessingThread extends Thread {
      * @return true if the command wrapper contains a valid authentication token, false otherwise
      */
     private boolean isAuthenticated(CommandWrapper commandWrapper) {
-        String token = commandWrapper.getAuthToken();
+        String authToken = commandWrapper.getAuthToken();
         
-        if (token == null) {
+        if (authToken == null || authToken.isEmpty()) {
             return false;
         }
         
-        Long userId = authService.validateToken(token);
+        // Validate the token
+        Long userId = authService.validateToken(authToken);
         
         if (userId != null) {
             // Update authenticated user ID

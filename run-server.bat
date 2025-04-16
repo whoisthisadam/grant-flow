@@ -1,4 +1,18 @@
 @echo off
 cd Server
-java -cp "target\classes;..\Models\target\Models-2.0.jar;..\Client\target\classes;%USERPROFILE%\.m2\repository\org\hibernate\orm\hibernate-core\6.4.1.Final\hibernate-core-6.4.1.Final.jar;%USERPROFILE%\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;%USERPROFILE%\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar;%USERPROFILE%\.m2\repository\org\jboss\logging\jboss-logging\3.5.0.Final\jboss-logging-3.5.0.Final.jar;%USERPROFILE%\.m2\repository\org\hibernate\common\hibernate-commons-annotations\6.0.6.Final\hibernate-commons-annotations-6.0.6.Final.jar;%USERPROFILE%\.m2\repository\io\smallrye\jandex\3.1.2\jandex-3.1.2.jar;%USERPROFILE%\.m2\repository\com\fasterxml\classmate\1.5.1\classmate-1.5.1.jar;%USERPROFILE%\.m2\repository\net\bytebuddy\byte-buddy\1.14.7\byte-buddy-1.14.7.jar;%USERPROFILE%\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.0\jakarta.xml.bind-api-4.0.0.jar;%USERPROFILE%\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.0\jakarta.activation-api-2.1.0.jar;%USERPROFILE%\.m2\repository\org\glassfish\jaxb\jaxb-runtime\4.0.2\jaxb-runtime-4.0.2.jar;%USERPROFILE%\.m2\repository\org\glassfish\jaxb\jaxb-core\4.0.2\jaxb-core-4.0.2.jar;%USERPROFILE%\.m2\repository\org\eclipse\angus\angus-activation\2.0.0\angus-activation-2.0.0.jar;%USERPROFILE%\.m2\repository\org\glassfish\jaxb\txw2\4.0.2\txw2-4.0.2.jar;%USERPROFILE%\.m2\repository\com\sun\istack\istack-commons-runtime\4.1.1\istack-commons-runtime-4.1.1.jar;%USERPROFILE%\.m2\repository\jakarta\inject\jakarta.inject-api\2.0.1\jakarta.inject-api-2.0.1.jar;%USERPROFILE%\.m2\repository\org\antlr\antlr4-runtime\4.10.1\antlr4-runtime-4.10.1.jar;%USERPROFILE%\.m2\repository\com\microsoft\sqlserver\mssql-jdbc\12.4.2.jre11\mssql-jdbc-12.4.2.jre11.jar;%USERPROFILE%\.m2\repository\com\zaxxer\HikariCP\5.1.0\HikariCP-5.1.0.jar;%USERPROFILE%\.m2\repository\org\slf4j\slf4j-api\2.0.5\slf4j-api-2.0.5.jar;%USERPROFILE%\.m2\repository\org\apache\logging\log4j\log4j-api\2.22.1\log4j-api-2.22.1.jar;%USERPROFILE%\.m2\repository\org\apache\logging\log4j\log4j-core\2.22.1\log4j-core-2.22.1.jar;%USERPROFILE%\.m2\repository\org\apache\logging\log4j\log4j-slf4j2-impl\2.22.1\log4j-slf4j2-impl-2.22.1.jar;%USERPROFILE%\.m2\repository\org\flywaydb\flyway-core\9.22.3\flyway-core-9.22.3.jar;%USERPROFILE%\.m2\repository\org\flywaydb\flyway-sqlserver\9.22.3\flyway-sqlserver-9.22.3.jar" com.kasperovich.RunServer
+echo Starting server...
+
+REM Use Maven to build and copy dependencies
+echo Building project...
+call mvn clean compile dependency:copy-dependencies -DoutputDirectory=target/dependency -DincludeScope=runtime
+
+REM Set up a simpler classpath that relies on Maven's dependency management
+set CLASSPATH=target\classes;..\Models\target\classes;target\dependency\*
+
+REM Run the server
+echo Running server...
+java -cp "%CLASSPATH%" com.kasperovich.RunServer
+
+echo Server process exited with code %errorlevel%
+cd ..
 pause

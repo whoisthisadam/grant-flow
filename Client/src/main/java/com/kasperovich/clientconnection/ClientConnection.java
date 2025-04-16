@@ -7,7 +7,9 @@ import com.kasperovich.commands.toserver.CommandWrapper;
 import com.kasperovich.dto.auth.LoginRequest;
 import com.kasperovich.dto.auth.RegistrationRequest;
 import com.kasperovich.dto.auth.UserDTO;
+import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
 import com.kasperovich.utils.LoggerUtil;
+import lombok.Getter;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
@@ -16,6 +18,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientConnection {
     private static final Logger logger = LoggerUtil.getLogger(ClientConnection.class);
@@ -27,6 +31,7 @@ public class ClientConnection {
     private ObjectOutputStream objectOutputStream;
     private ObjectInputStream objectInputStream;
     private String authToken;
+    @Getter
     private UserDTO currentUser;
 
     public ClientConnection(String serverIp, int serverPort) {
@@ -245,14 +250,38 @@ public class ClientConnection {
     }
     
     /**
-     * Gets the current authenticated user.
+     * Gets a list of available scholarship programs from the server.
      * 
-     * @return the current user, or null if no user is authenticated
+     * @return a list of scholarship programs
      */
-    public UserDTO getCurrentUser() {
-        return currentUser;
+    public List<ScholarshipProgramDTO> getScholarshipPrograms() {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to get scholarship programs but no user is authenticated");
+            return new ArrayList<>();
+        }
+        
+        try {
+            logger.debug("Getting scholarship programs from server");
+            CommandWrapper command = new CommandWrapper(Command.GET_SCHOLARSHIP_PROGRAMS);
+            command.setAuthToken(authToken);
+            sendObject(command);
+            
+            ResponseWrapper response = receiveObject();
+            
+            if (response.getResponse() == ResponseFromServer.SCHOLARSHIP_PROGRAMS_FOUND) {
+                List<ScholarshipProgramDTO> programs = response.getData();
+                logger.info("Received {} scholarship programs from server", programs.size());
+                return programs;
+            } else {
+                logger.warn("Failed to get scholarship programs from server, response: {}", response.getResponse());
+                return new ArrayList<>();
+            }
+        } catch (Exception e) {
+            logger.error("Error getting scholarship programs from server", e);
+            return new ArrayList<>();
+        }
     }
-    
+
     /**
      * Checks if a user is currently authenticated.
      * 

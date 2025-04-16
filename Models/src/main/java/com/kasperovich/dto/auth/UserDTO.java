@@ -1,18 +1,93 @@
 package com.kasperovich.dto.auth;
 
+import com.kasperovich.entities.User;
+import com.kasperovich.entities.UserRole;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
  * Data transfer object for user information.
  */
+@Setter
+@Getter
 public class UserDTO implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
-    
+
+    /**
+     * -- GETTER --
+     *  Gets the user ID.
+     *
+     *
+     * -- SETTER --
+     *  Sets the user ID.
+     *
+     @return the user ID
+      * @param id the user ID
+     */
     private Long id;
+    /**
+     * -- GETTER --
+     *  Gets the username.
+     *
+     *
+     * -- SETTER --
+     *  Sets the username.
+     *
+     @return the username
+      * @param username the username
+     */
     private String username;
+    /**
+     * -- GETTER --
+     *  Gets the email address.
+     *
+     *
+     * -- SETTER --
+     *  Sets the email address.
+     *
+     @return the email address
+      * @param email the email address
+     */
     private String email;
+    /**
+     * -- GETTER --
+     *  Gets the first name.
+     *
+     *
+     * -- SETTER --
+     *  Sets the first name.
+     *
+     @return the first name
+      * @param firstName the first name
+     */
     private String firstName;
+    /**
+     * -- GETTER --
+     *  Gets the last name.
+     *
+     *
+     * -- SETTER --
+     *  Sets the last name.
+     *
+     @return the last name
+      * @param lastName the last name
+     */
     private String lastName;
+    /**
+     * -- GETTER --
+     *  Gets the user role.
+     *
+     *
+     * -- SETTER --
+     *  Sets the user role.
+     *
+     @return the user role
+      * @param role the user role
+     */
     private String role;
     
     /**
@@ -40,112 +115,27 @@ public class UserDTO implements Serializable {
         this.lastName = lastName;
         this.role = role;
     }
-    
+
     /**
-     * Gets the user ID.
+     * Converts this DTO to a User entity.
      *
-     * @return the user ID
+     * @return the User entity
      */
-    public Long getId() {
-        return id;
-    }
-    
-    /**
-     * Sets the user ID.
-     *
-     * @param id the user ID
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
-    /**
-     * Gets the username.
-     *
-     * @return the username
-     */
-    public String getUsername() {
-        return username;
-    }
-    
-    /**
-     * Sets the username.
-     *
-     * @param username the username
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    
-    /**
-     * Gets the email address.
-     *
-     * @return the email address
-     */
-    public String getEmail() {
-        return email;
-    }
-    
-    /**
-     * Sets the email address.
-     *
-     * @param email the email address
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
-    /**
-     * Gets the first name.
-     *
-     * @return the first name
-     */
-    public String getFirstName() {
-        return firstName;
-    }
-    
-    /**
-     * Sets the first name.
-     *
-     * @param firstName the first name
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-    
-    /**
-     * Gets the last name.
-     *
-     * @return the last name
-     */
-    public String getLastName() {
-        return lastName;
-    }
-    
-    /**
-     * Sets the last name.
-     *
-     * @param lastName the last name
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-    
-    /**
-     * Gets the user role.
-     *
-     * @return the user role
-     */
-    public String getRole() {
-        return role;
-    }
-    
-    /**
-     * Sets the user role.
-     *
-     * @param role the user role
-     */
-    public void setRole(String role) {
-        this.role = role;
+    public User toEntity() {
+        User user = new User();
+        user.setId(this.id);
+        user.setUsername(this.username);
+        user.setEmail(this.email);
+        user.setFirstName(this.firstName);
+        user.setLastName(this.lastName);
+        
+        try {
+            user.setRole(UserRole.valueOf(this.role));
+        } catch (IllegalArgumentException e) {
+            // Default to STUDENT if role is invalid
+            user.setRole(UserRole.STUDENT);
+        }
+        
+        return user;
     }
 }

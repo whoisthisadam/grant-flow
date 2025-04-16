@@ -23,14 +23,5 @@ public enum Command implements Serializable {
     UPDATE_STUDENT_PROFILE,
     
     // Scholarship commands
-    GET_AVAILABLE_SCHOLARSHIPS,
-    APPLY_FOR_SCHOLARSHIP,
-    GET_MY_APPLICATIONS,
-    
-    // Admin commands
-    CREATE_SCHOLARSHIP_PROGRAM,
-    UPDATE_SCHOLARSHIP_PROGRAM,
-    REVIEW_APPLICATION,
-    GET_ALL_APPLICATIONS,
-    GET_ALL_USERS
+    GET_SCHOLARSHIP_PROGRAMS
 }

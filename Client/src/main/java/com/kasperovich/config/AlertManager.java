@@ -1,7 +1,6 @@
 package com.kasperovich.config;
 
 import javafx.scene.control.Alert;
-import javafx.stage.Window;
 
 public class AlertManager {
 
@@ -9,7 +8,7 @@ public class AlertManager {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(header);
         alert.setContentText(message);
-        alert.showAndWait().ifPresent(rs -> {
+        alert.showAndWait().ifPresent(_ -> {
         });
     }
 
@@ -17,7 +16,7 @@ public class AlertManager {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setHeaderText(header);
         alert.setContentText(message);
-        alert.showAndWait().ifPresent(rs -> {
+        alert.showAndWait().ifPresent(_ -> {
         });
     }
 
@@ -25,17 +24,8 @@ public class AlertManager {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(header);
         alert.setContentText(message);
-        alert.showAndWait().ifPresent(rs -> {
+        alert.showAndWait().ifPresent(_ -> {
         });
-    }
-    public static Alert showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.initOwner(owner);
-        alert.show();
-        return alert;
     }
 
 }

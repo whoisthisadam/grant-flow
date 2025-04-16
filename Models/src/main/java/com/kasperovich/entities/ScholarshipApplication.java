@@ -50,13 +50,16 @@ public class ScholarshipApplication implements Serializable {
     @Column(name = "decision_date")
     private LocalDateTime decisionDate;
 
-    @Column(name = "decision_comments", length = 500)
+    @Column(name = "decision_comments", length = 1000)
     private String decisionComments;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reviewer_id")
     private User reviewer;
-
+    
+    @Column(name = "additional_info", length = 2000)
+    private String additionalInfo;
+    
     /**
      * Approves the application with the given reviewer and comments.
      *
