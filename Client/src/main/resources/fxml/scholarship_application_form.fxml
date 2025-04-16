@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.kasperovich.ui.ScholarshipApplicationController"
+            prefHeight="600.0" prefWidth="800.0">
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="10" left="20"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Label text="Scholarship Application Form" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="backButton" text="Back to Programs" onAction="#handleBackAction" />
+            </HBox>
+            <Separator/>
+        </VBox>
+    </top>
+    
+    <center>
+        <ScrollPane fitToWidth="true">
+            <VBox spacing="15">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                
+                <Label fx:id="programNameLabel" text="Program: [Scholarship Name]" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <Label fx:id="programDescriptionLabel" text="Description: [Scholarship Description]" wrapText="true" />
+                
+                <Separator/>
+                
+                <GridPane hgap="15" vgap="15">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="30" />
+                        <ColumnConstraints percentWidth="70" />
+                    </columnConstraints>
+                    
+                    <Label text="Academic Period:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                    <ComboBox fx:id="academicPeriodComboBox" promptText="Select Academic Period" 
+                              GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="Infinity" />
+                    
+                    <Label text="Applicant Information:" GridPane.rowIndex="1" GridPane.columnIndex="0" 
+                           style="-fx-font-weight: bold;" />
+                    <Separator GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                    
+                    <Label text="First Name:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                    <TextField fx:id="firstNameField" GridPane.rowIndex="2" GridPane.columnIndex="1" editable="false" />
+                    
+                    <Label text="Last Name:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+                    <TextField fx:id="lastNameField" GridPane.rowIndex="3" GridPane.columnIndex="1" editable="false" />
+                    
+                    <Label text="Email:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+                    <TextField fx:id="emailField" GridPane.rowIndex="4" GridPane.columnIndex="1" editable="false" />
+                    
+                    <Label text="Additional Information:" GridPane.rowIndex="5" GridPane.columnIndex="0" 
+                           style="-fx-font-weight: bold;" />
+                    <Separator GridPane.rowIndex="5" GridPane.columnIndex="1" />
+                    
+                    <Label text="Why are you applying for this scholarship?" GridPane.rowIndex="6" GridPane.columnIndex="0" 
+                           GridPane.columnSpan="2" />
+                    <TextArea fx:id="motivationTextArea" promptText="Explain why you are applying for this scholarship..." 
+                              GridPane.rowIndex="7" GridPane.columnIndex="0" GridPane.columnSpan="2" 
+                              prefHeight="100" wrapText="true" />
+                    
+                    <Label text="Additional Achievements:" GridPane.rowIndex="8" GridPane.columnIndex="0" 
+                           GridPane.columnSpan="2" />
+                    <TextArea fx:id="achievementsTextArea" promptText="List any additional achievements or qualifications..." 
+                              GridPane.rowIndex="9" GridPane.columnIndex="0" GridPane.columnSpan="2" 
+                              prefHeight="100" wrapText="true" />
+                    
+                    <Label text="Terms and Conditions:" GridPane.rowIndex="10" GridPane.columnIndex="0" 
+                           style="-fx-font-weight: bold;" />
+                    <Separator GridPane.rowIndex="10" GridPane.columnIndex="1" />
+                    
+                    <CheckBox fx:id="termsCheckBox" text="I confirm that all information provided is accurate and complete." 
+                              GridPane.rowIndex="11" GridPane.columnIndex="0" GridPane.columnSpan="2" />
+                </GridPane>
+                
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <padding>
+                        <Insets top="20" />
+                    </padding>
+                    <Label fx:id="statusLabel" text="" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button fx:id="clearButton" text="Clear Form" onAction="#handleClearAction" />
+                    <Button fx:id="submitButton" text="Submit Application" onAction="#handleSubmitAction" 
+                            disable="true" style="-fx-font-weight: bold;" />
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+    
+    <bottom>
+        <HBox alignment="CENTER_RIGHT">
+            <padding>
+                <Insets top="10" right="20" bottom="20" left="20"/>
+            </padding>
+            <Label text="© 2025 Grant Flow System" style="-fx-font-size: 12px;"/>
+        </HBox>
+    </bottom>
+</BorderPane>

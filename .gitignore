@@ -36,3 +36,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+*log.txt
+*.log
+*.log.gz

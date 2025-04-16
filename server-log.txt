@@ -1,0 +1,13 @@
+Starting server with logging at 20:29:57.66 
+Java version: 
+openjdk version "22.0.1" 2024-04-16
+OpenJDK Runtime Environment (build 22.0.1+8-16)
+OpenJDK 64-Bit Server VM (build 22.0.1+8-16, mixed mode, sharing)
+ 
+Running server... 
+Server process exited with code 1 at 20:29:57.88 
+Error: Server failed to start properly. 
+Checking for class file existence: 
+RunServer.class exists. 
+Checking for ScholarshipCommandHandler: 
+ScholarshipCommandHandler.class exists. 
