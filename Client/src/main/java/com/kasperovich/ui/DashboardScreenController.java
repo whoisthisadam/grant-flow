@@ -3,6 +3,8 @@ package com.kasperovich.ui;
 import com.kasperovich.clientconnection.ClientConnection;
 import com.kasperovich.config.AlertManager;
 import com.kasperovich.dto.auth.UserDTO;
+import com.kasperovich.i18n.LangManager;
+import com.kasperovich.operations.ChangeScene;
 import com.kasperovich.utils.LoggerUtil;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -18,6 +20,7 @@ import lombok.Setter;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * Controller for the dashboard screen.
@@ -58,9 +61,37 @@ public class DashboardScreenController {
      * Initializes the controller.
      */
     public void initialize() {
-        // No initialization needed
+        updateTexts();
     }
 
+    private void updateTexts() {
+        logoutButton.setText(LangManager.getBundle().getString("dashboard.logout"));
+        // Add more components as needed
+    }
+
+    @FXML
+    private void handleLanguageSwitch() {
+        if (LangManager.getLocale().equals(Locale.ENGLISH)) {
+            LangManager.setLocale(new Locale("ru"));
+        } else {
+            LangManager.setLocale(Locale.ENGLISH);
+        }
+        // Reload screen
+        try {
+            Stage stage = (Stage) logoutButton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard_screen.fxml"), LangManager.getBundle());
+            Parent root = loader.load();
+            DashboardScreenController controller = loader.getController();
+            controller.setClientConnection(clientConnection);
+            controller.setUser(user);
+            controller.initializeUserData();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     /**
      * Initializes the user data in the UI.
      */
@@ -167,24 +198,12 @@ public class DashboardScreenController {
      */
     private boolean navigateToScholarshipProgramsScreen(String source) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/scholarship_programs_screen.fxml"));
-            Parent root = loader.load();
-            
-            ScholarshipProgramsController controller = loader.getController();
-            controller.setClientConnection(clientConnection);
-            controller.setUser(user);
-            controller.loadScholarshipPrograms();
-            
-            Stage stage = (Stage) logoutButton.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            
+            ChangeScene.changeScene(new ActionEvent(logoutButton, null), "/fxml/scholarship_programs_screen.fxml", LangManager.getBundle().getString("scholarship_programs.title"), clientConnection, user);
             logger.debug("Navigated to scholarship programs screen from {}", source);
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error("Error navigating to scholarship programs screen from {}", source, e);
-            AlertManager.showErrorAlert("Navigation Error", "Could not navigate to scholarship programs screen: " + e.getMessage());
+            AlertManager.showErrorAlert(LangManager.getBundle().getString("navigation.error"), LangManager.getBundle().getString("navigation.could_not_load_scholarship_programs_screen") + e.getMessage());
             return false;
         }
     }

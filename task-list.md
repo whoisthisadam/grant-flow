@@ -51,21 +51,21 @@ A Full Stack application with JavaFX Client and Server components for calculatin
 
 ### 7. Regular User Flow Implementation - Server Side
 - [x] Implement user registration and authentication (UC-R1)
-- [x] ~~Create scholarship application processing (UC-R2)~~ (Temporarily removed)
+- [ ] Create scholarship application processing (UC-R2)
 - [ ] Implement academic record management (UC-R3)
 - [ ] Develop scholarship status tracking system (UC-R4)
 - [ ] Implement payment processing and acknowledgment (UC-R5)
 - [ ] Create reporting engine for academic performance (UC-R7)
 
 ### 8. Admin Flow Implementation - Server Side
-- [ ] ~~Implement scholarship program management (UC-A1)~~ (Temporarily removed)
-- [ ] ~~Develop application review workflow (UC-A2)~~ (Temporarily removed)
+- [ ] Implement scholarship program management (UC-A1)
+- [ ] Develop application review workflow (UC-A2)
 - [ ] Create user account management system (UC-A3)
-- [ ] ~~Implement fund allocation and tracking (UC-A4)~~ (Temporarily removed)
+- [ ] Implement fund allocation and tracking (UC-A4)
 - [ ] Develop system configuration management (UC-A5)
 - [ ] Create reporting and analytics engine (UC-A6)
 - [ ] Implement batch processing capabilities (UC-A7)
-- [ ] ~~Develop academic period management (UC-A8)~~ (Temporarily removed)
+- [ ] Develop academic period management (UC-A8)
 
 ## Client-Side Tasks
 
@@ -95,7 +95,7 @@ A Full Stack application with JavaFX Client and Server components for calculatin
 
 ### 12. Regular User Flow Implementation - Client Side
 - [x] Design and implement user registration interface (UC-R1)
-- [x] ~~Create scholarship application interface (UC-R2)~~ (UI preserved, functionality disabled)
+- [ ] Create scholarship application interface (UC-R2)
 - [ ] Implement academic record management UI (UC-R3)
 - [ ] Develop scholarship status dashboard (UC-R4)
 - [ ] Create payment receipt and acknowledgment UI (UC-R5)
@@ -103,14 +103,14 @@ A Full Stack application with JavaFX Client and Server components for calculatin
 - [ ] Design academic performance reporting interface (UC-R7)
 
 ### 13. Admin Flow Implementation - Client Side
-- [x] Create scholarship program management interface (UC-A1)
-- [ ] ~~Implement application review dashboard (UC-A2)~~ (Temporarily removed)
+- [ ] Create scholarship program management interface (UC-A1)
+- [ ] Implement application review dashboard (UC-A2)
 - [ ] Design user account management interface (UC-A3)
 - [ ] Create fund allocation and tracking UI (UC-A4)
 - [ ] Implement system configuration interface (UC-A5)
 - [ ] Design reporting and analytics dashboard (UC-A6)
 - [ ] Create batch processing interface (UC-A7)
-- [ ] ~~Implement academic period management UI (UC-A8)~~ (Temporarily removed)
+- [ ] Implement academic period management UI (UC-A8)
 
 ### 14. Internationalization and Localization
 - [ ] Create resource bundles for English and Russian languages
@@ -148,9 +148,8 @@ A Full Stack application with JavaFX Client and Server components for calculatin
 
 ### 18. Documentation
 - [x] Create user manual
-- [x] Create rules.md file
+- [x] Create rules.md
 - [ ] Document API endpoints
-- [x] Create developer documentation
 - [ ] Add inline code documentation
 - [ ] Create database schema documentation
 
@@ -168,7 +167,7 @@ A Full Stack application with JavaFX Client and Server components for calculatin
 - [ ] Create scholarship eligibility rules engine
 - [ ] Implement scholarship amount calculation based on criteria
 - [ ] Add academic achievement tracking
-- [x] ~~Create scholarship application workflow~~ (Temporarily removed from server, UI preserved in client)
+- [ ] Create scholarship application workflow
 
 ### 21. Reporting and Analytics
 - [ ] Implement student performance reports

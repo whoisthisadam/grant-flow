@@ -4,6 +4,8 @@ import com.kasperovich.clientconnection.ClientConnection;
 import com.kasperovich.config.AlertManager;
 import com.kasperovich.dto.auth.UserDTO;
 import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
+import com.kasperovich.i18n.LangManager;
+import com.kasperovich.operations.ChangeScene;
 import com.kasperovich.utils.LoggerUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -23,6 +25,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Controller for the scholarship programs screen.
@@ -76,6 +79,7 @@ public class ScholarshipProgramsController {
      * Initializes the controller.
      */
     public void initialize() {
+        updateTexts();
         // Initialize table columns
         nameColumn.setCellValueFactory(cellData -> 
                 new SimpleStringProperty(cellData.getValue().getName()));
@@ -119,7 +123,9 @@ public class ScholarshipProgramsController {
         
         // Initialize filter combo box
         filterComboBox.setItems(FXCollections.observableArrayList(
-                "All Programs", "Active Programs", "Accepting Applications"));
+                LangManager.getBundle().getString("scholarship.filter.all"), 
+                LangManager.getBundle().getString("scholarship.filter.active"), 
+                LangManager.getBundle().getString("scholarship.filter.accepting")));
         
         // Set default filter
         filterComboBox.getSelectionModel().selectFirst();
@@ -132,9 +138,15 @@ public class ScholarshipProgramsController {
         });
         
         // Set status message
-        statusLabel.setText("Scholarship functionality is temporarily disabled");
+        statusLabel.setText(LangManager.getBundle().getString("scholarship.status.disabled"));
     }
     
+    private void updateTexts() {
+        backButton.setText(LangManager.getBundle().getString("dashboard.back"));
+        refreshButton.setText(LangManager.getBundle().getString("dashboard.refresh"));
+        applyButton.setText(LangManager.getBundle().getString("scholarship.apply"));
+    }
+
     /**
      * Sets the client connection for this controller.
      *
@@ -159,7 +171,7 @@ public class ScholarshipProgramsController {
     public void loadScholarshipPrograms() {
         String filter = filterComboBox.getSelectionModel().getSelectedItem();
         
-        statusLabel.setText("Loading scholarship programs...");
+        statusLabel.setText(LangManager.getBundle().getString("scholarship.status.loading"));
         refreshButton.setDisable(true);
         
         // Clear existing data
@@ -172,15 +184,15 @@ public class ScholarshipProgramsController {
             // Apply filter if needed
             List<ScholarshipProgramDTO> filteredPrograms = new ArrayList<>();
             
-            if ("All Programs".equals(filter)) {
+            if (LangManager.getBundle().getString("scholarship.filter.all").equals(filter)) {
                 filteredPrograms.addAll(programs);
-            } else if ("Active Programs".equals(filter)) {
+            } else if (LangManager.getBundle().getString("scholarship.filter.active").equals(filter)) {
                 for (ScholarshipProgramDTO program : programs) {
                     if (program.isActive()) {
                         filteredPrograms.add(program);
                     }
                 }
-            } else if ("Accepting Applications".equals(filter)) {
+            } else if (LangManager.getBundle().getString("scholarship.filter.accepting").equals(filter)) {
                 for (ScholarshipProgramDTO program : programs) {
                     if (program.isActive() && program.isAcceptingApplications()) {
                         filteredPrograms.add(program);
@@ -191,13 +203,14 @@ public class ScholarshipProgramsController {
             // Add filtered programs to the observable list
             programsList.addAll(filteredPrograms);
             
-            statusLabel.setText(filteredPrograms.size() + " scholarship programs found");
+            statusLabel.setText(LangManager.getBundle().getString("scholarship.status.loaded") + " " + filteredPrograms.size());
             logger.info("Loaded {} scholarship programs (filtered from {} total)", 
                     filteredPrograms.size(), programs.size());
         } catch (Exception e) {
             logger.error("Error loading scholarship programs", e);
-            statusLabel.setText("Error loading scholarship programs: " + e.getMessage());
-            AlertManager.showErrorAlert("Error", "Could not load scholarship programs: " + e.getMessage());
+            statusLabel.setText(LangManager.getBundle().getString("scholarship.status.error") + " " + e.getMessage());
+            AlertManager.showErrorAlert(LangManager.getBundle().getString("error.title"), 
+                    LangManager.getBundle().getString("scholarship.status.error") + " " + e.getMessage());
         } finally {
             refreshButton.setDisable(false);
         }
@@ -210,25 +223,7 @@ public class ScholarshipProgramsController {
      */
     @FXML
     public void handleBackAction(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard_screen.fxml"));
-            Parent root = loader.load();
-            
-            DashboardScreenController controller = loader.getController();
-            controller.setClientConnection(clientConnection);
-            controller.setUser(user);
-            controller.initializeUserData();
-            
-            Stage stage = (Stage) backButton.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            
-            logger.debug("Navigated back to dashboard");
-        } catch (IOException e) {
-            logger.error("Error navigating back to dashboard", e);
-            AlertManager.showErrorAlert("Navigation Error", "Could not navigate back to dashboard: " + e.getMessage());
-        }
+        ChangeScene.changeScene(event, "/fxml/dashboard_screen.fxml", LangManager.getBundle().getString("dashboard.title"), clientConnection, user);
     }
     
     /**
@@ -251,14 +246,38 @@ public class ScholarshipProgramsController {
         ScholarshipProgramDTO selectedProgram = programsTableView.getSelectionModel().getSelectedItem();
         
         if (selectedProgram == null) {
-            AlertManager.showWarningAlert("No Selection", "Please select a scholarship program to apply for.");
+            AlertManager.showWarningAlert(LangManager.getBundle().getString("warning.title"), 
+                    LangManager.getBundle().getString("scholarship.warning.select"));
             return;
         }
         
         // Show message that functionality is disabled
-        AlertManager.showInformationAlert("Feature Disabled", 
-                "Scholarship application functionality is temporarily disabled.");
+        AlertManager.showInformationAlert(LangManager.getBundle().getString("info.title"), 
+                LangManager.getBundle().getString("scholarship.status.disabled"));
         
-        statusLabel.setText("Scholarship functionality is temporarily disabled");
+        statusLabel.setText(LangManager.getBundle().getString("scholarship.status.disabled"));
+    }
+
+    @FXML
+    private void handleLanguageSwitch() {
+        if (LangManager.getLocale().equals(Locale.ENGLISH)) {
+            LangManager.setLocale(new Locale("ru"));
+        } else {
+            LangManager.setLocale(Locale.ENGLISH);
+        }
+        // Reload screen
+        try {
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/scholarship_programs_screen.fxml"), LangManager.getBundle());
+            Parent root = loader.load();
+            ScholarshipProgramsController controller = loader.getController();
+            controller.setClientConnection(clientConnection);
+            controller.setUser(user);
+            controller.loadScholarshipPrograms();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

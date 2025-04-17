@@ -2,6 +2,8 @@ package com.kasperovich.ui;
 
 import com.kasperovich.clientconnection.ClientConnection;
 import com.kasperovich.config.AlertManager;
+import com.kasperovich.i18n.LangManager;
+import com.kasperovich.operations.ChangeScene;
 import com.kasperovich.utils.LoggerUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +14,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
+import java.util.Locale;
 
 /**
  * Controller for the main screen of the application.
@@ -32,7 +34,12 @@ public class MainScreenController {
      * Initializes the controller.
      */
     public void initialize() {
-        // Initialization code here
+        updateTexts();
+    }
+    
+    private void updateTexts() {
+        loginButton.setText(LangManager.getBundle().getString("login.button"));
+        registerButton.setText(LangManager.getBundle().getString("register.button"));
     }
     
     /**
@@ -51,31 +58,7 @@ public class MainScreenController {
      */
     @FXML
     public void handleLoginAction(ActionEvent event) {
-        try {
-            // Load the login screen
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login_screen.fxml"));
-            Parent root = loader.load();
-            
-            // Get the controller and set the client connection
-            LoginScreenController loginController = loader.getController();
-            loginController.setClientConnection(clientConnection);
-            
-            // Create a new scene
-            Scene scene = new Scene(root);
-            
-            // Get the current stage
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-            
-            // Set the new scene on the current stage
-            stage.setScene(scene);
-            stage.setTitle("Grant Flow - Login");
-            stage.show();
-            
-            logger.info("Navigated to login screen");
-        } catch (IOException e) {
-            logger.error("Error loading login screen", e);
-            AlertManager.showErrorAlert("Navigation Error", "Could not load login screen: " + e.getMessage());
-        }
+        ChangeScene.changeScene(event, "/fxml/login_screen.fxml", LangManager.getBundle().getString("login.title"), clientConnection, null);
     }
     
     /**
@@ -85,30 +68,27 @@ public class MainScreenController {
      */
     @FXML
     public void handleRegisterAction(ActionEvent event) {
+        ChangeScene.changeScene(event, "/fxml/register_screen.fxml", LangManager.getBundle().getString("register.title"), clientConnection, null);
+    }
+    
+    @FXML
+    private void handleLanguageSwitch() {
+        if (LangManager.getLocale().equals(Locale.ENGLISH)) {
+            LangManager.setLocale(new Locale("ru"));
+        } else {
+            LangManager.setLocale(Locale.ENGLISH);
+        }
+        // Reload screen
         try {
-            // Load the register screen
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register_screen.fxml"));
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main_screen.fxml"), LangManager.getBundle());
             Parent root = loader.load();
-            
-            // Get the controller and set the client connection
-            RegisterScreenController registerController = loader.getController();
-            registerController.setClientConnection(clientConnection);
-            
-            // Create a new scene
+            MainScreenController controller = loader.getController();
+            controller.setClientConnection(clientConnection);
             Scene scene = new Scene(root);
-            
-            // Get the current stage
-            Stage stage = (Stage) registerButton.getScene().getWindow();
-            
-            // Set the new scene on the current stage
             stage.setScene(scene);
-            stage.setTitle("Grant Flow - Registration");
-            stage.show();
-            
-            logger.info("Navigated to registration screen");
-        } catch (IOException e) {
-            logger.error("Error loading registration screen", e);
-            AlertManager.showErrorAlert("Navigation Error", "Could not load registration screen: " + e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

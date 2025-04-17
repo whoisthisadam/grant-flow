@@ -16,9 +16,9 @@
                 <Insets top="20" right="20" bottom="10" left="20"/>
             </padding>
             <HBox alignment="CENTER_LEFT" spacing="20">
-                <Label text="Available Scholarship Programs" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+                <Label text="%scholarship.title" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
                 <Region HBox.hgrow="ALWAYS" />
-                <Button fx:id="backButton" text="Back to Dashboard" onAction="#handleBackAction" />
+                <Button fx:id="backButton" text="%dashboard.back" onAction="#handleBackAction" />
             </HBox>
             <Separator/>
         </VBox>
@@ -31,38 +31,38 @@
             </padding>
             
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label text="Filter: " />
-                <ComboBox fx:id="filterComboBox" promptText="All Programs">
+                <Label text="%scholarship.filter" />
+                <ComboBox fx:id="filterComboBox" promptText="%scholarship.filter.all">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="All Programs" />
-                            <String fx:value="Active Programs" />
-                            <String fx:value="Accepting Applications" />
+                            <String fx:value="%scholarship.filter.all" />
+                            <String fx:value="%scholarship.filter.active" />
+                            <String fx:value="%scholarship.filter.accepting" />
                         </FXCollections>
                     </items>
                 </ComboBox>
                 <Region HBox.hgrow="ALWAYS" />
-                <Button fx:id="refreshButton" text="Refresh" onAction="#handleRefreshAction" />
+                <Button fx:id="refreshButton" text="%dashboard.refresh" onAction="#handleRefreshAction" />
             </HBox>
             
             <TableView fx:id="programsTableView" VBox.vgrow="ALWAYS">
                 <columns>
-                    <TableColumn fx:id="nameColumn" text="Program Name" prefWidth="200" />
-                    <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="250" />
-                    <TableColumn fx:id="amountColumn" text="Amount" prefWidth="100" />
-                    <TableColumn fx:id="startDateColumn" text="Start Date" prefWidth="100" />
-                    <TableColumn fx:id="endDateColumn" text="End Date" prefWidth="100" />
-                    <TableColumn fx:id="statusColumn" text="Status" prefWidth="100" />
+                    <TableColumn fx:id="nameColumn" text="%scholarship.column.name" prefWidth="200" />
+                    <TableColumn fx:id="descriptionColumn" text="%scholarship.column.description" prefWidth="250" />
+                    <TableColumn fx:id="amountColumn" text="%scholarship.column.amount" prefWidth="100" />
+                    <TableColumn fx:id="startDateColumn" text="%scholarship.column.startdate" prefWidth="100" />
+                    <TableColumn fx:id="endDateColumn" text="%scholarship.column.enddate" prefWidth="100" />
+                    <TableColumn fx:id="statusColumn" text="%scholarship.column.status" prefWidth="100" />
                 </columns>
                 <placeholder>
-                    <Label text="No scholarship programs available" />
+                    <Label text="%scholarship.placeholder.none" />
                 </placeholder>
             </TableView>
             
             <HBox spacing="10" alignment="CENTER_RIGHT">
                 <Label fx:id="statusLabel" text="" />
                 <Region HBox.hgrow="ALWAYS" />
-                <Button fx:id="applyButton" text="Apply for Selected Program" onAction="#handleApplyAction" disable="true" />
+                <Button fx:id="applyButton" text="%scholarship.apply" onAction="#handleApplyAction" disable="true" />
             </HBox>
         </VBox>
     </center>
@@ -72,7 +72,7 @@
             <padding>
                 <Insets top="10" right="20" bottom="20" left="20"/>
             </padding>
-            <Label text=" 2025 Grant Flow System" style="-fx-font-size: 12px;"/>
+            <Label text="%dashboard.footer" style="-fx-font-size: 12px;"/>
         </HBox>
     </bottom>
 </BorderPane>

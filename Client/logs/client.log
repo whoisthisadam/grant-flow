@@ -102,3 +102,1195 @@ java.net.SocketTimeoutException: Read timed out
 2025-04-16 18:51:26.602 [JavaFX Application Thread] INFO  com.kasperovich.clientconnection.ClientConnection - Received 5 scholarship programs from server
 2025-04-16 18:51:26.603 [JavaFX Application Thread] INFO  com.kasperovich.ui.ScholarshipProgramsController - Loaded 5 scholarship programs (filtered from 5 total)
 2025-04-16 18:51:26.735 [JavaFX Application Thread] DEBUG com.kasperovich.ui.DashboardScreenController - Navigated to scholarship programs screen from Apply button
+2025-04-16 18:58:36.347 [JavaFX Application Thread] DEBUG com.kasperovich.ui.ScholarshipProgramsController - Navigated back to dashboard
+2025-04-16 18:58:37.555 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Getting scholarship programs from server
+2025-04-16 18:58:37.987 [JavaFX Application Thread] INFO  com.kasperovich.clientconnection.ClientConnection - Received 5 scholarship programs from server
+2025-04-16 18:58:37.987 [JavaFX Application Thread] INFO  com.kasperovich.ui.ScholarshipProgramsController - Loaded 5 scholarship programs (filtered from 5 total)
+2025-04-16 18:58:38.054 [JavaFX Application Thread] DEBUG com.kasperovich.ui.DashboardScreenController - Navigated to scholarship programs screen from Apply button
+2025-04-16 18:58:40.396 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Getting scholarship programs from server
+2025-04-16 18:58:40.816 [JavaFX Application Thread] INFO  com.kasperovich.clientconnection.ClientConnection - Received 5 scholarship programs from server
+2025-04-16 18:58:40.817 [JavaFX Application Thread] INFO  com.kasperovich.ui.ScholarshipProgramsController - Loaded 1 scholarship programs (filtered from 5 total)
+2025-04-16 19:21:42.853 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 19:21:42.866 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 19:21:42.880 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 19:21:42.880 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 19:21:42.890 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 19:21:42.890 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 19:21:42.895 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Socket connected, initializing object streams
+2025-04-16 19:21:42.912 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Object streams initialized successfully
+2025-04-16 19:21:42.912 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Successfully connected to server
+2025-04-16 19:21:42.912 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Performing server health check
+2025-04-16 19:21:42.912 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Performing server health check
+2025-04-16 19:21:43.013 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Health check successful: SUCCESS
+2025-04-16 19:21:43.013 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Server health check passed
+2025-04-16 19:21:43.013 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loading main screen FXML
+2025-04-16 19:21:43.419 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Main screen controller initialized with client connection
+2025-04-16 19:21:43.626 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Client application UI initialized and displayed
+2025-04-16 19:21:44.766 [JavaFX Application Thread] ERROR com.kasperovich.ui.MainScreenController - Error loading login screen
+javafx.fxml.LoadException: No resources specified.
+/D:/bsuir/networkdev/grant-flow/Client/target/classes/fxml/login_screen.fxml:16
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2723) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.resolvePrefixedValue(FXMLLoader.java:434) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processValue(FXMLLoader.java:375) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processPropertyAttribute(FXMLLoader.java:337) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processInstancePropertyAttributes(FXMLLoader.java:248) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processEndElement(FXMLLoader.java:780) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.processEndElement(FXMLLoader.java:2974) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2659) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2536) ~[javafx-fxml-22-win.jar:?]
+	at com.kasperovich.ui.MainScreenController.handleLoginAction(MainScreenController.java:57) ~[classes/:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72) ~[javafx-base-22-win.jar:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at javafx.base/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270) ~[javafx-base-22-win.jar:?]
+	at javafx.fxml/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1858) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1731) ~[javafx-fxml-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49) ~[javafx-base-22-win.jar:?]
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198) ~[javafx-base-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Node.fireEvent(Node.java:8917) ~[javafx-graphics-22-win.jar:?]
+	at javafx.controls/javafx.scene.control.Button.fire(Button.java:203) ~[javafx-controls-22-win.jar:?]
+	at javafx.controls/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207) ~[javafx-controls-22-win.jar:?]
+	at javafx.controls/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274) ~[javafx-controls-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54) ~[javafx-base-22-win.jar:?]
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198) ~[javafx-base-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene$MouseHandler.process(Scene.java:3985) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene.processMouseEvent(Scene.java:1891) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2709) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:430) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.View.handleMouseEvent(View.java:551) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.View.notifyMouse(View.java:937) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) [?:?]
+2025-04-16 19:22:02.784 [JavaFX Application Thread] ERROR com.kasperovich.ui.MainScreenController - Error loading login screen
+javafx.fxml.LoadException: No resources specified.
+/D:/bsuir/networkdev/grant-flow/Client/target/classes/fxml/login_screen.fxml:16
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2723) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.resolvePrefixedValue(FXMLLoader.java:434) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processValue(FXMLLoader.java:375) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processPropertyAttribute(FXMLLoader.java:337) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processInstancePropertyAttributes(FXMLLoader.java:248) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processEndElement(FXMLLoader.java:780) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.processEndElement(FXMLLoader.java:2974) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2659) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2536) ~[javafx-fxml-22-win.jar:?]
+	at com.kasperovich.ui.MainScreenController.handleLoginAction(MainScreenController.java:57) ~[classes/:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72) ~[javafx-base-22-win.jar:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at javafx.base/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270) ~[javafx-base-22-win.jar:?]
+	at javafx.fxml/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1858) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1731) ~[javafx-fxml-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49) ~[javafx-base-22-win.jar:?]
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198) ~[javafx-base-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Node.fireEvent(Node.java:8917) ~[javafx-graphics-22-win.jar:?]
+	at javafx.controls/javafx.scene.control.Button.fire(Button.java:203) ~[javafx-controls-22-win.jar:?]
+	at javafx.controls/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207) ~[javafx-controls-22-win.jar:?]
+	at javafx.controls/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274) ~[javafx-controls-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54) ~[javafx-base-22-win.jar:?]
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198) ~[javafx-base-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene$MouseHandler.process(Scene.java:3985) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene.processMouseEvent(Scene.java:1891) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2709) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:430) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.View.handleMouseEvent(View.java:551) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.View.notifyMouse(View.java:937) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) [?:?]
+2025-04-16 19:26:43.917 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 19:26:43.930 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 19:26:43.936 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 19:26:43.936 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 19:26:43.947 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 19:26:43.947 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 19:26:43.955 [JavaFX Application Thread] ERROR com.kasperovich.clientconnection.ClientConnection - Error connecting to server at 127.0.0.1:15000
+java.net.ConnectException: Connection refused: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:589) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:578) ~[?:?]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583) ~[?:?]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:752) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:687) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:556) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:325) ~[?:?]
+	at com.kasperovich.clientconnection.ClientConnection.connectToServer(ClientConnection.java:52) ~[classes/:?]
+	at com.kasperovich.RunClient.start(RunClient.java:52) ~[classes/:?]
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:839) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) [?:?]
+2025-04-16 19:26:43.962 [JavaFX Application Thread] ERROR com.kasperovich.RunClient - Error starting client application
+java.net.ConnectException: Connection refused: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:589) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:578) ~[?:?]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583) ~[?:?]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:752) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:687) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:556) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:325) ~[?:?]
+	at com.kasperovich.clientconnection.ClientConnection.connectToServer(ClientConnection.java:52) ~[classes/:?]
+	at com.kasperovich.RunClient.start(RunClient.java:52) ~[classes/:?]
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:839) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) [?:?]
+2025-04-16 19:26:43.966 [main] ERROR com.kasperovich.RunClient - Unhandled exception in client application
+java.lang.RuntimeException: Exception in Application start method
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplication1(LauncherImpl.java:893) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication$2(LauncherImpl.java:196) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) ~[?:?]
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:589) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:578) ~[?:?]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583) ~[?:?]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:752) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:687) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:556) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:325) ~[?:?]
+	at com.kasperovich.clientconnection.ClientConnection.connectToServer(ClientConnection.java:52) ~[classes/:?]
+	at com.kasperovich.RunClient.start(RunClient.java:52) ~[classes/:?]
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:839) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	... 1 more
+2025-04-16 19:27:00.019 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 19:27:00.035 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 19:27:00.042 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 19:27:00.043 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 19:27:00.054 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 19:27:00.054 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 19:27:00.060 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Socket connected, initializing object streams
+2025-04-16 19:27:00.063 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Object streams initialized successfully
+2025-04-16 19:27:00.063 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Successfully connected to server
+2025-04-16 19:27:00.063 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Performing server health check
+2025-04-16 19:27:00.063 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Performing server health check
+2025-04-16 19:27:00.074 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Health check successful: SUCCESS
+2025-04-16 19:27:00.074 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Server health check passed
+2025-04-16 19:27:00.075 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loading main screen FXML
+2025-04-16 19:27:00.426 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Main screen controller initialized with client connection
+2025-04-16 19:27:00.585 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Client application UI initialized and displayed
+2025-04-16 19:27:01.716 [JavaFX Application Thread] ERROR com.kasperovich.ui.MainScreenController - Error loading login screen
+javafx.fxml.LoadException: No resources specified.
+/D:/bsuir/networkdev/grant-flow/Client/target/classes/fxml/login_screen.fxml:16
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2723) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.resolvePrefixedValue(FXMLLoader.java:434) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processValue(FXMLLoader.java:375) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processPropertyAttribute(FXMLLoader.java:337) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processInstancePropertyAttributes(FXMLLoader.java:248) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processEndElement(FXMLLoader.java:780) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.processEndElement(FXMLLoader.java:2974) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2659) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2536) ~[javafx-fxml-22-win.jar:?]
+	at com.kasperovich.ui.MainScreenController.handleLoginAction(MainScreenController.java:57) ~[classes/:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72) ~[javafx-base-22-win.jar:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at javafx.base/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270) ~[javafx-base-22-win.jar:?]
+	at javafx.fxml/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1858) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1731) ~[javafx-fxml-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49) ~[javafx-base-22-win.jar:?]
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198) ~[javafx-base-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Node.fireEvent(Node.java:8917) ~[javafx-graphics-22-win.jar:?]
+	at javafx.controls/javafx.scene.control.Button.fire(Button.java:203) ~[javafx-controls-22-win.jar:?]
+	at javafx.controls/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207) ~[javafx-controls-22-win.jar:?]
+	at javafx.controls/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274) ~[javafx-controls-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54) ~[javafx-base-22-win.jar:?]
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198) ~[javafx-base-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene$MouseHandler.process(Scene.java:3985) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene.processMouseEvent(Scene.java:1891) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2709) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:430) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.View.handleMouseEvent(View.java:551) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.View.notifyMouse(View.java:937) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) [?:?]
+2025-04-16 19:32:44.045 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 19:32:44.059 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 19:32:44.067 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 19:32:44.067 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 19:32:44.079 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 19:32:44.079 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 19:32:44.084 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Socket connected, initializing object streams
+2025-04-16 19:32:44.087 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Object streams initialized successfully
+2025-04-16 19:32:44.087 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Successfully connected to server
+2025-04-16 19:32:44.087 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Performing server health check
+2025-04-16 19:32:44.087 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Performing server health check
+2025-04-16 19:32:44.098 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Health check successful: SUCCESS
+2025-04-16 19:32:44.098 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Server health check passed
+2025-04-16 19:32:44.098 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loading main screen FXML
+2025-04-16 19:32:44.475 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Main screen controller initialized with client connection
+2025-04-16 19:32:44.638 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Client application UI initialized and displayed
+2025-04-16 19:32:45.549 [JavaFX Application Thread] ERROR com.kasperovich.ui.MainScreenController - Error loading login screen
+javafx.fxml.LoadException: No resources specified.
+/D:/bsuir/networkdev/grant-flow/Client/target/classes/fxml/login_screen.fxml:16
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2723) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.resolvePrefixedValue(FXMLLoader.java:434) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processValue(FXMLLoader.java:375) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processPropertyAttribute(FXMLLoader.java:337) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processInstancePropertyAttributes(FXMLLoader.java:248) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processEndElement(FXMLLoader.java:780) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.processEndElement(FXMLLoader.java:2974) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2659) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2536) ~[javafx-fxml-22-win.jar:?]
+	at com.kasperovich.ui.MainScreenController.handleLoginAction(MainScreenController.java:57) ~[classes/:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72) ~[javafx-base-22-win.jar:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at javafx.base/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270) ~[javafx-base-22-win.jar:?]
+	at javafx.fxml/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1858) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1731) ~[javafx-fxml-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49) ~[javafx-base-22-win.jar:?]
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198) ~[javafx-base-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Node.fireEvent(Node.java:8917) ~[javafx-graphics-22-win.jar:?]
+	at javafx.controls/javafx.scene.control.Button.fire(Button.java:203) ~[javafx-controls-22-win.jar:?]
+	at javafx.controls/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207) ~[javafx-controls-22-win.jar:?]
+	at javafx.controls/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274) ~[javafx-controls-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54) ~[javafx-base-22-win.jar:?]
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198) ~[javafx-base-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene$MouseHandler.process(Scene.java:3985) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene.processMouseEvent(Scene.java:1891) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2709) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:430) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.View.handleMouseEvent(View.java:551) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.View.notifyMouse(View.java:937) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) [?:?]
+2025-04-16 19:35:39.061 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 19:35:39.074 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 19:35:39.081 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 19:35:39.081 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 19:35:39.092 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 19:35:39.092 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 19:35:39.098 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Socket connected, initializing object streams
+2025-04-16 19:35:39.101 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Object streams initialized successfully
+2025-04-16 19:35:39.101 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Successfully connected to server
+2025-04-16 19:35:39.102 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Performing server health check
+2025-04-16 19:35:39.102 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Performing server health check
+2025-04-16 19:35:39.113 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Health check successful: SUCCESS
+2025-04-16 19:35:39.113 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Server health check passed
+2025-04-16 19:35:39.113 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loading main screen FXML
+2025-04-16 19:35:39.532 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Main screen controller initialized with client connection
+2025-04-16 19:35:39.696 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Client application UI initialized and displayed
+2025-04-16 19:35:43.878 [JavaFX Application Thread] INFO  com.kasperovich.ui.MainScreenController - Navigated to login screen
+2025-04-16 19:39:49.176 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 19:39:49.191 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 19:39:49.198 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 19:39:49.198 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 19:39:49.209 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 19:39:49.209 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 19:39:49.213 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Socket connected, initializing object streams
+2025-04-16 19:39:49.217 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Object streams initialized successfully
+2025-04-16 19:39:49.217 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Successfully connected to server
+2025-04-16 19:39:49.217 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Performing server health check
+2025-04-16 19:39:49.217 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Performing server health check
+2025-04-16 19:39:49.227 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Health check successful: SUCCESS
+2025-04-16 19:39:49.227 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Server health check passed
+2025-04-16 19:39:49.227 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loading main screen FXML
+2025-04-16 19:39:49.618 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Main screen controller initialized with client connection
+2025-04-16 19:39:49.779 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Client application UI initialized and displayed
+2025-04-16 19:39:52.767 [JavaFX Application Thread] INFO  com.kasperovich.ui.MainScreenController - Navigated to login screen
+2025-04-16 19:40:02.199 [Thread-3] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to login user: test1
+2025-04-16 19:40:03.641 [Thread-3] INFO  com.kasperovich.clientconnection.ClientConnection - Login successful for user: test1
+2025-04-16 19:40:03.641 [JavaFX Application Thread] INFO  com.kasperovich.ui.LoginScreenController - User logged in successfully: test1
+2025-04-16 19:42:10.409 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 19:42:10.423 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 19:42:10.430 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 19:42:10.430 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 19:42:10.442 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 19:42:10.442 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 19:42:10.447 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Socket connected, initializing object streams
+2025-04-16 19:42:10.450 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Object streams initialized successfully
+2025-04-16 19:42:10.450 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Successfully connected to server
+2025-04-16 19:42:10.450 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Performing server health check
+2025-04-16 19:42:10.450 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Performing server health check
+2025-04-16 19:42:10.461 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Health check successful: SUCCESS
+2025-04-16 19:42:10.462 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Server health check passed
+2025-04-16 19:42:10.462 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loading main screen FXML
+2025-04-16 19:42:10.848 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Main screen controller initialized with client connection
+2025-04-16 19:42:11.020 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Client application UI initialized and displayed
+2025-04-16 19:42:12.213 [JavaFX Application Thread] INFO  com.kasperovich.ui.MainScreenController - Navigated to login screen
+2025-04-16 19:42:19.153 [Thread-3] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to login user: test1
+2025-04-16 19:42:20.490 [Thread-3] INFO  com.kasperovich.clientconnection.ClientConnection - Login successful for user: test1
+2025-04-16 19:42:20.491 [JavaFX Application Thread] INFO  com.kasperovich.ui.LoginScreenController - User logged in successfully: test1
+2025-04-16 19:42:24.258 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to logout user
+2025-04-16 19:42:24.259 [JavaFX Application Thread] INFO  com.kasperovich.clientconnection.ClientConnection - Logout successful
+2025-04-16 19:42:24.270 [JavaFX Application Thread] INFO  com.kasperovich.ui.DashboardScreenController - User logged out and navigated to main screen
+2025-04-16 19:42:26.044 [JavaFX Application Thread] INFO  com.kasperovich.ui.MainScreenController - Navigated to login screen
+2025-04-16 19:42:29.653 [Thread-4] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to login user: test21
+2025-04-16 19:42:30.073 [Thread-4] WARN  com.kasperovich.clientconnection.ClientConnection - Login failed for user: test21, response: LOGIN_FAILED
+2025-04-16 19:42:30.073 [JavaFX Application Thread] WARN  com.kasperovich.ui.LoginScreenController - Login failed for user: test21
+2025-04-16 19:42:36.879 [Thread-5] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to login user: erfdqwrf
+2025-04-16 19:42:37.293 [Thread-5] WARN  com.kasperovich.clientconnection.ClientConnection - Login failed for user: erfdqwrf, response: LOGIN_FAILED
+2025-04-16 19:42:37.293 [JavaFX Application Thread] WARN  com.kasperovich.ui.LoginScreenController - Login failed for user: erfdqwrf
+2025-04-16 19:42:43.888 [Thread-6] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to login user: test1
+2025-04-16 19:42:44.858 [Thread-6] INFO  com.kasperovich.clientconnection.ClientConnection - Login successful for user: test1
+2025-04-16 19:42:44.859 [JavaFX Application Thread] INFO  com.kasperovich.ui.LoginScreenController - User logged in successfully: test1
+2025-04-16 19:43:31.236 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 19:43:31.249 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 19:43:31.256 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 19:43:31.256 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 19:43:31.267 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 19:43:31.267 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 19:43:31.273 [JavaFX Application Thread] ERROR com.kasperovich.clientconnection.ClientConnection - Error connecting to server at 127.0.0.1:15000
+java.net.ConnectException: Connection refused: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:589) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:578) ~[?:?]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583) ~[?:?]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:752) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:687) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:556) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:325) ~[?:?]
+	at com.kasperovich.clientconnection.ClientConnection.connectToServer(ClientConnection.java:52) ~[classes/:?]
+	at com.kasperovich.RunClient.start(RunClient.java:52) ~[classes/:?]
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:839) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) [?:?]
+2025-04-16 19:43:31.281 [JavaFX Application Thread] ERROR com.kasperovich.RunClient - Error starting client application
+java.net.ConnectException: Connection refused: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:589) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:578) ~[?:?]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583) ~[?:?]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:752) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:687) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:556) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:325) ~[?:?]
+	at com.kasperovich.clientconnection.ClientConnection.connectToServer(ClientConnection.java:52) ~[classes/:?]
+	at com.kasperovich.RunClient.start(RunClient.java:52) ~[classes/:?]
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:839) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) [?:?]
+2025-04-16 19:43:31.285 [main] ERROR com.kasperovich.RunClient - Unhandled exception in client application
+java.lang.RuntimeException: Exception in Application start method
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplication1(LauncherImpl.java:893) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication$2(LauncherImpl.java:196) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) ~[?:?]
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:589) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:578) ~[?:?]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583) ~[?:?]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:752) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:687) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:556) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:325) ~[?:?]
+	at com.kasperovich.clientconnection.ClientConnection.connectToServer(ClientConnection.java:52) ~[classes/:?]
+	at com.kasperovich.RunClient.start(RunClient.java:52) ~[classes/:?]
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:839) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	... 1 more
+2025-04-16 19:43:47.289 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 19:43:47.302 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 19:43:47.309 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 19:43:47.309 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 19:43:47.320 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 19:43:47.321 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 19:43:47.325 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Socket connected, initializing object streams
+2025-04-16 19:43:47.328 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Object streams initialized successfully
+2025-04-16 19:43:47.328 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Successfully connected to server
+2025-04-16 19:43:47.328 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Performing server health check
+2025-04-16 19:43:47.328 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Performing server health check
+2025-04-16 19:43:47.337 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Health check successful: SUCCESS
+2025-04-16 19:43:47.338 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Server health check passed
+2025-04-16 19:43:47.338 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loading main screen FXML
+2025-04-16 19:43:47.693 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Main screen controller initialized with client connection
+2025-04-16 19:43:47.899 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Client application UI initialized and displayed
+2025-04-16 19:43:49.483 [JavaFX Application Thread] INFO  com.kasperovich.ui.MainScreenController - Navigated to login screen
+2025-04-16 19:43:53.491 [Thread-3] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to login user: test1
+2025-04-16 19:43:54.765 [Thread-3] INFO  com.kasperovich.clientconnection.ClientConnection - Login successful for user: test1
+2025-04-16 19:43:54.765 [JavaFX Application Thread] INFO  com.kasperovich.ui.LoginScreenController - User logged in successfully: test1
+2025-04-16 19:44:59.113 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 19:44:59.126 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 19:44:59.133 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 19:44:59.134 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 19:44:59.144 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 19:44:59.144 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 19:44:59.149 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Socket connected, initializing object streams
+2025-04-16 19:44:59.151 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Object streams initialized successfully
+2025-04-16 19:44:59.151 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Successfully connected to server
+2025-04-16 19:44:59.152 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Performing server health check
+2025-04-16 19:44:59.152 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Performing server health check
+2025-04-16 19:44:59.156 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Health check successful: SUCCESS
+2025-04-16 19:44:59.156 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Server health check passed
+2025-04-16 19:44:59.156 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loading main screen FXML
+2025-04-16 19:44:59.496 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Main screen controller initialized with client connection
+2025-04-16 19:44:59.646 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Client application UI initialized and displayed
+2025-04-16 19:45:00.937 [JavaFX Application Thread] INFO  com.kasperovich.ui.MainScreenController - Navigated to login screen
+2025-04-16 19:45:05.864 [Thread-3] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to login user: test1
+2025-04-16 19:45:06.885 [Thread-3] INFO  com.kasperovich.clientconnection.ClientConnection - Login successful for user: test1
+2025-04-16 19:45:06.886 [JavaFX Application Thread] INFO  com.kasperovich.ui.LoginScreenController - User logged in successfully: test1
+2025-04-16 19:45:12.125 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Getting scholarship programs from server
+2025-04-16 19:45:12.604 [JavaFX Application Thread] INFO  com.kasperovich.clientconnection.ClientConnection - Received 5 scholarship programs from server
+2025-04-16 19:45:12.605 [JavaFX Application Thread] INFO  com.kasperovich.ui.ScholarshipProgramsController - Loaded 5 scholarship programs (filtered from 5 total)
+2025-04-16 19:45:12.748 [JavaFX Application Thread] DEBUG com.kasperovich.ui.DashboardScreenController - Navigated to scholarship programs screen from Apply button
+2025-04-16 19:45:15.442 [JavaFX Application Thread] DEBUG com.kasperovich.ui.ScholarshipProgramsController - Navigated back to dashboard
+2025-04-16 19:47:34.760 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 19:47:34.774 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 19:47:34.780 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 19:47:34.781 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 19:47:34.791 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 19:47:34.792 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 19:47:34.796 [JavaFX Application Thread] ERROR com.kasperovich.clientconnection.ClientConnection - Error connecting to server at 127.0.0.1:15000
+java.net.ConnectException: Connection refused: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:589) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:578) ~[?:?]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583) ~[?:?]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:752) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:687) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:556) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:325) ~[?:?]
+	at com.kasperovich.clientconnection.ClientConnection.connectToServer(ClientConnection.java:52) ~[classes/:?]
+	at com.kasperovich.RunClient.start(RunClient.java:52) ~[classes/:?]
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:839) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) [?:?]
+2025-04-16 19:47:34.805 [JavaFX Application Thread] ERROR com.kasperovich.RunClient - Error starting client application
+java.net.ConnectException: Connection refused: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:589) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:578) ~[?:?]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583) ~[?:?]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:752) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:687) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:556) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:325) ~[?:?]
+	at com.kasperovich.clientconnection.ClientConnection.connectToServer(ClientConnection.java:52) ~[classes/:?]
+	at com.kasperovich.RunClient.start(RunClient.java:52) ~[classes/:?]
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:839) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) [?:?]
+2025-04-16 19:47:34.809 [main] ERROR com.kasperovich.RunClient - Unhandled exception in client application
+java.lang.RuntimeException: Exception in Application start method
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.launchApplication1(LauncherImpl.java:893) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication$2(LauncherImpl.java:196) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) ~[?:?]
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:589) ~[?:?]
+	at java.base/sun.nio.ch.Net.connect(Net.java:578) ~[?:?]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583) ~[?:?]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:752) ~[?:?]
+	at java.base/java.net.Socket.connect(Socket.java:687) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:556) ~[?:?]
+	at java.base/java.net.Socket.<init>(Socket.java:325) ~[?:?]
+	at com.kasperovich.clientconnection.ClientConnection.connectToServer(ClientConnection.java:52) ~[classes/:?]
+	at com.kasperovich.RunClient.start(RunClient.java:52) ~[classes/:?]
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:839) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	... 1 more
+2025-04-16 19:47:43.123 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 19:47:43.138 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 19:47:43.145 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 19:47:43.145 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 19:47:43.156 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 19:47:43.156 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 19:47:43.161 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Socket connected, initializing object streams
+2025-04-16 19:47:43.163 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Object streams initialized successfully
+2025-04-16 19:47:43.163 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Successfully connected to server
+2025-04-16 19:47:43.163 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Performing server health check
+2025-04-16 19:47:43.163 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Performing server health check
+2025-04-16 19:47:43.174 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Health check successful: SUCCESS
+2025-04-16 19:47:43.175 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Server health check passed
+2025-04-16 19:47:43.175 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loading main screen FXML
+2025-04-16 19:47:43.603 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Main screen controller initialized with client connection
+2025-04-16 19:47:43.740 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Client application UI initialized and displayed
+2025-04-16 19:47:45.055 [JavaFX Application Thread] INFO  com.kasperovich.ui.MainScreenController - Navigated to login screen
+2025-04-16 19:47:49.566 [Thread-3] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to login user: test1
+2025-04-16 19:47:50.938 [Thread-3] INFO  com.kasperovich.clientconnection.ClientConnection - Login successful for user: test1
+2025-04-16 19:47:50.939 [JavaFX Application Thread] INFO  com.kasperovich.ui.LoginScreenController - User logged in successfully: test1
+2025-04-16 19:47:50.973 [JavaFX Application Thread] ERROR com.kasperovich.ui.LoginScreenController - Error loading dashboard screen
+javafx.fxml.LoadException: 
+/D:/bsuir/networkdev/grant-flow/Client/target/classes/fxml/dashboard_screen.fxml
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2727) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2697) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2536) ~[javafx-fxml-22-win.jar:?]
+	at com.kasperovich.ui.LoginScreenController.navigateToDashboard(LoginScreenController.java:202) ~[classes/:?]
+	at com.kasperovich.ui.LoginScreenController.lambda$handleLoginAction$1(LoginScreenController.java:100) ~[classes/:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) [?:?]
+Caused by: java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:118) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72) ~[javafx-base-22-win.jar:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at javafx.base/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270) ~[javafx-base-22-win.jar:?]
+	at javafx.fxml/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2693) ~[javafx-fxml-22-win.jar:?]
+	... 11 more
+Caused by: java.util.MissingResourceException: Can't find resource for bundle java.util.PropertyResourceBundle, key dashboard.logout
+	at java.base/java.util.ResourceBundle.getObject(ResourceBundle.java:566) ~[?:?]
+	at java.base/java.util.ResourceBundle.getString(ResourceBundle.java:522) ~[?:?]
+	at com.kasperovich.ui.DashboardScreenController.updateTexts(DashboardScreenController.java:67) ~[classes/:?]
+	at com.kasperovich.ui.DashboardScreenController.initialize(DashboardScreenController.java:63) ~[classes/:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72) ~[javafx-base-22-win.jar:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at javafx.base/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270) ~[javafx-base-22-win.jar:?]
+	at javafx.fxml/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2693) ~[javafx-fxml-22-win.jar:?]
+	... 11 more
+2025-04-16 19:49:38.600 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 19:49:38.614 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 19:49:38.620 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 19:49:38.620 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 19:49:38.631 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 19:49:38.631 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 19:49:38.636 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Socket connected, initializing object streams
+2025-04-16 19:49:38.640 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Object streams initialized successfully
+2025-04-16 19:49:38.640 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Successfully connected to server
+2025-04-16 19:49:38.640 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Performing server health check
+2025-04-16 19:49:38.641 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Performing server health check
+2025-04-16 19:49:38.645 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Health check successful: SUCCESS
+2025-04-16 19:49:38.645 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Server health check passed
+2025-04-16 19:49:38.645 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loading main screen FXML
+2025-04-16 19:49:39.049 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Main screen controller initialized with client connection
+2025-04-16 19:49:39.203 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Client application UI initialized and displayed
+2025-04-16 19:49:40.610 [JavaFX Application Thread] INFO  com.kasperovich.ui.MainScreenController - Navigated to login screen
+2025-04-16 19:49:44.598 [Thread-3] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to login user: test1
+2025-04-16 19:49:45.613 [Thread-3] INFO  com.kasperovich.clientconnection.ClientConnection - Login successful for user: test1
+2025-04-16 19:49:45.613 [JavaFX Application Thread] INFO  com.kasperovich.ui.LoginScreenController - User logged in successfully: test1
+2025-04-16 19:49:50.315 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Getting scholarship programs from server
+2025-04-16 19:49:50.780 [JavaFX Application Thread] INFO  com.kasperovich.clientconnection.ClientConnection - Received 5 scholarship programs from server
+2025-04-16 19:49:50.780 [JavaFX Application Thread] INFO  com.kasperovich.ui.ScholarshipProgramsController - Loaded 5 scholarship programs (filtered from 5 total)
+2025-04-16 19:49:50.913 [JavaFX Application Thread] DEBUG com.kasperovich.ui.DashboardScreenController - Navigated to scholarship programs screen from View Scholarships button
+2025-04-16 19:49:54.042 [JavaFX Application Thread] DEBUG com.kasperovich.ui.ScholarshipProgramsController - Navigated back to dashboard
+2025-04-16 19:49:56.360 [JavaFX Application Thread] DEBUG com.kasperovich.ui.DashboardScreenController - Check status action requested but functionality is disabled
+2025-04-16 19:49:57.869 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Getting scholarship programs from server
+2025-04-16 19:49:58.304 [JavaFX Application Thread] INFO  com.kasperovich.clientconnection.ClientConnection - Received 5 scholarship programs from server
+2025-04-16 19:49:58.304 [JavaFX Application Thread] INFO  com.kasperovich.ui.ScholarshipProgramsController - Loaded 5 scholarship programs (filtered from 5 total)
+2025-04-16 19:49:58.367 [JavaFX Application Thread] DEBUG com.kasperovich.ui.DashboardScreenController - Navigated to scholarship programs screen from Apply button
+2025-04-16 19:49:59.800 [JavaFX Application Thread] DEBUG com.kasperovich.ui.ScholarshipProgramsController - Navigated back to dashboard
+2025-04-16 19:50:01.413 [JavaFX Application Thread] DEBUG com.kasperovich.ui.DashboardScreenController - Update profile action requested but functionality is not implemented
+2025-04-16 19:50:02.650 [JavaFX Application Thread] DEBUG com.kasperovich.ui.DashboardScreenController - View applications action requested but functionality is disabled
+2025-04-16 19:50:03.201 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Getting scholarship programs from server
+2025-04-16 19:50:03.623 [JavaFX Application Thread] INFO  com.kasperovich.clientconnection.ClientConnection - Received 5 scholarship programs from server
+2025-04-16 19:50:03.623 [JavaFX Application Thread] INFO  com.kasperovich.ui.ScholarshipProgramsController - Loaded 5 scholarship programs (filtered from 5 total)
+2025-04-16 19:50:03.670 [JavaFX Application Thread] DEBUG com.kasperovich.ui.DashboardScreenController - Navigated to scholarship programs screen from View Scholarships button
+2025-04-16 19:50:04.525 [JavaFX Application Thread] DEBUG com.kasperovich.ui.ScholarshipProgramsController - Navigated back to dashboard
+2025-04-16 19:50:06.389 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to logout user
+2025-04-16 19:50:06.391 [JavaFX Application Thread] INFO  com.kasperovich.clientconnection.ClientConnection - Logout successful
+2025-04-16 19:50:06.399 [JavaFX Application Thread] INFO  com.kasperovich.ui.DashboardScreenController - User logged out and navigated to main screen
+2025-04-16 19:50:07.718 [JavaFX Application Thread] INFO  com.kasperovich.ui.MainScreenController - Navigated to registration screen
+2025-04-16 19:50:09.397 [JavaFX Application Thread] ERROR com.kasperovich.ui.RegisterScreenController - Error loading login screen
+javafx.fxml.LoadException: No resources specified.
+/D:/bsuir/networkdev/grant-flow/Client/target/classes/fxml/login_screen.fxml:16
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2723) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.resolvePrefixedValue(FXMLLoader.java:434) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processValue(FXMLLoader.java:375) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processPropertyAttribute(FXMLLoader.java:337) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processInstancePropertyAttributes(FXMLLoader.java:248) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processEndElement(FXMLLoader.java:780) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.processEndElement(FXMLLoader.java:2974) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2659) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2536) ~[javafx-fxml-22-win.jar:?]
+	at com.kasperovich.ui.RegisterScreenController.handleLoginLinkAction(RegisterScreenController.java:184) ~[classes/:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72) ~[javafx-base-22-win.jar:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at javafx.base/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270) ~[javafx-base-22-win.jar:?]
+	at javafx.fxml/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1858) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1731) ~[javafx-fxml-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49) ~[javafx-base-22-win.jar:?]
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198) ~[javafx-base-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Node.fireEvent(Node.java:8917) ~[javafx-graphics-22-win.jar:?]
+	at javafx.controls/javafx.scene.control.Hyperlink.fire(Hyperlink.java:156) ~[javafx-controls-22-win.jar:?]
+	at javafx.controls/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207) ~[javafx-controls-22-win.jar:?]
+	at javafx.controls/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274) ~[javafx-controls-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54) ~[javafx-base-22-win.jar:?]
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198) ~[javafx-base-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene$MouseHandler.process(Scene.java:3985) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene.processMouseEvent(Scene.java:1891) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2709) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:430) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.View.handleMouseEvent(View.java:551) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.View.notifyMouse(View.java:937) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) [?:?]
+2025-04-16 19:52:29.174 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 19:52:29.188 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 19:52:29.195 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 19:52:29.196 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 19:52:29.206 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 19:52:29.206 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 19:52:29.211 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Socket connected, initializing object streams
+2025-04-16 19:52:29.215 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Object streams initialized successfully
+2025-04-16 19:52:29.215 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Successfully connected to server
+2025-04-16 19:52:29.215 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Performing server health check
+2025-04-16 19:52:29.215 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Performing server health check
+2025-04-16 19:52:29.220 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Health check successful: SUCCESS
+2025-04-16 19:52:29.220 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Server health check passed
+2025-04-16 19:52:29.220 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loading main screen FXML
+2025-04-16 19:52:29.561 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Main screen controller initialized with client connection
+2025-04-16 19:52:29.716 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Client application UI initialized and displayed
+2025-04-16 19:52:31.288 [JavaFX Application Thread] INFO  com.kasperovich.ui.MainScreenController - Navigated to registration screen
+2025-04-16 19:52:39.279 [Thread-3] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to login user: test1
+2025-04-16 19:52:40.286 [Thread-3] INFO  com.kasperovich.clientconnection.ClientConnection - Login successful for user: test1
+2025-04-16 19:52:40.287 [JavaFX Application Thread] INFO  com.kasperovich.ui.LoginScreenController - User logged in successfully: test1
+2025-04-16 19:52:54.026 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Getting scholarship programs from server
+2025-04-16 19:52:54.459 [JavaFX Application Thread] INFO  com.kasperovich.clientconnection.ClientConnection - Received 5 scholarship programs from server
+2025-04-16 19:52:54.459 [JavaFX Application Thread] INFO  com.kasperovich.ui.ScholarshipProgramsController - Loaded 5 scholarship programs (filtered from 5 total)
+2025-04-16 19:52:54.576 [JavaFX Application Thread] DEBUG com.kasperovich.ui.DashboardScreenController - Navigated to scholarship programs screen from Apply button
+2025-04-16 19:52:57.328 [JavaFX Application Thread] DEBUG com.kasperovich.ui.ScholarshipProgramsController - Navigated back to dashboard
+2025-04-16 19:55:47.923 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 19:55:47.936 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 19:55:47.943 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 19:55:47.944 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 19:55:47.954 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 19:55:47.955 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 19:55:47.959 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Socket connected, initializing object streams
+2025-04-16 19:55:47.963 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Object streams initialized successfully
+2025-04-16 19:55:47.963 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Successfully connected to server
+2025-04-16 19:55:47.963 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Performing server health check
+2025-04-16 19:55:47.963 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Performing server health check
+2025-04-16 19:55:47.968 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Health check successful: SUCCESS
+2025-04-16 19:55:47.968 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Server health check passed
+2025-04-16 19:55:47.968 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loading main screen FXML
+2025-04-16 19:55:48.336 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Main screen controller initialized with client connection
+2025-04-16 19:55:48.497 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Client application UI initialized and displayed
+2025-04-16 19:55:50.419 [JavaFX Application Thread] INFO  com.kasperovich.ui.MainScreenController - Navigated to login screen
+2025-04-16 19:55:56.371 [Thread-3] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to login user: test1
+2025-04-16 19:55:57.381 [Thread-3] INFO  com.kasperovich.clientconnection.ClientConnection - Login successful for user: test1
+2025-04-16 19:55:57.382 [JavaFX Application Thread] INFO  com.kasperovich.ui.LoginScreenController - User logged in successfully: test1
+2025-04-16 19:56:03.294 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Getting scholarship programs from server
+2025-04-16 19:56:03.721 [JavaFX Application Thread] INFO  com.kasperovich.clientconnection.ClientConnection - Received 5 scholarship programs from server
+2025-04-16 19:56:03.722 [JavaFX Application Thread] INFO  com.kasperovich.ui.ScholarshipProgramsController - Loaded 5 scholarship programs (filtered from 5 total)
+2025-04-16 19:56:03.851 [JavaFX Application Thread] DEBUG com.kasperovich.ui.DashboardScreenController - Navigated to scholarship programs screen from View Scholarships button
+2025-04-16 19:59:23.744 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 19:59:23.756 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 19:59:23.764 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 19:59:23.764 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 19:59:23.775 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 19:59:23.775 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 19:59:23.780 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Socket connected, initializing object streams
+2025-04-16 19:59:23.783 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Object streams initialized successfully
+2025-04-16 19:59:23.783 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Successfully connected to server
+2025-04-16 19:59:23.783 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Performing server health check
+2025-04-16 19:59:23.783 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Performing server health check
+2025-04-16 19:59:23.792 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Health check successful: SUCCESS
+2025-04-16 19:59:23.793 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Server health check passed
+2025-04-16 19:59:23.793 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loading main screen FXML
+2025-04-16 19:59:24.157 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Main screen controller initialized with client connection
+2025-04-16 19:59:24.318 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Client application UI initialized and displayed
+2025-04-16 19:59:25.406 [JavaFX Application Thread] INFO  com.kasperovich.ui.MainScreenController - Navigated to login screen
+2025-04-16 19:59:31.894 [Thread-3] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to login user: test1
+2025-04-16 19:59:33.301 [Thread-3] INFO  com.kasperovich.clientconnection.ClientConnection - Login successful for user: test1
+2025-04-16 19:59:33.302 [JavaFX Application Thread] INFO  com.kasperovich.ui.LoginScreenController - User logged in successfully: test1
+2025-04-16 19:59:37.827 [JavaFX Application Thread] ERROR com.kasperovich.ui.DashboardScreenController - Error navigating to scholarship programs screen from Apply button
+javafx.fxml.LoadException: No resources specified.
+/D:/bsuir/networkdev/grant-flow/Client/target/classes/fxml/scholarship_programs_screen.fxml:19
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2723) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.resolvePrefixedValue(FXMLLoader.java:434) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processValue(FXMLLoader.java:375) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processPropertyAttribute(FXMLLoader.java:337) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processInstancePropertyAttributes(FXMLLoader.java:248) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processEndElement(FXMLLoader.java:780) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.processEndElement(FXMLLoader.java:2974) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2659) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2536) ~[javafx-fxml-22-win.jar:?]
+	at com.kasperovich.ui.DashboardScreenController.navigateToScholarshipProgramsScreen(DashboardScreenController.java:201) ~[classes/:?]
+	at com.kasperovich.ui.DashboardScreenController.handleApplyAction(DashboardScreenController.java:253) ~[classes/:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72) ~[javafx-base-22-win.jar:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at javafx.base/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270) ~[javafx-base-22-win.jar:?]
+	at javafx.fxml/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1858) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1731) ~[javafx-fxml-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49) ~[javafx-base-22-win.jar:?]
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198) ~[javafx-base-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Node.fireEvent(Node.java:8917) ~[javafx-graphics-22-win.jar:?]
+	at javafx.controls/javafx.scene.control.Button.fire(Button.java:203) ~[javafx-controls-22-win.jar:?]
+	at javafx.controls/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207) ~[javafx-controls-22-win.jar:?]
+	at javafx.controls/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274) ~[javafx-controls-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54) ~[javafx-base-22-win.jar:?]
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198) ~[javafx-base-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene$MouseHandler.process(Scene.java:3985) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene.processMouseEvent(Scene.java:1891) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2709) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:430) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.View.handleMouseEvent(View.java:551) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.View.notifyMouse(View.java:937) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) [?:?]
+2025-04-16 19:59:40.965 [JavaFX Application Thread] ERROR com.kasperovich.ui.DashboardScreenController - Error navigating to scholarship programs screen from View Scholarships button
+javafx.fxml.LoadException: No resources specified.
+/D:/bsuir/networkdev/grant-flow/Client/target/classes/fxml/scholarship_programs_screen.fxml:19
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2723) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.resolvePrefixedValue(FXMLLoader.java:434) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processValue(FXMLLoader.java:375) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processPropertyAttribute(FXMLLoader.java:337) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processInstancePropertyAttributes(FXMLLoader.java:248) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processEndElement(FXMLLoader.java:780) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.processEndElement(FXMLLoader.java:2974) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2659) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2536) ~[javafx-fxml-22-win.jar:?]
+	at com.kasperovich.ui.DashboardScreenController.navigateToScholarshipProgramsScreen(DashboardScreenController.java:201) ~[classes/:?]
+	at com.kasperovich.ui.DashboardScreenController.handleViewScholarshipsAction(DashboardScreenController.java:229) ~[classes/:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72) ~[javafx-base-22-win.jar:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at javafx.base/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270) ~[javafx-base-22-win.jar:?]
+	at javafx.fxml/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1858) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1731) ~[javafx-fxml-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49) ~[javafx-base-22-win.jar:?]
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198) ~[javafx-base-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Node.fireEvent(Node.java:8917) ~[javafx-graphics-22-win.jar:?]
+	at javafx.controls/javafx.scene.control.Button.fire(Button.java:203) ~[javafx-controls-22-win.jar:?]
+	at javafx.controls/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207) ~[javafx-controls-22-win.jar:?]
+	at javafx.controls/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274) ~[javafx-controls-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74) ~[javafx-base-22-win.jar:?]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54) ~[javafx-base-22-win.jar:?]
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198) ~[javafx-base-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene$MouseHandler.process(Scene.java:3985) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene.processMouseEvent(Scene.java:1891) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2709) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:430) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.View.handleMouseEvent(View.java:551) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.View.notifyMouse(View.java:937) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) [?:?]
+2025-04-16 20:02:20.325 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 20:02:20.339 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 20:02:20.347 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 20:02:20.347 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 20:02:20.358 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 20:02:20.358 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 20:02:20.363 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Socket connected, initializing object streams
+2025-04-16 20:02:20.366 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Object streams initialized successfully
+2025-04-16 20:02:20.366 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Successfully connected to server
+2025-04-16 20:02:20.367 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Performing server health check
+2025-04-16 20:02:20.367 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Performing server health check
+2025-04-16 20:02:20.371 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Health check successful: SUCCESS
+2025-04-16 20:02:20.373 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Server health check passed
+2025-04-16 20:02:20.373 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loading main screen FXML
+2025-04-16 20:02:20.723 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Main screen controller initialized with client connection
+2025-04-16 20:02:20.883 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Client application UI initialized and displayed
+2025-04-16 20:02:23.322 [JavaFX Application Thread] INFO  com.kasperovich.ui.MainScreenController - Navigated to login screen
+2025-04-16 20:02:29.865 [Thread-3] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to login user: test1
+2025-04-16 20:02:30.885 [Thread-3] INFO  com.kasperovich.clientconnection.ClientConnection - Login successful for user: test1
+2025-04-16 20:02:30.885 [JavaFX Application Thread] INFO  com.kasperovich.ui.LoginScreenController - User logged in successfully: test1
+2025-04-16 20:02:31.952 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Getting scholarship programs from server
+2025-04-16 20:02:32.419 [JavaFX Application Thread] INFO  com.kasperovich.clientconnection.ClientConnection - Received 5 scholarship programs from server
+2025-04-16 20:02:32.420 [JavaFX Application Thread] INFO  com.kasperovich.ui.ScholarshipProgramsController - Loaded 5 scholarship programs (filtered from 5 total)
+2025-04-16 20:02:32.556 [JavaFX Application Thread] DEBUG com.kasperovich.ui.DashboardScreenController - Navigated to scholarship programs screen from Apply button
+2025-04-16 20:02:35.019 [JavaFX Application Thread] DEBUG com.kasperovich.ui.ScholarshipProgramsController - Navigated back to dashboard
+2025-04-16 20:02:36.226 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to logout user
+2025-04-16 20:02:36.228 [JavaFX Application Thread] INFO  com.kasperovich.clientconnection.ClientConnection - Logout successful
+2025-04-16 20:02:36.238 [JavaFX Application Thread] INFO  com.kasperovich.ui.DashboardScreenController - User logged out and navigated to main screen
+2025-04-16 20:02:37.605 [JavaFX Application Thread] INFO  com.kasperovich.ui.MainScreenController - Navigated to registration screen
+2025-04-16 20:03:53.044 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 20:03:53.058 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 20:03:53.065 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 20:03:53.065 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 20:03:53.080 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 20:03:53.080 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 20:03:53.085 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Socket connected, initializing object streams
+2025-04-16 20:03:53.089 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Object streams initialized successfully
+2025-04-16 20:03:53.089 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Successfully connected to server
+2025-04-16 20:03:53.089 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Performing server health check
+2025-04-16 20:03:53.089 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Performing server health check
+2025-04-16 20:03:53.094 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Health check successful: SUCCESS
+2025-04-16 20:03:53.094 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Server health check passed
+2025-04-16 20:03:53.094 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loading main screen FXML
+2025-04-16 20:03:53.489 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Main screen controller initialized with client connection
+2025-04-16 20:03:53.633 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Client application UI initialized and displayed
+2025-04-16 20:04:04.828 [JavaFX Application Thread] INFO  com.kasperovich.ui.MainScreenController - Navigated to login screen
+2025-04-16 20:04:12.681 [Thread-3] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to login user: test1
+2025-04-16 20:04:13.675 [Thread-3] INFO  com.kasperovich.clientconnection.ClientConnection - Login successful for user: test1
+2025-04-16 20:04:13.676 [JavaFX Application Thread] INFO  com.kasperovich.ui.LoginScreenController - User logged in successfully: test1
+2025-04-16 20:04:14.737 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Getting scholarship programs from server
+2025-04-16 20:04:15.178 [JavaFX Application Thread] INFO  com.kasperovich.clientconnection.ClientConnection - Received 5 scholarship programs from server
+2025-04-16 20:04:15.178 [JavaFX Application Thread] INFO  com.kasperovich.ui.ScholarshipProgramsController - Loaded 5 scholarship programs (filtered from 5 total)
+2025-04-16 20:04:15.318 [JavaFX Application Thread] DEBUG com.kasperovich.ui.DashboardScreenController - Navigated to scholarship programs screen from Apply button
+2025-04-16 20:04:16.142 [JavaFX Application Thread] DEBUG com.kasperovich.ui.ScholarshipProgramsController - Navigated back to dashboard
+2025-04-16 20:04:16.457 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to logout user
+2025-04-16 20:04:16.458 [JavaFX Application Thread] INFO  com.kasperovich.clientconnection.ClientConnection - Logout successful
+2025-04-16 20:04:16.468 [JavaFX Application Thread] INFO  com.kasperovich.ui.DashboardScreenController - User logged out and navigated to main screen
+2025-04-16 20:04:17.420 [JavaFX Application Thread] INFO  com.kasperovich.ui.MainScreenController - Navigated to login screen
+2025-04-16 20:04:39.132 [Thread-4] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to register user: test2
+2025-04-16 20:04:40.610 [Thread-4] INFO  com.kasperovich.clientconnection.ClientConnection - Registration successful for user: test2
+2025-04-16 20:04:40.612 [JavaFX Application Thread] INFO  com.kasperovich.ui.RegisterScreenController - User registered successfully: test2
+2025-04-16 20:04:40.617 [JavaFX Application Thread] ERROR com.kasperovich.ui.RegisterScreenController - Error loading dashboard screen
+javafx.fxml.LoadException: No resources specified.
+/D:/bsuir/networkdev/grant-flow/Client/target/classes/fxml/dashboard_screen.fxml:17
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2723) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.resolvePrefixedValue(FXMLLoader.java:434) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processValue(FXMLLoader.java:375) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processPropertyAttribute(FXMLLoader.java:337) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processInstancePropertyAttributes(FXMLLoader.java:248) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processEndElement(FXMLLoader.java:780) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.processEndElement(FXMLLoader.java:2974) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2659) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568) ~[javafx-fxml-22-win.jar:?]
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2536) ~[javafx-fxml-22-win.jar:?]
+	at com.kasperovich.ui.RegisterScreenController.navigateToDashboard(RegisterScreenController.java:215) ~[classes/:?]
+	at com.kasperovich.ui.RegisterScreenController.lambda$handleRegisterAction$0(RegisterScreenController.java:134) ~[classes/:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx-graphics-22-win.jar:?]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184) ~[javafx-graphics-22-win.jar:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) [?:?]
+2025-04-16 20:05:58.678 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 20:05:58.693 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 20:05:58.700 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 20:05:58.700 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 20:05:58.712 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 20:05:58.712 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 20:05:58.717 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Socket connected, initializing object streams
+2025-04-16 20:05:58.720 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Object streams initialized successfully
+2025-04-16 20:05:58.720 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Successfully connected to server
+2025-04-16 20:05:58.720 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Performing server health check
+2025-04-16 20:05:58.720 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Performing server health check
+2025-04-16 20:05:58.725 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Health check successful: SUCCESS
+2025-04-16 20:05:58.725 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Server health check passed
+2025-04-16 20:05:58.725 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loading main screen FXML
+2025-04-16 20:05:59.123 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Main screen controller initialized with client connection
+2025-04-16 20:05:59.275 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Client application UI initialized and displayed
+2025-04-16 20:06:01.148 [JavaFX Application Thread] INFO  com.kasperovich.ui.MainScreenController - Navigated to registration screen
+2025-04-16 20:06:16.005 [Thread-3] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to register user: test2
+2025-04-16 20:06:16.436 [Thread-3] WARN  com.kasperovich.clientconnection.ClientConnection - Registration failed for user: test2, response: REGISTRATION_FAILED_USERNAME_EXISTS
+2025-04-16 20:06:16.437 [JavaFX Application Thread] WARN  com.kasperovich.ui.RegisterScreenController - Registration failed for user: test2
+2025-04-16 20:06:29.070 [Thread-4] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to register user: test3
+2025-04-16 20:06:30.478 [Thread-4] INFO  com.kasperovich.clientconnection.ClientConnection - Registration successful for user: test3
+2025-04-16 20:06:30.478 [JavaFX Application Thread] INFO  com.kasperovich.ui.RegisterScreenController - User registered successfully: test3
+2025-04-16 20:06:37.793 [JavaFX Application Thread] DEBUG com.kasperovich.ui.DashboardScreenController - Check status action requested but functionality is disabled
+2025-04-16 20:06:38.188 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Getting scholarship programs from server
+2025-04-16 20:06:38.615 [JavaFX Application Thread] INFO  com.kasperovich.clientconnection.ClientConnection - Received 5 scholarship programs from server
+2025-04-16 20:06:38.615 [JavaFX Application Thread] INFO  com.kasperovich.ui.ScholarshipProgramsController - Loaded 5 scholarship programs (filtered from 5 total)
+2025-04-16 20:06:38.728 [JavaFX Application Thread] DEBUG com.kasperovich.ui.DashboardScreenController - Navigated to scholarship programs screen from Apply button
+2025-04-16 20:11:09.433 [main] INFO  com.kasperovich.RunClient - Launching client application
+2025-04-16 20:11:09.448 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Starting scholarship calculation client application...
+2025-04-16 20:11:09.455 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loaded properties from: D:/bsuir/networkdev/grant-flow/Client/src/main/resources/config.properties
+2025-04-16 20:11:09.455 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Connecting to server at 127.0.0.1:15000
+2025-04-16 20:11:09.465 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - ClientConnection initialized with server 127.0.0.1:15000
+2025-04-16 20:11:09.465 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Attempting to connect to server at 127.0.0.1:15000
+2025-04-16 20:11:09.470 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Socket connected, initializing object streams
+2025-04-16 20:11:09.473 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Object streams initialized successfully
+2025-04-16 20:11:09.473 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Successfully connected to server
+2025-04-16 20:11:09.473 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Performing server health check
+2025-04-16 20:11:09.473 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Performing server health check
+2025-04-16 20:11:09.478 [JavaFX Application Thread] DEBUG com.kasperovich.clientconnection.ClientConnection - Health check successful: SUCCESS
+2025-04-16 20:11:09.478 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Server health check passed
+2025-04-16 20:11:09.479 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Loading main screen FXML
+2025-04-16 20:11:09.878 [JavaFX Application Thread] DEBUG com.kasperovich.RunClient - Main screen controller initialized with client connection
+2025-04-16 20:11:10.043 [JavaFX Application Thread] INFO  com.kasperovich.RunClient - Client application UI initialized and displayed
+2025-04-16 20:11:32.448 [Thread-3] ERROR com.kasperovich.ui.LoginScreenController - Error during login
+java.lang.NullPointerException: Cannot invoke "com.kasperovich.clientconnection.ClientConnection.login(String, String)" because "this.clientConnection" is null
+	at com.kasperovich.ui.LoginScreenController.lambda$handleLoginAction$3(LoginScreenController.java:95) ~[classes/:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) [?:?]
+2025-04-16 20:11:35.611 [Thread-4] ERROR com.kasperovich.ui.LoginScreenController - Error during login
+java.lang.NullPointerException: Cannot invoke "com.kasperovich.clientconnection.ClientConnection.login(String, String)" because "this.clientConnection" is null
+	at com.kasperovich.ui.LoginScreenController.lambda$handleLoginAction$3(LoginScreenController.java:95) ~[classes/:?]
+	at java.base/java.lang.Thread.run(Thread.java:1570) [?:?]

@@ -5,12 +5,13 @@ import com.kasperovich.config.AlertManager;
 import com.kasperovich.dto.auth.UserDTO;
 import com.kasperovich.dto.scholarship.AcademicPeriodDTO;
 import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
+import com.kasperovich.i18n.LangManager;
+import com.kasperovich.operations.ChangeScene;
 import com.kasperovich.utils.LoggerUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -183,25 +184,7 @@ public class ScholarshipApplicationController {
      */
     @FXML
     public void handleBackAction(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/scholarship_programs_screen.fxml"));
-            Parent root = loader.load();
-            
-            ScholarshipProgramsController controller = loader.getController();
-            controller.setClientConnection(clientConnection);
-            controller.setUser(user);
-            controller.loadScholarshipPrograms();
-            
-            Stage stage = (Stage) backButton.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            
-            logger.debug("Navigated back to scholarship programs screen");
-        } catch (IOException e) {
-            logger.error("Error navigating back to scholarship programs screen", e);
-            AlertManager.showErrorAlert("Navigation Error", "Could not navigate back to programs screen: " + e.getMessage());
-        }
+        ChangeScene.changeScene(event, "/fxml/scholarship_programs_screen.fxml", LangManager.getBundle().getString("scholarship_programs.title"), clientConnection, user);
     }
     
     /**
@@ -242,24 +225,6 @@ public class ScholarshipApplicationController {
      * Navigates to the dashboard screen.
      */
     private void navigateToDashboard() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard_screen.fxml"));
-            Parent root = loader.load();
-            
-            DashboardScreenController controller = loader.getController();
-            controller.setClientConnection(clientConnection);
-            controller.setUser(user);
-            controller.initializeUserData();
-            
-            Stage stage = (Stage) submitButton.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            
-            logger.debug("Navigated to dashboard");
-        } catch (IOException e) {
-            logger.error("Error navigating to dashboard", e);
-            AlertManager.showErrorAlert("Navigation Error", "Could not navigate to dashboard: " + e.getMessage());
-        }
+        ChangeScene.changeScene(new ActionEvent(submitButton, null), "/fxml/dashboard_screen.fxml", LangManager.getBundle().getString("dashboard.title"), clientConnection, user);
     }
 }

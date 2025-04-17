@@ -3,6 +3,8 @@ package com.kasperovich.ui;
 import com.kasperovich.clientconnection.ClientConnection;
 import com.kasperovich.config.AlertManager;
 import com.kasperovich.dto.auth.UserDTO;
+import com.kasperovich.i18n.LangManager;
+import com.kasperovich.operations.ChangeScene;
 import com.kasperovich.utils.LoggerUtil;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -20,6 +22,7 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * Controller for the registration screen.
@@ -55,13 +58,16 @@ public class RegisterScreenController {
     private Button cancelButton;
     
     @FXML
+    private Button languageButton;
+    
+    @FXML
     private Hyperlink loginLink;
     
     @FXML
     private Label statusLabel;
     
     private ClientConnection clientConnection;
-    
+
     /**
      * Initializes the controller.
      */
@@ -69,6 +75,7 @@ public class RegisterScreenController {
         // Initialize role combo box
         roleComboBox.getItems().addAll("STUDENT", "ADMIN");
         roleComboBox.setValue("STUDENT");
+        updateTexts();
     }
     
     /**
@@ -99,23 +106,23 @@ public class RegisterScreenController {
         // Validate input
         if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || 
                 email.isEmpty() || firstName.isEmpty() || lastName.isEmpty()) {
-            showStatus("Please fill in all fields");
+            showStatus(LangManager.getBundle().getString("register.error.empty_fields"));
             return;
         }
         
         if (!password.equals(confirmPassword)) {
-            showStatus("Passwords do not match");
+            showStatus(LangManager.getBundle().getString("register.error.passwords_do_not_match"));
             return;
         }
         
         if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-            showStatus("Please enter a valid email address");
+            showStatus(LangManager.getBundle().getString("register.error.invalid_email"));
             return;
         }
         
         // Disable register button to prevent multiple clicks
         registerButton.setDisable(true);
-        showStatus("Registering...");
+        showStatus(LangManager.getBundle().getString("register.status.registering"));
         
         // Run registration in background thread to avoid freezing UI
         new Thread(() -> {
@@ -128,16 +135,16 @@ public class RegisterScreenController {
                         navigateToDashboard(user);
                     } else {
                         logger.warn("Registration failed for user: {}", username);
-                        showStatus("Username or email already exists");
+                        showStatus(LangManager.getBundle().getString("register.error.username_or_email_exists"));
                         registerButton.setDisable(false);
                     }
                 });
             } catch (Exception e) {
                 logger.error("Error during registration", e);
                 Platform.runLater(() -> {
-                    showStatus("Error connecting to server");
+                    showStatus(LangManager.getBundle().getString("register.error.error_connecting_to_server"));
                     registerButton.setDisable(false);
-                    AlertManager.showErrorAlert("Registration Error", "Could not connect to server: " + e.getMessage());
+                    AlertManager.showErrorAlert(LangManager.getBundle().getString("register.error.registration_error"), LangManager.getBundle().getString("register.error.error_connecting_to_server") + ": " + e.getMessage());
                 });
             }
         }).start();
@@ -150,31 +157,7 @@ public class RegisterScreenController {
      */
     @FXML
     public void handleCancelAction(ActionEvent event) {
-        try {
-            // Load the main welcome screen
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main_screen.fxml"));
-            Parent root = loader.load();
-            
-            // Get the controller and set the client connection
-            MainScreenController mainController = loader.getController();
-            mainController.setClientConnection(clientConnection);
-            
-            // Create a new scene
-            Scene scene = new Scene(root);
-            
-            // Get the current stage
-            Stage stage = (Stage) cancelButton.getScene().getWindow();
-            
-            // Set the new scene on the current stage
-            stage.setScene(scene);
-            stage.setTitle("Grant Flow");
-            stage.show();
-            
-            logger.info("Navigated back to main welcome screen");
-        } catch (IOException e) {
-            logger.error("Error loading main welcome screen", e);
-            AlertManager.showErrorAlert("Navigation Error", "Could not load main screen: " + e.getMessage());
-        }
+        ChangeScene.changeScene(event, "/fxml/main_screen.fxml", LangManager.getBundle().getString("main.title"), clientConnection, null);
     }
     
     /**
@@ -184,29 +167,7 @@ public class RegisterScreenController {
      */
     @FXML
     public void handleLoginLinkAction(ActionEvent event) {
-        try {
-            // Load the login screen
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login_screen.fxml"));
-            Parent root = loader.load();
-            
-            // Get the controller and set the client connection
-            LoginScreenController loginController = loader.getController();
-            loginController.setClientConnection(clientConnection);
-            
-            // Create a new scene
-            Scene scene = new Scene(root);
-            
-            // Get the current stage
-            Stage stage = (Stage) loginLink.getScene().getWindow();
-            
-            // Set the new scene on the current stage
-            stage.setScene(scene);
-            stage.setTitle("Grant Flow - Login");
-            stage.show();
-        } catch (IOException e) {
-            logger.error("Error loading login screen", e);
-            AlertManager.showErrorAlert("Navigation Error", "Could not load login screen: " + e.getMessage());
-        }
+        ChangeScene.changeScene(event, "/fxml/login_screen.fxml", LangManager.getBundle().getString("login.title"), clientConnection, null);
     }
     
     /**
@@ -225,30 +186,59 @@ public class RegisterScreenController {
      * @param user The authenticated user
      */
     private void navigateToDashboard(UserDTO user) {
-        try {
-            // Load the dashboard screen
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard_screen.fxml"));
-            Parent root = loader.load();
-            
-            // Get the controller and set the client connection and user
-            DashboardScreenController dashboardController = loader.getController();
-            dashboardController.setClientConnection(clientConnection);
-            dashboardController.setUser(user);
-            dashboardController.initializeUserData();
-            
-            // Create a new scene
-            Scene scene = new Scene(root);
-            
-            // Get the current stage
-            Stage stage = (Stage) registerButton.getScene().getWindow();
-            
-            // Set the new scene on the current stage
-            stage.setScene(scene);
-            stage.setTitle("Grant Flow - Dashboard");
-            stage.show();
-        } catch (IOException e) {
-            logger.error("Error loading dashboard screen", e);
-            AlertManager.showErrorAlert("Navigation Error", "Could not load dashboard screen: " + e.getMessage());
+        ChangeScene.changeScene(new ActionEvent(registerButton, null), "/fxml/dashboard_screen.fxml", LangManager.getBundle().getString("dashboard.title"), clientConnection, user);
+    }
+
+    private void updateTexts() {
+        registerButton.setText(LangManager.getBundle().getString("register.button"));
+        cancelButton.setText(LangManager.getBundle().getString("register.cancel"));
+        loginLink.setText(LangManager.getBundle().getString("register.login"));
+        usernameField.setPromptText(LangManager.getBundle().getString("register.username"));
+        passwordField.setPromptText(LangManager.getBundle().getString("register.password"));
+        confirmPasswordField.setPromptText(LangManager.getBundle().getString("register.confirmpassword"));
+        emailField.setPromptText(LangManager.getBundle().getString("register.email"));
+        firstNameField.setPromptText(LangManager.getBundle().getString("register.firstname"));
+        lastNameField.setPromptText(LangManager.getBundle().getString("register.lastname"));
+        roleComboBox.setPromptText(LangManager.getBundle().getString("register.role"));
+        // Add more components as needed
+    }
+
+    @FXML
+    private void handleLanguageSwitch() {
+        if (LangManager.getLocale().equals(Locale.ENGLISH)) {
+            LangManager.setLocale(new Locale("ru"));
+        } else {
+            LangManager.setLocale(Locale.ENGLISH);
         }
+        // Reload screen
+        try {
+            Stage stage = (Stage) languageButton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register_screen.fxml"), LangManager.getBundle());
+            Parent root = loader.load();
+            RegisterScreenController controller = loader.getController();
+            controller.setClientConnection(clientConnection);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Shows the registration screen.
+     *
+     * @param stage The stage to show the screen on
+     * @param clientConnection The client connection to use
+     * @throws IOException If an error occurs while loading the screen
+     */
+    public static void show(Stage stage, ClientConnection clientConnection) throws IOException {
+        FXMLLoader loader = new FXMLLoader(RegisterScreenController.class.getResource("/fxml/register_screen.fxml"));
+        Parent root = loader.load();
+        RegisterScreenController controller = loader.getController();
+        controller.setClientConnection(clientConnection);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle(LangManager.getBundle().getString("register.title"));
+        stage.show();
     }
 }

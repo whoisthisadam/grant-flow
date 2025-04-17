@@ -153,6 +153,17 @@ Database migrations are handled automatically when the server starts.
 4. Follow the established package structure
 5. Document public APIs
 
+## UI Navigation Rule
+
+- **Always use the `ChangeScene.changeScene` utility for switching between JavaFX screens.**
+    - This method loads the specified FXML, injects the resource bundle, sets up the controller with the current `ClientConnection` and, if needed, the `UserDTO`.
+    - Avoid duplicating scene-switching logic in controllers. Instead, replace all manual FXMLLoader and scene setup code with a call to `ChangeScene.changeScene`.
+    - Example usage:
+      ```java
+      ChangeScene.changeScene(event, "/fxml/dashboard_screen.fxml", LangManager.getBundle().getString("dashboard.title"), clientConnection, user);
+      ```
+    - This ensures localization, controller setup, and navigation are handled consistently across the app.
+
 ## Notes About Scholarship Functionality
 
 The scholarship-related functionality has been temporarily disabled in the client application. The UI buttons for this functionality are still present but will display informational messages when clicked.

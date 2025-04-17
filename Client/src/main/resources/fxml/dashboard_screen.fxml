@@ -14,11 +14,11 @@
                 <Insets top="20" right="20" bottom="10" left="20"/>
             </padding>
             <HBox alignment="CENTER_LEFT" spacing="20">
-                <Label text="Grant Flow Dashboard" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+                <Label text="%dashboard.title" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
                 <Region HBox.hgrow="ALWAYS" />
-                <Label text="Welcome, " />
+                <Label text="%dashboard.welcome" />
                 <Label fx:id="userNameLabel" style="-fx-font-weight: bold;" />
-                <Button fx:id="logoutButton" text="Logout" onAction="#handleLogoutAction" />
+                <Button fx:id="logoutButton" text="%dashboard.logout" onAction="#handleLogoutAction" />
             </HBox>
             <Separator/>
         </VBox>
@@ -29,17 +29,17 @@
             <padding>
                 <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
-            <Label text="Navigation" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+            <Label text="%dashboard.navigation" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
             <Separator/>
-            <Button fx:id="dashboardButton" text="Dashboard" maxWidth="Infinity" styleClass="nav-button" />
-            <Button fx:id="scholarshipsButton" text="Scholarships" maxWidth="Infinity" styleClass="nav-button" />
-            <Button fx:id="applicationsButton" text="My Applications" maxWidth="Infinity" styleClass="nav-button" />
-            <Button fx:id="profileButton" text="Profile" maxWidth="Infinity" styleClass="nav-button" />
+            <Button fx:id="dashboardButton" text="%dashboard.button.dashboard" maxWidth="Infinity" styleClass="nav-button" />
+            <Button fx:id="scholarshipsButton" text="%dashboard.button.scholarships" maxWidth="Infinity" styleClass="nav-button" />
+            <Button fx:id="applicationsButton" text="%dashboard.button.applications" maxWidth="Infinity" styleClass="nav-button" />
+            <Button fx:id="profileButton" text="%dashboard.button.profile" maxWidth="Infinity" styleClass="nav-button" />
             
             <Region VBox.vgrow="ALWAYS" />
             
-            <Label fx:id="roleLabel" text="Role: Student" />
-            <Label fx:id="versionLabel" text="Version: 1.0" />
+            <Label fx:id="roleLabel" text="%dashboard.role" />
+            <Label fx:id="versionLabel" text="%dashboard.version" />
         </VBox>
     </left>
     
@@ -49,7 +49,7 @@
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
             
-            <Label text="Dashboard" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <Label text="%dashboard.center.title" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
             <Separator/>
             
             <GridPane hgap="20" vgap="20" alignment="CENTER">
@@ -65,27 +65,27 @@
                     <padding>
                         <Insets top="15" right="15" bottom="15" left="15"/>
                     </padding>
-                    <Label text="Available Scholarships" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <Label text="%dashboard.available.scholarships" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
                     <Separator/>
                     <Label fx:id="availableScholarshipsCount" text="0" style="-fx-font-size: 24px;"/>
-                    <Button text="View All" onAction="#handleViewScholarshipsAction" />
+                    <Button text="%dashboard.view.all" onAction="#handleViewScholarshipsAction" />
                 </VBox>
                 
                 <VBox styleClass="dashboard-card" GridPane.rowIndex="0" GridPane.columnIndex="1">
                     <padding>
                         <Insets top="15" right="15" bottom="15" left="15"/>
                     </padding>
-                    <Label text="My Applications" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <Label text="%dashboard.my.applications" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
                     <Separator/>
                     <Label fx:id="myApplicationsCount" text="0" style="-fx-font-size: 24px;"/>
-                    <Button text="View All" onAction="#handleViewApplicationsAction" />
+                    <Button text="%dashboard.view.all" onAction="#handleViewApplicationsAction" />
                 </VBox>
                 
                 <VBox styleClass="dashboard-card" GridPane.rowIndex="1" GridPane.columnIndex="0">
                     <padding>
                         <Insets top="15" right="15" bottom="15" left="15"/>
                     </padding>
-                    <Label text="Recent Activity" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <Label text="%dashboard.recent.activity" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
                     <Separator/>
                     <ListView fx:id="recentActivityList" prefHeight="150" />
                 </VBox>
@@ -94,11 +94,11 @@
                     <padding>
                         <Insets top="15" right="15" bottom="15" left="15"/>
                     </padding>
-                    <Label text="Quick Actions" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    <Label text="%dashboard.quick.actions" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
                     <Separator/>
-                    <Button text="Apply for Scholarship" onAction="#handleApplyAction" maxWidth="Infinity" />
-                    <Button text="Update Profile" onAction="#handleUpdateProfileAction" maxWidth="Infinity" />
-                    <Button text="Check Application Status" onAction="#handleCheckStatusAction" maxWidth="Infinity" />
+                    <Button text="%dashboard.apply.scholarship" onAction="#handleApplyAction" maxWidth="Infinity" />
+                    <Button text="%dashboard.update.profile" onAction="#handleUpdateProfileAction" maxWidth="Infinity" />
+                    <Button text="%dashboard.check.status" onAction="#handleCheckStatusAction" maxWidth="Infinity" />
                 </VBox>
             </GridPane>
         </VBox>
@@ -109,7 +109,7 @@
             <padding>
                 <Insets top="10" right="20" bottom="20" left="20"/>
             </padding>
-            <Label text="© 2025 Grant Flow System" style="-fx-font-size: 12px;"/>
+            <Label text="%dashboard.copyright" style="-fx-font-size: 12px;"/>
         </HBox>
     </bottom>
 </BorderPane>
