@@ -1,6 +1,5 @@
 package com.kasperovich.ui;
 
-import com.kasperovich.clientconnection.ClientConnection;
 import com.kasperovich.config.AlertManager;
 import com.kasperovich.dto.auth.UserDTO;
 import com.kasperovich.i18n.LangManager;
@@ -25,7 +24,7 @@ import java.util.Locale;
 /**
  * Controller for the dashboard screen.
  */
-public class DashboardScreenController {
+public class DashboardScreenController extends BaseController {
     private static final Logger logger = LoggerUtil.getLogger(DashboardScreenController.class);
     
     @FXML
@@ -42,14 +41,6 @@ public class DashboardScreenController {
 
     /**
      * -- SETTER --
-     *  Sets the client connection for this controller.
-     *
-     * @param clientConnection The client connection to set
-     */
-    @Setter
-    private ClientConnection clientConnection;
-    /**
-     * -- SETTER --
      *  Sets the user for this controller.
      *
      * @param user The user to set
@@ -59,37 +50,27 @@ public class DashboardScreenController {
     
     /**
      * Initializes the controller.
+     * Called after dependencies are injected.
      */
-    public void initialize() {
+    @Override
+    public void initializeData() {
         updateTexts();
     }
 
-    private void updateTexts() {
+    @Override
+    public String getFxmlPath() {
+        return "/fxml/dashboard_screen.fxml";
+    }
+
+    @Override
+    public void updateTexts() {
         logoutButton.setText(LangManager.getBundle().getString("dashboard.logout"));
         // Add more components as needed
     }
 
     @FXML
-    private void handleLanguageSwitch() {
-        if (LangManager.getLocale().equals(Locale.ENGLISH)) {
-            LangManager.setLocale(new Locale("ru"));
-        } else {
-            LangManager.setLocale(Locale.ENGLISH);
-        }
-        // Reload screen
-        try {
-            Stage stage = (Stage) logoutButton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard_screen.fxml"), LangManager.getBundle());
-            Parent root = loader.load();
-            DashboardScreenController controller = loader.getController();
-            controller.setClientConnection(clientConnection);
-            controller.setUser(user);
-            controller.initializeUserData();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void handleLanguageSwitch(ActionEvent event) {
+        super.handleLanguageSwitch(event);
     }
     
     /**
@@ -119,7 +100,7 @@ public class DashboardScreenController {
             // Logout the user
             boolean success;
             try {
-                success = clientConnection.logout();
+                success = getClientConnection().logout();
             } catch (ClassNotFoundException e) {
                 logger.error("ClassNotFoundException during logout", e);
                 AlertManager.showErrorAlert("Logout Error", "Error during logout: " + e.getMessage());
@@ -133,7 +114,7 @@ public class DashboardScreenController {
                 
                 // Get the controller and set the client connection
                 MainScreenController mainController = loader.getController();
-                mainController.setClientConnection(clientConnection);
+                mainController.setClientConnection(getClientConnection());
                 
                 // Create a new scene
                 Scene scene = new Scene(root);
@@ -198,7 +179,7 @@ public class DashboardScreenController {
      */
     private boolean navigateToScholarshipProgramsScreen(String source) {
         try {
-            ChangeScene.changeScene(new ActionEvent(logoutButton, null), "/fxml/scholarship_programs_screen.fxml", LangManager.getBundle().getString("scholarship_programs.title"), clientConnection, user);
+            ChangeScene.changeScene(new ActionEvent(logoutButton, null), "/fxml/scholarship_programs_screen.fxml", LangManager.getBundle().getString("scholarship_programs.title"), getClientConnection(), user);
             logger.debug("Navigated to scholarship programs screen from {}", source);
             return true;
         } catch (Exception e) {

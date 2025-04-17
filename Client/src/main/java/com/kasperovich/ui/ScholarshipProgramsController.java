@@ -1,6 +1,5 @@
 package com.kasperovich.ui;
 
-import com.kasperovich.clientconnection.ClientConnection;
 import com.kasperovich.config.AlertManager;
 import com.kasperovich.dto.auth.UserDTO;
 import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
@@ -31,7 +30,7 @@ import java.util.Locale;
  * Controller for the scholarship programs screen.
  * Note: Scholarship functionality has been temporarily disabled.
  */
-public class ScholarshipProgramsController {
+public class ScholarshipProgramsController extends BaseController {
     private static final Logger logger = LoggerUtil.getLogger(ScholarshipProgramsController.class);
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     
@@ -71,39 +70,41 @@ public class ScholarshipProgramsController {
     @FXML
     private Label statusLabel;
     
-    private ClientConnection clientConnection;
     private UserDTO user;
     private ObservableList<ScholarshipProgramDTO> programsList = FXCollections.observableArrayList();
-    
+
+
     /**
-     * Initializes the controller.
+     * Initializes the controller and loads data.
+     * Called after dependencies are injected.
      */
-    public void initialize() {
+    @Override
+    public void initializeData() {
         updateTexts();
         // Initialize table columns
-        nameColumn.setCellValueFactory(cellData -> 
+        nameColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getName()));
-        
-        descriptionColumn.setCellValueFactory(cellData -> 
+
+        descriptionColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getDescription()));
-        
-        amountColumn.setCellValueFactory(cellData -> 
+
+        amountColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty("$" + cellData.getValue().getFundingAmount()));
-        
+
         // Use application deadline for start date
         startDateColumn.setCellValueFactory(cellData -> {
             LocalDate deadline = cellData.getValue().getApplicationDeadline();
             return new SimpleStringProperty(deadline != null ? deadline.format(DATE_FORMATTER) : "N/A");
         });
-        
+
         // No end date in DTO, use N/A
-        endDateColumn.setCellValueFactory(cellData -> 
+        endDateColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty("N/A"));
-        
+
         statusColumn.setCellValueFactory(cellData -> {
             boolean isActive = cellData.getValue().isActive();
             boolean isAccepting = cellData.getValue().isAcceptingApplications();
-            
+
             if (!isActive) {
                 return new SimpleStringProperty("Inactive");
             } else if (isAccepting) {
@@ -112,50 +113,38 @@ public class ScholarshipProgramsController {
                 return new SimpleStringProperty("Closed");
             }
         });
-        
+
         // Set table items
         programsTableView.setItems(programsList);
-        
+
         // Add selection listener to enable/disable apply button
         programsTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             applyButton.setDisable(newSelection == null);
         });
-        
+
         // Initialize filter combo box
         filterComboBox.setItems(FXCollections.observableArrayList(
-                LangManager.getBundle().getString("scholarship.filter.all"), 
-                LangManager.getBundle().getString("scholarship.filter.active"), 
+                LangManager.getBundle().getString("scholarship.filter.all"),
+                LangManager.getBundle().getString("scholarship.filter.active"),
                 LangManager.getBundle().getString("scholarship.filter.accepting")));
-        
+
         // Set default filter
         filterComboBox.getSelectionModel().selectFirst();
-        
+
         // Add listener to filter combo box
         filterComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 loadScholarshipPrograms();
             }
         });
+
+        // Load scholarship programs
+        loadScholarshipPrograms();
         
         // Set status message
         statusLabel.setText(LangManager.getBundle().getString("scholarship.status.disabled"));
     }
-    
-    private void updateTexts() {
-        backButton.setText(LangManager.getBundle().getString("dashboard.back"));
-        refreshButton.setText(LangManager.getBundle().getString("dashboard.refresh"));
-        applyButton.setText(LangManager.getBundle().getString("scholarship.apply"));
-    }
 
-    /**
-     * Sets the client connection for this controller.
-     *
-     * @param clientConnection The client connection to set
-     */
-    public void setClientConnection(ClientConnection clientConnection) {
-        this.clientConnection = clientConnection;
-    }
-    
     /**
      * Sets the user for this controller.
      *
@@ -164,7 +153,7 @@ public class ScholarshipProgramsController {
     public void setUser(UserDTO user) {
         this.user = user;
     }
-    
+
     /**
      * Loads scholarship programs from the server.
      */
@@ -179,7 +168,7 @@ public class ScholarshipProgramsController {
         
         try {
             // Get scholarship programs from the server
-            List<ScholarshipProgramDTO> programs = clientConnection.getScholarshipPrograms();
+            List<ScholarshipProgramDTO> programs = getClientConnection().getScholarshipPrograms();
             
             // Apply filter if needed
             List<ScholarshipProgramDTO> filteredPrograms = new ArrayList<>();
@@ -223,7 +212,7 @@ public class ScholarshipProgramsController {
      */
     @FXML
     public void handleBackAction(ActionEvent event) {
-        ChangeScene.changeScene(event, "/fxml/dashboard_screen.fxml", LangManager.getBundle().getString("dashboard.title"), clientConnection, user);
+        ChangeScene.changeScene(event, "/fxml/dashboard_screen.fxml", LangManager.getBundle().getString("dashboard.title"), getClientConnection(), user);
     }
     
     /**
@@ -258,26 +247,20 @@ public class ScholarshipProgramsController {
         statusLabel.setText(LangManager.getBundle().getString("scholarship.status.disabled"));
     }
 
+    @Override
+    public String getFxmlPath() {
+        return "/fxml/scholarship_programs_screen.fxml";
+    }
+
     @FXML
-    private void handleLanguageSwitch() {
-        if (LangManager.getLocale().equals(Locale.ENGLISH)) {
-            LangManager.setLocale(new Locale("ru"));
-        } else {
-            LangManager.setLocale(Locale.ENGLISH);
-        }
-        // Reload screen
-        try {
-            Stage stage = (Stage) backButton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/scholarship_programs_screen.fxml"), LangManager.getBundle());
-            Parent root = loader.load();
-            ScholarshipProgramsController controller = loader.getController();
-            controller.setClientConnection(clientConnection);
-            controller.setUser(user);
-            controller.loadScholarshipPrograms();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void handleLanguageSwitch(ActionEvent event) {
+        super.handleLanguageSwitch(event);
+    }
+
+    @Override
+    public void updateTexts() {
+        backButton.setText(LangManager.getBundle().getString("dashboard.back"));
+        refreshButton.setText(LangManager.getBundle().getString("dashboard.refresh"));
+        applyButton.setText(LangManager.getBundle().getString("scholarship.apply"));
     }
 }

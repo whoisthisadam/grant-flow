@@ -27,7 +27,7 @@ import java.util.Locale;
 /**
  * Controller for the registration screen.
  */
-public class RegisterScreenController {
+public class RegisterScreenController extends BaseController {
     private static final Logger logger = LoggerUtil.getLogger(RegisterScreenController.class);
     
     @FXML
@@ -65,26 +65,17 @@ public class RegisterScreenController {
     
     @FXML
     private Label statusLabel;
-    
-    private ClientConnection clientConnection;
 
     /**
      * Initializes the controller.
+     * Called after dependencies are injected.
      */
-    public void initialize() {
+    @Override
+    public void initializeData() {
         // Initialize role combo box
         roleComboBox.getItems().addAll("STUDENT", "ADMIN");
         roleComboBox.setValue("STUDENT");
         updateTexts();
-    }
-    
-    /**
-     * Sets the client connection for this controller.
-     *
-     * @param clientConnection The client connection to set
-     */
-    public void setClientConnection(ClientConnection clientConnection) {
-        this.clientConnection = clientConnection;
     }
     
     /**
@@ -127,7 +118,7 @@ public class RegisterScreenController {
         // Run registration in background thread to avoid freezing UI
         new Thread(() -> {
             try {
-                UserDTO user = clientConnection.register(username, password, email, firstName, lastName, role);
+                UserDTO user = getClientConnection().register(username, password, email, firstName, lastName, role);
                 
                 Platform.runLater(() -> {
                     if (user != null) {
@@ -157,7 +148,7 @@ public class RegisterScreenController {
      */
     @FXML
     public void handleCancelAction(ActionEvent event) {
-        ChangeScene.changeScene(event, "/fxml/main_screen.fxml", LangManager.getBundle().getString("main.title"), clientConnection, null);
+        ChangeScene.changeScene(event, "/fxml/main_screen.fxml", LangManager.getBundle().getString("main.title"), getClientConnection(), null);
     }
     
     /**
@@ -167,7 +158,7 @@ public class RegisterScreenController {
      */
     @FXML
     public void handleLoginLinkAction(ActionEvent event) {
-        ChangeScene.changeScene(event, "/fxml/login_screen.fxml", LangManager.getBundle().getString("login.title"), clientConnection, null);
+        ChangeScene.changeScene(event, "/fxml/login_screen.fxml", LangManager.getBundle().getString("login.title"), getClientConnection(), null);
     }
     
     /**
@@ -186,10 +177,16 @@ public class RegisterScreenController {
      * @param user The authenticated user
      */
     private void navigateToDashboard(UserDTO user) {
-        ChangeScene.changeScene(new ActionEvent(registerButton, null), "/fxml/dashboard_screen.fxml", LangManager.getBundle().getString("dashboard.title"), clientConnection, user);
+        ChangeScene.changeScene(new ActionEvent(registerButton, null), "/fxml/dashboard_screen.fxml", LangManager.getBundle().getString("dashboard.title"), getClientConnection(), user);
     }
 
-    private void updateTexts() {
+    @Override
+    public String getFxmlPath() {
+        return "/fxml/register_screen.fxml";
+    }
+
+    @Override
+    public void updateTexts() {
         registerButton.setText(LangManager.getBundle().getString("register.button"));
         cancelButton.setText(LangManager.getBundle().getString("register.cancel"));
         loginLink.setText(LangManager.getBundle().getString("register.login"));
@@ -204,24 +201,8 @@ public class RegisterScreenController {
     }
 
     @FXML
-    private void handleLanguageSwitch() {
-        if (LangManager.getLocale().equals(Locale.ENGLISH)) {
-            LangManager.setLocale(new Locale("ru"));
-        } else {
-            LangManager.setLocale(Locale.ENGLISH);
-        }
-        // Reload screen
-        try {
-            Stage stage = (Stage) languageButton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register_screen.fxml"), LangManager.getBundle());
-            Parent root = loader.load();
-            RegisterScreenController controller = loader.getController();
-            controller.setClientConnection(clientConnection);
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void handleLanguageSwitch(ActionEvent event) {
+        super.handleLanguageSwitch(event);
     }
 
     /**

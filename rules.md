@@ -164,6 +164,83 @@ Database migrations are handled automatically when the server starts.
       ```
     - This ensures localization, controller setup, and navigation are handled consistently across the app.
 
+## JavaFX Controller Guidelines
+
+### Controller Initialization Pattern
+
+All controllers in the application follow a specific initialization pattern to ensure proper dependency injection and prevent timing issues:
+
+1. **Controller Hierarchy**:
+   - All controllers must extend `BaseController` which implements the `Connectionable` interface
+   - This provides access to the client connection via `getClientConnection()`
+
+2. **Initialization Method**:
+   - Controllers should override the `initializeData()` method from `BaseController`
+   - This method is called manually by `ChangeScene` after all dependencies are injected
+   - Do NOT use JavaFX's automatic `initialize()` method as it runs before dependencies are set
+
+3. **Proper Initialization Order**:
+   ```java
+   @Override
+   public void initializeData() {
+       // 1. Set up UI components
+       setupUIComponents();
+       
+       // 2. Load data using client connection
+       if (getClientConnection() != null) {
+           loadData();
+       }
+       
+       // 3. Update UI texts with current language
+       updateTexts();
+   }
+   ```
+
+4. **Navigation**:
+   - Always use the `ChangeScene` utility for navigation between screens
+   - This ensures proper dependency injection and initialization
+
+Example controller implementation:
+```java
+public class MyScreenController extends BaseController {
+    @FXML
+    private Label titleLabel;
+    
+    @Setter
+    private UserDTO user;
+    
+    @Override
+    public void initializeData() {
+        // UI setup
+        setupTable();
+        
+        // Load data
+        if (getClientConnection() != null) {
+            loadDataFromServer();
+        }
+        
+        // Update texts
+        updateTexts();
+    }
+    
+    @Override
+    public void updateTexts() {
+        titleLabel.setText(LangManager.getBundle().getString("my.screen.title"));
+    }
+    
+    @Override
+    public String getFxmlPath() {
+        return "/fxml/my_screen.fxml";
+    }
+}
+```
+
+### Dependency Injection
+
+- Client connection is automatically injected via `BaseController`
+- User DTO is injected via reflection in `ChangeScene` if the controller has a `setUser` method
+- Other dependencies should be set before calling `initializeData()`
+
 ## Notes About Scholarship Functionality
 
 The scholarship-related functionality has been temporarily disabled in the client application. The UI buttons for this functionality are still present but will display informational messages when clicked.

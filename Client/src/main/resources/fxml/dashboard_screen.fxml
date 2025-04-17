@@ -109,7 +109,7 @@
             <padding>
                 <Insets top="10" right="20" bottom="20" left="20"/>
             </padding>
-            <Label text="%dashboard.copyright" style="-fx-font-size: 12px;"/>
+            <Label text="%dashboard.footer" style="-fx-font-size: 12px;"/>
         </HBox>
     </bottom>
 </BorderPane>

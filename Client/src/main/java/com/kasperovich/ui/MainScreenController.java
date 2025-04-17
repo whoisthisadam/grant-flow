@@ -19,7 +19,7 @@ import java.util.Locale;
 /**
  * Controller for the main screen of the application.
  */
-public class MainScreenController {
+public class MainScreenController extends BaseController {
     private static final Logger logger = LoggerUtil.getLogger(MainScreenController.class);
     
     @FXML
@@ -28,27 +28,19 @@ public class MainScreenController {
     @FXML
     private Button registerButton;
     
-    private ClientConnection clientConnection;
-    
     /**
      * Initializes the controller.
+     * Called after dependencies are injected.
      */
-    public void initialize() {
+    @Override
+    public void initializeData() {
         updateTexts();
     }
     
-    private void updateTexts() {
+    @Override
+    public void updateTexts() {
         loginButton.setText(LangManager.getBundle().getString("login.button"));
         registerButton.setText(LangManager.getBundle().getString("register.button"));
-    }
-    
-    /**
-     * Sets the client connection for this controller.
-     *
-     * @param clientConnection The client connection to set
-     */
-    public void setClientConnection(ClientConnection clientConnection) {
-        this.clientConnection = clientConnection;
     }
     
     /**
@@ -58,7 +50,7 @@ public class MainScreenController {
      */
     @FXML
     public void handleLoginAction(ActionEvent event) {
-        ChangeScene.changeScene(event, "/fxml/login_screen.fxml", LangManager.getBundle().getString("login.title"), clientConnection, null);
+        ChangeScene.changeScene(event, "/fxml/login_screen.fxml", LangManager.getBundle().getString("login.title"), getClientConnection(), null);
     }
     
     /**
@@ -68,27 +60,16 @@ public class MainScreenController {
      */
     @FXML
     public void handleRegisterAction(ActionEvent event) {
-        ChangeScene.changeScene(event, "/fxml/register_screen.fxml", LangManager.getBundle().getString("register.title"), clientConnection, null);
+        ChangeScene.changeScene(event, "/fxml/register_screen.fxml", LangManager.getBundle().getString("register.title"), getClientConnection(), null);
     }
     
     @FXML
-    private void handleLanguageSwitch() {
-        if (LangManager.getLocale().equals(Locale.ENGLISH)) {
-            LangManager.setLocale(new Locale("ru"));
-        } else {
-            LangManager.setLocale(Locale.ENGLISH);
-        }
-        // Reload screen
-        try {
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main_screen.fxml"), LangManager.getBundle());
-            Parent root = loader.load();
-            MainScreenController controller = loader.getController();
-            controller.setClientConnection(clientConnection);
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void handleLanguageSwitch(ActionEvent event) {
+        super.handleLanguageSwitch(event);
+    }
+    
+    @Override
+    public String getFxmlPath() {
+        return "/fxml/main_screen.fxml";
     }
 }

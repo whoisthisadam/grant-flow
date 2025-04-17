@@ -25,7 +25,9 @@ public class ScholarshipProgramDaoImpl implements ScholarshipProgramDao {
     public List<ScholarshipProgram> findAll() {
         List<ScholarshipProgram> programs = new ArrayList<>();
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<ScholarshipProgram> query = session.createQuery("FROM ScholarshipProgram", ScholarshipProgram.class);
+            Query<ScholarshipProgram> query = session.createQuery(
+                "FROM ScholarshipProgram p JOIN FETCH p.createdBy", 
+                ScholarshipProgram.class);
             programs = query.list();
             logger.debug("Found {} scholarship programs", programs.size());
         } catch (Exception e) {
@@ -42,7 +44,7 @@ public class ScholarshipProgramDaoImpl implements ScholarshipProgramDao {
         List<ScholarshipProgram> programs = new ArrayList<>();
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<ScholarshipProgram> query = session.createQuery(
-                    "FROM ScholarshipProgram WHERE active = true", 
+                    "FROM ScholarshipProgram p JOIN FETCH p.createdBy WHERE p.active = true", 
                     ScholarshipProgram.class);
             programs = query.list();
             logger.debug("Found {} active scholarship programs", programs.size());
@@ -59,7 +61,12 @@ public class ScholarshipProgramDaoImpl implements ScholarshipProgramDao {
     public ScholarshipProgram findById(Long id) {
         ScholarshipProgram program = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            program = session.get(ScholarshipProgram.class, id);
+            Query<ScholarshipProgram> query = session.createQuery(
+                    "FROM ScholarshipProgram p JOIN FETCH p.createdBy WHERE p.id = :id",
+                    ScholarshipProgram.class);
+            query.setParameter("id", id);
+            program = query.uniqueResult();
+            
             if (program != null) {
                 logger.debug("Found scholarship program with ID: {}", id);
             } else {

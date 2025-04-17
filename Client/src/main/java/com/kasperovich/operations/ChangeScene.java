@@ -1,8 +1,8 @@
 package com.kasperovich.operations;
 
 import com.kasperovich.clientconnection.ClientConnection;
-import com.kasperovich.config.Connectionable;
 import com.kasperovich.i18n.LangManager;
+import com.kasperovich.ui.BaseController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class ChangeScene {
 
@@ -36,15 +35,16 @@ public class ChangeScene {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        Object controller = loader.getController();
-        if (controller instanceof com.kasperovich.config.Connectionable) {
-            ((com.kasperovich.config.Connectionable) controller).setAccess(access);
-        }
+        BaseController controller = loader.getController();
         if (user != null) {
             try {
                 java.lang.reflect.Method setUser = controller.getClass().getMethod("setUser", user.getClass());
                 setUser.invoke(controller, user);
             } catch (Exception ignored) {}
+        }
+        if (controller != null) {
+            controller.setAccess(access);
+            controller.initializeData();
         }
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle(title);

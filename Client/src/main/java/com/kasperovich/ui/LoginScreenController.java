@@ -1,6 +1,5 @@
 package com.kasperovich.ui;
 
-import com.kasperovich.clientconnection.ClientConnection;
 import com.kasperovich.config.AlertManager;
 import com.kasperovich.dto.auth.UserDTO;
 import com.kasperovich.i18n.LangManager;
@@ -9,23 +8,13 @@ import com.kasperovich.utils.LoggerUtil;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import javafx.scene.control.*;
 import org.apache.logging.log4j.Logger;
-
-import java.util.Locale;
 
 /**
  * Controller for the login screen.
  */
-public class LoginScreenController {
+public class LoginScreenController extends BaseController {
     private static final Logger logger = LoggerUtil.getLogger(LoginScreenController.class);
     
     @FXML
@@ -45,28 +34,16 @@ public class LoginScreenController {
     
     @FXML
     private Label statusLabel;
-    
-    @FXML
-    private Button languageButton;
-    
-    private ClientConnection clientConnection;
 
     /**
      * Initializes the controller.
+     * Called after dependencies are injected.
      */
-    public void initialize() {
+    @Override
+    public void initializeData() {
         // Add enter key event handler to password field
-        passwordField.setOnAction(event -> handleLoginAction(event));
+        passwordField.setOnAction(this::handleLoginAction);
         updateTexts();
-    }
-    
-    /**
-     * Sets the client connection for this controller.
-     *
-     * @param clientConnection The client connection to set
-     */
-    public void setClientConnection(ClientConnection clientConnection) {
-        this.clientConnection = clientConnection;
     }
     
     /**
@@ -92,7 +69,7 @@ public class LoginScreenController {
         // Run login in background thread to avoid freezing UI
         new Thread(() -> {
             try {
-                UserDTO user = clientConnection.login(username, password);
+                UserDTO user = getClientConnection().login(username, password);
                 
                 Platform.runLater(() -> {
                     if (user != null) {
@@ -122,7 +99,7 @@ public class LoginScreenController {
      */
     @FXML
     public void handleCancelAction(ActionEvent event) {
-        ChangeScene.changeScene(event, "/fxml/main_screen.fxml", LangManager.getBundle().getString("main.title"), clientConnection, null);
+        ChangeScene.changeScene(event, "/fxml/main_screen.fxml", LangManager.getBundle().getString("main.title"), getClientConnection(), null);
     }
     
     /**
@@ -132,32 +109,17 @@ public class LoginScreenController {
      */
     @FXML
     public void handleRegisterLinkAction(ActionEvent event) {
-        ChangeScene.changeScene(event, "/fxml/register_screen.fxml", LangManager.getBundle().getString("register.title"), clientConnection, null);
+        ChangeScene.changeScene(event, "/fxml/register_screen.fxml", LangManager.getBundle().getString("register.title"), getClientConnection(), null);
     }
     
     /**
      * Handles the language switch button action.
      *
+     * @param event The action event
      */
     @FXML
-    private void handleLanguageSwitch() {
-        if (LangManager.getLocale().equals(Locale.ENGLISH)) {
-            LangManager.setLocale(new Locale("ru"));
-        } else {
-            LangManager.setLocale(Locale.ENGLISH);
-        }
-        // Reload screen
-        try {
-            Stage stage = (Stage) languageButton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login_screen.fxml"), LangManager.getBundle());
-            Parent root = loader.load();
-            LoginScreenController controller = loader.getController();
-            controller.setClientConnection(clientConnection);
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void handleLanguageSwitch(ActionEvent event) {
+        super.handleLanguageSwitch(event);
     }
     
     /**
@@ -176,13 +138,16 @@ public class LoginScreenController {
      * @param user The authenticated user
      */
     private void navigateToDashboard(UserDTO user) {
-        ChangeScene.changeScene(new ActionEvent(loginButton, null), "/fxml/dashboard_screen.fxml", LangManager.getBundle().getString("dashboard.title"), clientConnection, user);
+        ChangeScene.changeScene(new ActionEvent(loginButton, null), "/fxml/dashboard_screen.fxml", LangManager.getBundle().getString("dashboard.title"), getClientConnection(), user);
     }
     
-    /**
-     * Updates the UI texts from the bundle.
-     */
-    private void updateTexts() {
+    @Override
+    public String getFxmlPath() {
+        return "/fxml/login_screen.fxml";
+    }
+    
+    @Override
+    public void updateTexts() {
         loginButton.setText(LangManager.getBundle().getString("login.button"));
         cancelButton.setText(LangManager.getBundle().getString("login.cancel"));
         registerLink.setText(LangManager.getBundle().getString("login.register"));
