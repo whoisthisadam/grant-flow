@@ -2,17 +2,15 @@ package com.kasperovich.service;
 
 import com.kasperovich.dao.UserDao;
 import com.kasperovich.dao.impl.UserDaoImpl;
+import com.kasperovich.dto.auth.UserDTO;
 import com.kasperovich.entities.User;
 import com.kasperovich.entities.UserRole;
+import com.kasperovich.utils.DTOConverter;
 import com.kasperovich.utils.LoggerUtil;
 import com.kasperovich.utils.PasswordUtils;
 import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Service class for user-related operations.
@@ -23,15 +21,17 @@ public class UserService {
     
     private final UserDao userDao;
     private final Map<String, Long> authTokens; // token -> userId
+    private final DTOConverter dtoConverter;
     
     private static UserService instance;
     
     /**
      * Private constructor for singleton pattern.
      */
-    private UserService() {
+    public UserService() {
         this.userDao = new UserDaoImpl();
         this.authTokens = new HashMap<>();
+        this.dtoConverter = new DTOConverter();
     }
     
     /**
@@ -201,15 +201,17 @@ public class UserService {
     }
     
     /**
-     * Updates a user's profile.
+     * Updates a user's profile with the provided information.
+     * Only updates the fields that are not null.
      *
      * @param userId the user ID
-     * @param firstName the first name
-     * @param lastName the last name
-     * @param email the email
-     * @return the updated user, or null if update failed
+     * @param username the new username, or null to keep current
+     * @param firstName the new first name, or null to keep current
+     * @param lastName the new last name, or null to keep current
+     * @param email the new email, or null to keep current
+     * @return the updated user DTO, or null if update failed
      */
-    public User updateUserProfile(Long userId, String firstName, String lastName, String email) {
+    public UserDTO updateUserProfile(Long userId, String username, String firstName, String lastName, String email) {
         logger.info("Updating profile for user ID: {}", userId);
         
         Optional<User> userOpt = userDao.findById(userId);
@@ -219,11 +221,32 @@ public class UserService {
         }
         
         User user = userOpt.get();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setEmail(email);
         
-        return userDao.save(user);
+        // Only update fields that are not null
+        if (username != null && !username.trim().isEmpty()) {
+            // Check if the new username is already taken by another user
+            Optional<User> existingUser = userDao.findByUsername(username);
+            if (existingUser.isPresent() && !existingUser.get().getId().equals(userId)) {
+                logger.warn("Username already exists: {}", username);
+                throw new IllegalArgumentException("Username already exists");
+            }
+            user.setUsername(username);
+        }
+        
+        if (firstName != null) {
+            user.setFirstName(firstName);
+        }
+        
+        if (lastName != null) {
+            user.setLastName(lastName);
+        }
+        
+        if (email != null && !email.trim().isEmpty()) {
+            user.setEmail(email);
+        }
+        
+        User updatedUser = userDao.save(user);
+        return dtoConverter.convertToDTO(updatedUser);
     }
     
     /**

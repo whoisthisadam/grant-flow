@@ -9,12 +9,16 @@ import com.kasperovich.operations.ChangeScene;
 import com.kasperovich.utils.LoggerUtil;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import lombok.Setter;
-import lombok.SneakyThrows;
 import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
@@ -238,8 +242,22 @@ public class DashboardScreenController extends BaseController {
      */
     @FXML
     public void handleProfileAction(ActionEvent event) {
-        // Placeholder for profile functionality
-        AlertManager.showInformationAlert("Profile", "Profile functionality is not implemented yet.");
+        try {
+            ChangeScene.changeScene(
+                    event, 
+                    "/fxml/profile_screen.fxml", 
+                    LangManager.getBundle().getString("profile.title"), 
+                    getClientConnection(), 
+                    user);
+            
+            logger.info("Navigated to profile screen");
+        } catch (Exception e) {
+            logger.error("Error navigating to profile screen", e);
+            AlertManager.showErrorAlert(
+                LangManager.getBundle().getString("navigation.error"),
+                "Could not navigate to profile screen: " + e.getMessage()
+            );
+        }
     }
     
     /**
@@ -358,16 +376,54 @@ public class DashboardScreenController extends BaseController {
     }
     
     /**
-     * Handles the update profile action button.
+     * Handles the update profile action.
+     * Opens the edit profile dialog directly.
      * 
-     * @param event The action event
+     * @param event the action event
      */
     @FXML
     public void handleUpdateProfileAction(ActionEvent event) {
-        // Placeholder for update profile functionality
-        AlertManager.showInformationAlert("Profile", 
-                "Profile update functionality is not implemented yet.");
-        logger.debug("Update profile action requested but functionality is not implemented");
+        try {
+            // Load the edit profile dialog FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/edit_profile_dialog.fxml"));
+            loader.setResources(LangManager.getBundle());
+            Parent root = loader.load();
+            
+            // Get the controller and set up the dialog
+            EditProfileDialogController controller = loader.getController();
+            controller.setClientConnection(getClientConnection());
+            controller.setup(user);
+            
+            // Set up the callback for when profile is updated
+            controller.setCallback(updatedUser -> {
+                // Update the user data
+                this.user = updatedUser;
+                
+                // Update the display
+                userNameLabel.setText(user.getUsername());
+                
+                logger.info("User profile updated successfully: {}", updatedUser.getUsername());
+            });
+            
+            // Initialize the controller data
+            controller.initializeData();
+            
+            // Create and show the dialog
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(LangManager.getBundle().getString("profile.edit"));
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(dashboardButton.getScene().getWindow());
+            dialogStage.setScene(new Scene(root));
+            dialogStage.showAndWait();
+            
+            logger.debug("Opened edit profile dialog for user: {}", user.getUsername());
+        } catch (Exception e) {
+            logger.error("Error opening edit profile dialog", e);
+            AlertManager.showErrorAlert(
+                LangManager.getBundle().getString("error.title"),
+                "Could not open edit profile dialog: " + e.getMessage()
+            );
+        }
     }
     
     /**

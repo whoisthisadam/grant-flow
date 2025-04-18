@@ -4,6 +4,7 @@ import com.kasperovich.commands.fromserver.*;
 import com.kasperovich.commands.toserver.Command;
 import com.kasperovich.commands.toserver.CommandWrapper;
 import com.kasperovich.commands.toserver.SubmitScholarshipApplicationCommand;
+import com.kasperovich.commands.toserver.UpdateProfileCommand;
 import com.kasperovich.dto.auth.LoginRequest;
 import com.kasperovich.dto.auth.RegistrationRequest;
 import com.kasperovich.dto.auth.UserDTO;
@@ -429,6 +430,73 @@ public class ClientConnection {
         } catch (Exception e) {
             logger.error("Error getting user applications", e);
             return new ArrayList<>();
+        }
+    }
+
+    /**
+     * Updates the current user's profile with the provided information.
+     * Only the fields that are not null will be updated.
+     * 
+     * @param username the new username, or null to keep current
+     * @param firstName the new first name, or null to keep current
+     * @param lastName the new last name, or null to keep current
+     * @param email the new email, or null to keep current
+     * @return the updated user DTO if successful, null if update failed
+     * @throws IOException if an I/O error occurs during communication
+     * @throws ClassNotFoundException if the class of the received object cannot be found
+     * @throws Exception if the server returns an error message
+     */
+    public UserDTO updateUserProfile(String username, String firstName, String lastName, String email) 
+            throws IOException, ClassNotFoundException, Exception {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to update user profile but no user is authenticated");
+            throw new Exception("User not authenticated");
+        }
+        
+        try {
+            logger.debug("Updating user profile for user ID: {}", currentUser.getId());
+            
+            // Create the update profile command with only the fields to update
+            UpdateProfileCommand command = new UpdateProfileCommand();
+            command.setUsername(username);
+            command.setFirstName(firstName);
+            command.setLastName(lastName);
+            command.setEmail(email);
+            
+            // Create and send command wrapper
+            CommandWrapper wrapper = new CommandWrapper(Command.UPDATE_USER_PROFILE, command);
+            wrapper.setAuthToken(authToken);
+            
+            sendObject(wrapper);
+            
+            // Receive response
+            ResponseWrapper response = receiveObject();
+            
+            if (response.getResponse() == ResponseFromServer.SUCCESS) {
+                // Extract updated user from response
+                UpdateProfileResponse updateResponse = response.getData();
+                
+                if (updateResponse != null && updateResponse.isSuccess()) {
+                    UserDTO updatedUser = updateResponse.getUser();
+                    
+                    // Update the current user
+                    this.currentUser = updatedUser;
+                    
+                    logger.info("User profile updated successfully for user ID: {}", updatedUser.getId());
+                    return updatedUser;
+                } else {
+                    String errorMessage = updateResponse != null ? updateResponse.getMessage() : "Unknown error";
+                    logger.warn("Failed to update user profile: {}", errorMessage);
+                    throw new Exception(errorMessage);
+                }
+            } else {
+                String errorMessage = response.getMessage();
+                logger.warn("Failed to update user profile: {}", errorMessage);
+                throw new Exception(errorMessage);
+            }
+        } catch (Exception e) {
+            logger.error("Error updating user profile", e);
+            throw e;
         }
     }
 

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.kasperovich.ui.EditProfileDialogController"
+            prefHeight="400.0" prefWidth="500.0">
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="10" left="20"/>
+            </padding>
+            <Label fx:id="titleLabel" text="%profile.edit" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <Separator/>
+        </VBox>
+    </top>
+    
+    <center>
+        <VBox spacing="15">
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
+            
+            <GridPane hgap="10" vgap="15">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="120" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+                
+                <!-- Username -->
+                <Label text="%profile.username" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                <TextField fx:id="usernameField" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+                
+                <!-- Email -->
+                <Label text="%profile.email" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                <TextField fx:id="emailField" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                
+                <!-- First Name -->
+                <Label text="%profile.first_name" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                <TextField fx:id="firstNameField" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                
+                <!-- Last Name -->
+                <Label text="%profile.last_name" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+                <TextField fx:id="lastNameField" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+            </GridPane>
+        </VBox>
+    </center>
+    
+    <bottom>
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <padding>
+                <Insets top="10" right="20" bottom="20" left="20"/>
+            </padding>
+            <Button fx:id="cancelButton" text="%profile.cancel" cancelButton="true" />
+            <Button fx:id="saveButton" text="%profile.save" defaultButton="true" />
+        </HBox>
+    </bottom>
+</BorderPane>

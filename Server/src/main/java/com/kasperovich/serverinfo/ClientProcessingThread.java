@@ -5,9 +5,11 @@ import com.kasperovich.commands.fromserver.ResponseWrapper;
 import com.kasperovich.commands.fromserver.ScholarshipApplicationResponse;
 import com.kasperovich.commands.fromserver.ScholarshipApplicationsResponse;
 import com.kasperovich.commands.fromserver.AcademicPeriodsResponse;
+import com.kasperovich.commands.fromserver.UpdateProfileResponse;
 import com.kasperovich.commands.toserver.Command;
 import com.kasperovich.commands.toserver.CommandWrapper;
 import com.kasperovich.commands.toserver.SubmitScholarshipApplicationCommand;
+import com.kasperovich.commands.toserver.UpdateProfileCommand;
 import com.kasperovich.config.ConnectedClientConfig;
 import com.kasperovich.dto.auth.LoginRequest;
 import com.kasperovich.dto.auth.RegistrationRequest;
@@ -19,6 +21,7 @@ import com.kasperovich.service.AuthenticationService;
 import com.kasperovich.service.ScholarshipService;
 import com.kasperovich.service.ScholarshipApplicationService;
 import com.kasperovich.service.AcademicPeriodService;
+import com.kasperovich.service.UserService;
 import com.kasperovich.utils.LoggerUtil;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
@@ -45,6 +48,7 @@ public class ClientProcessingThread extends Thread {
     private final ScholarshipService scholarshipService;
     private final ScholarshipApplicationService scholarshipApplicationService;
     private final AcademicPeriodService academicPeriodService;
+    private final UserService userService;
     private Long authenticatedUserId;
 
     /**
@@ -62,6 +66,7 @@ public class ClientProcessingThread extends Thread {
         this.scholarshipService = new ScholarshipService();
         this.scholarshipApplicationService = new ScholarshipApplicationService();
         this.academicPeriodService = new AcademicPeriodService();
+        this.userService = new UserService();
         logger.debug("Created new client processing thread for client: {}", clientInfo.getConnectionSocket().getInetAddress());
     }
 
@@ -186,6 +191,10 @@ public class ClientProcessingThread extends Thread {
             }
             case GET_ACADEMIC_PERIODS: {
                 handleGetAcademicPeriods(commandWrapper);
+                break;
+            }
+            case UPDATE_USER_PROFILE: {
+                handleUpdateUserProfile(commandWrapper);
                 break;
             }
             default: {
@@ -425,6 +434,68 @@ public class ClientProcessingThread extends Thread {
         } catch (Exception e) {
             logger.error("Error getting academic periods", e);
             sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Error getting academic periods: " + e.getMessage()));
+        }
+    }
+    
+    /**
+     * Handles updating user profile.
+     *
+     * @param commandWrapper the command wrapper
+     * @throws IOException if an I/O error occurs
+     */
+    private void handleUpdateUserProfile(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling UPDATE_USER_PROFILE command");
+        
+        try {
+            // Extract profile update data
+            UpdateProfileCommand command = commandWrapper.getData();
+            
+            if (command == null) {
+                logger.warn("Profile update data is missing");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Profile update data is missing"));
+                return;
+            }
+            
+            // Update the user profile
+            UserDTO updatedUserDTO = userService.updateUserProfile(
+                    authenticatedUserId,
+                    command.getUsername(),
+                    command.getFirstName(),
+                    command.getLastName(),
+                    command.getEmail()
+            );
+            
+            if (updatedUserDTO != null) {
+                // Create response with the updated user
+                UpdateProfileResponse response = new UpdateProfileResponse(
+                        true, 
+                        "Profile updated successfully", 
+                        updatedUserDTO
+                );
+                
+                logger.info("User profile updated successfully. ID: {}", updatedUserDTO.getId());
+                sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
+            } else {
+                logger.warn("Failed to update user profile");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Failed to update user profile"));
+            }
+        } catch (IllegalArgumentException e) {
+            // Handle specific errors like username already exists
+            logger.error("Error updating user profile: {}", e.getMessage());
+            UpdateProfileResponse response = new UpdateProfileResponse(
+                    false, 
+                    e.getMessage(), 
+                    null
+            );
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, response));
+        } catch (Exception e) {
+            logger.error("Error updating user profile", e);
+            UpdateProfileResponse response = new UpdateProfileResponse(
+                    false, 
+                    "Error updating user profile: " + e.getMessage(), 
+                    null
+            );
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, response));
         }
     }
     

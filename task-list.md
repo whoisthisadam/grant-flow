@@ -114,6 +114,7 @@ A Full Stack application with JavaFX Client and Server components for calculatin
 - <input type="checkbox" class="task-list-item-checkbox"> Create payment receipt and acknowledgment UI (UC-R5)
 - <input type="checkbox" class="task-list-item-checkbox" checked> Implement language preference UI and logic (UC-R6)
 - <input type="checkbox" class="task-list-item-checkbox"> Design academic performance reporting interface (UC-R7)
+- <input type="checkbox" class="task-list-item-checkbox"> Implement user profile view and update functionality (UC-R8)
 
 ### 13. Admin Flow Implementation - Client Side
 - <input type="checkbox" class="task-list-item-checkbox" checked> Create scholarship program management interface (UC-A1)
