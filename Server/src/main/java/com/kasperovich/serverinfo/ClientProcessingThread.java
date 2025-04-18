@@ -370,7 +370,12 @@ public class ClientProcessingThread extends Thread {
             sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
         } catch (Exception e) {
             logger.error("Error submitting scholarship application", e);
-            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Error submitting scholarship application: " + e.getMessage()));
+            ScholarshipApplicationResponse response = new ScholarshipApplicationResponse(
+                    false, 
+                    e.getMessage(), 
+                    null
+            );
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, response));
         }
     }
     

@@ -236,7 +236,7 @@ public class ClientConnection {
             
             ResponseWrapper response = receiveObject();
             
-            if (response.getResponse() == ResponseFromServer.SUCCESS) {
+            if (response.getResponse() == ResponseFromServer.LOGOUT_SUCCESS) {
                 logger.info("Logout successful");
                 this.authToken = null;
                 this.currentUser = null;
@@ -335,8 +335,11 @@ public class ClientConnection {
      * @param periodId the ID of the academic period
      * @param additionalInfo additional information for the application
      * @return the submitted application if successful, null otherwise
+     * @throws IOException if an I/O error occurs during communication
+     * @throws ClassNotFoundException if the class of the received object cannot be found
+     * @throws Exception if the server returns an error message
      */
-    public ScholarshipApplicationDTO submitScholarshipApplication(Long programId, Long periodId, String additionalInfo) {
+    public ScholarshipApplicationDTO submitScholarshipApplication(Long programId, Long periodId, String additionalInfo) throws IOException, ClassNotFoundException, Exception {
         if (!isAuthenticated()) {
             logger.warn("Attempted to submit scholarship application but no user is authenticated");
             return null;
@@ -371,15 +374,16 @@ public class ClientConnection {
                 } else {
                     String errorMessage = applicationResponse != null ? applicationResponse.getMessage() : "Unknown error";
                     logger.warn("Failed to submit scholarship application: {}", errorMessage);
-                    return null;
+                    throw new Exception(errorMessage);
                 }
             } else {
-                logger.warn("Failed to submit scholarship application: {}", response.getResponse());
-                return null;
+                String errorMessage = response.getData() != null ? response.getData().toString() : "Unknown error";
+                logger.warn("Failed to submit scholarship application: {}", errorMessage);
+                throw new Exception(errorMessage);
             }
         } catch (Exception e) {
             logger.error("Error submitting scholarship application", e);
-            return null;
+            throw e;
         }
     }
     

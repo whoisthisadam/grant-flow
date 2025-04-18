@@ -159,21 +159,17 @@ public class ScholarshipApplicationDialogController extends BaseController {
                     additionalInfo
             );
             
-            if (result != null) {
-                logger.info("Successfully submitted scholarship application for program: {}, period: {}", 
-                        program.getId(), selectedPeriod.getId());
-                showInfo(LangManager.getBundle().getString("success.title"), 
-                        LangManager.getBundle().getString("scholarship.success.application_submitted"));
-                closeDialog();
-            } else {
-                logger.error("Failed to submit scholarship application");
-                showError(LangManager.getBundle().getString("error.title"), 
-                        LangManager.getBundle().getString("scholarship.error.submission_failed"));
-            }
+            logger.info("Successfully submitted scholarship application for program: {}, period: {}", 
+                    program.getId(), selectedPeriod.getId());
+            showInfo(LangManager.getBundle().getString("success.title"), 
+                    LangManager.getBundle().getString("scholarship.success.application_submitted"));
+            closeDialog();
         } catch (Exception e) {
             logger.error("Error submitting scholarship application", e);
             showError(LangManager.getBundle().getString("error.title"), 
-                    LangManager.getBundle().getString("scholarship.error.submission_failed") + ": " + e.getMessage());
+                    e.getMessage() != null && !e.getMessage().isEmpty() 
+                    ? e.getMessage() 
+                    : LangManager.getBundle().getString("scholarship.error.submission_failed"));
         }
     }
 
