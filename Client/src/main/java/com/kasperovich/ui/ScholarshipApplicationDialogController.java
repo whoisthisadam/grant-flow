@@ -1,17 +1,17 @@
 package com.kasperovich.ui;
 
-import com.kasperovich.clientconnection.ClientConnection;
 import com.kasperovich.dto.scholarship.AcademicPeriodDTO;
 import com.kasperovich.dto.scholarship.ScholarshipApplicationDTO;
 import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
 import com.kasperovich.i18n.LangManager;
 import com.kasperovich.utils.LoggerUtil;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import lombok.Getter;
+import lombok.Setter;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
@@ -47,10 +47,16 @@ public class ScholarshipApplicationDialogController extends BaseController {
     private Button submitButton;
 
     private ScholarshipProgramDTO program;
-
-    @Getter
     private ScholarshipApplicationDTO result;
-    
+
+    // Callback interface for updating the parent controller
+    public interface ApplicationSubmittedCallback {
+        void onApplicationSubmitted(ScholarshipApplicationDTO application);
+    }
+
+    @Setter
+    private ApplicationSubmittedCallback callback;
+
     /**
      * Initializes the controller.
      */
@@ -58,7 +64,7 @@ public class ScholarshipApplicationDialogController extends BaseController {
     @Override
     public void initializeData() {
         // Set up academic period combo box
-        academicPeriodComboBox.setConverter(new StringConverter<AcademicPeriodDTO>() {
+        academicPeriodComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(AcademicPeriodDTO period) {
                 return period == null ? "" : period.getName();
@@ -71,12 +77,12 @@ public class ScholarshipApplicationDialogController extends BaseController {
         });
         
         // Set up button actions
-        cancelButton.setOnAction(event -> {
+        cancelButton.setOnAction(_ -> {
             result = null;
             closeDialog();
         });
         
-        submitButton.setOnAction(event -> {
+        submitButton.setOnAction(_ -> {
             if (validateInput()) {
                 submitApplication();
             }
@@ -163,6 +169,12 @@ public class ScholarshipApplicationDialogController extends BaseController {
                     program.getId(), selectedPeriod.getId());
             showInfo(LangManager.getBundle().getString("success.title"), 
                     LangManager.getBundle().getString("scholarship.success.application_submitted"));
+            
+            // Notify the parent controller
+            if (callback != null) {
+                callback.onApplicationSubmitted(result);
+            }
+            
             closeDialog();
         } catch (Exception e) {
             logger.error("Error submitting scholarship application", e);

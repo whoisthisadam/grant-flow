@@ -274,3 +274,63 @@ public class MyScreenController extends BaseController {
 ## Notes About Scholarship Functionality
 
 The scholarship-related functionality has been temporarily disabled in the client application. The UI buttons for this functionality are still present but will display informational messages when clicked.
+
+## Client-Server Communication Guidelines
+
+### Exception Handling in Client-Server Communication
+
+- **Always send a proper response from the server, even when exceptions occur**
+  - When an exception occurs during command processing, catch it and include the error message in a structured response
+  - Never let the server fail silently without sending a response to the client
+  - Example:
+    ```java
+    try {
+        // Process the command
+        Result result = service.processCommand(command);
+        
+        // Send success response
+        sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, result));
+    } catch (Exception e) {
+        logger.error("Error processing command", e);
+        
+        // Create a structured error response with the exception message
+        ErrorResponse response = new ErrorResponse(false, e.getMessage());
+        
+        // Send error response to client
+        sendObject(new ResponseWrapper(ResponseFromServer.ERROR, response));
+    }
+    ```
+
+- **Propagate specific error messages from server to client UI**
+  - On the client side, throw exceptions with the server's error message instead of returning null
+  - In the UI layer, catch these exceptions and display the specific error message to the user
+  - Example (Client Connection Layer):
+    ```java
+    if (response.getResponse() == ResponseFromServer.ERROR) {
+        String errorMessage = response.getData() != null ? response.getData().toString() : "Unknown error";
+        logger.warn("Operation failed: {}", errorMessage);
+        throw new Exception(errorMessage);
+    }
+    ```
+  - Example (UI Layer):
+    ```java
+    try {
+        Result result = clientConnection.performOperation(params);
+        // Handle success
+    } catch (Exception e) {
+        // Display the specific error message from the server
+        showError("Error", e.getMessage());
+    }
+    ```
+
+- **Benefits of this approach**:
+  - Prevents the client from hanging while waiting for a response that will never come
+  - Provides users with specific, actionable error messages
+  - Maintains the request-response flow even in error scenarios
+  - Makes debugging easier by preserving error context across the network boundary
+
+- **Common mistakes to avoid**:
+  - Throwing exceptions on the server without sending a response
+  - Returning null from client methods instead of throwing exceptions with error messages
+  - Displaying generic error messages instead of the specific server error
+  - Using different error handling patterns for different operations

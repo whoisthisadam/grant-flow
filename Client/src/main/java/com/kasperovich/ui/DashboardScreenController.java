@@ -3,6 +3,7 @@ package com.kasperovich.ui;
 import com.kasperovich.config.AlertManager;
 import com.kasperovich.dto.auth.UserDTO;
 import com.kasperovich.dto.scholarship.ScholarshipApplicationDTO;
+import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
 import com.kasperovich.i18n.LangManager;
 import com.kasperovich.operations.ChangeScene;
 import com.kasperovich.utils.LoggerUtil;
@@ -13,8 +14,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,15 +51,19 @@ public class DashboardScreenController extends BaseController {
     
     @FXML
     private Button profileButton;
+    
+    @FXML
+    private Label availableScholarshipsCount;
+    
+    @FXML
+    private Label myApplicationsCount;
 
-    /**
-     * -- SETTER --
-     *  Sets the user for this controller.
-     *
-     * @param user The user to set
-     */
     @Setter
     private UserDTO user;
+    
+    // Store data to pass to other controllers
+    private List<ScholarshipApplicationDTO> userApplications;
+    private List<ScholarshipProgramDTO> scholarshipPrograms;
     
     /**
      * Initializes the controller.
@@ -97,12 +106,92 @@ public class DashboardScreenController extends BaseController {
             userNameLabel.setText(user.getFirstName() + " " + user.getLastName());
             roleLabel.setText("Role: " + user.getRole());
             
-            // Add some placeholder recent activities
-            recentActivityList.setItems(FXCollections.observableArrayList(
-                    "Login: " + java.time.LocalDateTime.now(),
-                    "Profile updated: Yesterday"
-            ));
+            // Load data from the server
+            loadDashboardData();
         }
+    }
+    
+    /**
+     * Loads dashboard data from the server.
+     */
+    private void loadDashboardData() {
+        try {
+            // Load user applications
+            userApplications = getClientConnection().getUserApplications();
+            
+            // Load scholarship programs
+            scholarshipPrograms = getClientConnection().getScholarshipPrograms();
+            
+            // Update UI with counts
+            updateDashboardCounts();
+            
+            // Update recent activity list
+            updateRecentActivityList();
+            
+            logger.info("Dashboard data loaded successfully");
+        } catch (Exception e) {
+            logger.error("Error loading dashboard data", e);
+            AlertManager.showErrorAlert(
+                LangManager.getBundle().getString("error.title"),
+                LangManager.getBundle().getString("dashboard.error.loading_data") + ": " + e.getMessage()
+            );
+        }
+    }
+    
+    /**
+     * Updates the dashboard counts based on loaded data.
+     */
+    private void updateDashboardCounts() {
+        // Update applications count
+        if (userApplications != null) {
+            myApplicationsCount.setText(String.valueOf(userApplications.size()));
+        } else {
+            myApplicationsCount.setText("0");
+        }
+        
+        // Update available scholarships count (only count active and accepting applications)
+        if (scholarshipPrograms != null) {
+            long availableCount = scholarshipPrograms.stream()
+                    .filter(ScholarshipProgramDTO::isActive)
+                    .filter(ScholarshipProgramDTO::isAcceptingApplications)
+                    .count();
+            availableScholarshipsCount.setText(String.valueOf(availableCount));
+        } else {
+            availableScholarshipsCount.setText("0");
+        }
+    }
+    
+    /**
+     * Updates the recent activity list based on loaded data.
+     */
+    private void updateRecentActivityList() {
+        // Create a list for recent activities
+        List<String> activities = new ArrayList<>();
+        
+        // Add login activity
+        activities.add("Login: " + LocalDateTime.now().format(
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        
+        // Add recent applications if any
+        if (userApplications != null && !userApplications.isEmpty()) {
+            // Sort applications by submission date (newest first)
+            userApplications.sort((a1, a2) -> a2.getSubmissionDate().compareTo(a1.getSubmissionDate()));
+            
+            // Add up to 5 most recent applications
+            int count = Math.min(userApplications.size(), 5);
+            for (int i = 0; i < count; i++) {
+                ScholarshipApplicationDTO app = userApplications.get(i);
+                activities.add(String.format(
+                    "%s: %s - %s",
+                    LangManager.getBundle().getString("dashboard.activity.application_submitted"),
+                    app.getProgramName(),
+                    app.getSubmissionDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                ));
+            }
+        }
+        
+        // Update the list view
+        recentActivityList.setItems(FXCollections.observableArrayList(activities));
     }
     
     /**
@@ -183,12 +272,24 @@ public class DashboardScreenController extends BaseController {
      */
     private boolean navigateToScholarshipProgramsScreen(String source) {
         try {
-            ChangeScene.changeScene(new ActionEvent(logoutButton, null), "/fxml/scholarship_programs_screen.fxml", LangManager.getBundle().getString("scholarship_programs.title"), getClientConnection(), user);
+            // Use the changeSceneWithData method to navigate and pass the scholarship programs data
+            ChangeScene.changeSceneWithData(
+                    new ActionEvent(logoutButton, null), 
+                    "/fxml/scholarship_programs_screen.fxml", 
+                    LangManager.getBundle().getString("scholarship_programs.title"), 
+                    getClientConnection(), 
+                    user,
+                    scholarshipPrograms,
+                    "setScholarshipPrograms");
+            
             logger.debug("Navigated to scholarship programs screen from {}", source);
             return true;
         } catch (Exception e) {
             logger.error("Error navigating to scholarship programs screen from {}", source, e);
-            AlertManager.showErrorAlert(LangManager.getBundle().getString("navigation.error"), LangManager.getBundle().getString("navigation.could_not_load_scholarship_programs_screen") + e.getMessage());
+            AlertManager.showErrorAlert(
+                LangManager.getBundle().getString("navigation.error"), 
+                LangManager.getBundle().getString("navigation.could_not_load_scholarship_programs_screen") + e.getMessage()
+            );
             return false;
         }
     }
@@ -211,10 +312,13 @@ public class DashboardScreenController extends BaseController {
     @FXML
     public void handleViewApplicationsAction(ActionEvent event) {
         try {
-            // Get the user's applications
-            List<ScholarshipApplicationDTO> applications = getClientConnection().getUserApplications();
+            // Check if we have applications data
+            if (userApplications == null) {
+                // Load applications if not already loaded
+                userApplications = getClientConnection().getUserApplications();
+            }
             
-            if (applications.isEmpty()) {
+            if (userApplications.isEmpty()) {
                 AlertManager.showInformationAlert(
                     LangManager.getBundle().getString("applications.no_applications_title"),
                     LangManager.getBundle().getString("applications.no_applications_message")
@@ -229,7 +333,7 @@ public class DashboardScreenController extends BaseController {
                     LangManager.getBundle().getString("applications.title"), 
                     getClientConnection(), 
                     user,
-                    applications,
+                    userApplications,
                     "setApplications");
             
             logger.info("Navigated to scholarship applications screen");
@@ -279,6 +383,29 @@ public class DashboardScreenController extends BaseController {
         logger.debug("Check status action requested but functionality is disabled");
     }
 
+    /**
+     * Adds a new application to the user's applications list and updates the dashboard.
+     * 
+     * @param application The new application to add
+     */
+    public void addNewApplication(ScholarshipApplicationDTO application) {
+        if (application != null) {
+            // Initialize the applications list if needed
+            if (userApplications == null) {
+                userApplications = new ArrayList<>();
+            }
+            
+            // Add the new application to the list
+            userApplications.add(application);
+            
+            // Update the dashboard counts and activity list
+            updateDashboardCounts();
+            updateRecentActivityList();
+            
+            logger.info("Added new application to dashboard: {}", application.getId());
+        }
+    }
+    
     /**
      * Sets up the sidebar navigation buttons with their action handlers.
      */

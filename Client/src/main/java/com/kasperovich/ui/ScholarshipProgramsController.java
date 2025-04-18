@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lombok.Setter;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
@@ -70,10 +71,14 @@ public class ScholarshipProgramsController extends BaseController {
     
     @FXML
     private Label statusLabel;
-    
+
+
+    @Setter
     private UserDTO user;
     private final ObservableList<ScholarshipProgramDTO> programsList = FXCollections.observableArrayList();
-
+    
+    // Store the newly submitted application to update the dashboard
+    private ScholarshipApplicationDTO newApplication;
 
     /**
      * Initializes the controller.
@@ -98,7 +103,7 @@ public class ScholarshipProgramsController extends BaseController {
         });
 
         // No end date in DTO, use N/A
-        endDateColumn.setCellValueFactory(cellData ->
+        endDateColumn.setCellValueFactory(_ ->
                 new SimpleStringProperty("N/A"));
 
         statusColumn.setCellValueFactory(cellData -> {
@@ -118,9 +123,8 @@ public class ScholarshipProgramsController extends BaseController {
         programsTableView.setItems(programsList);
 
         // Add selection listener to enable/disable apply button
-        programsTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            applyButton.setDisable(newSelection == null);
-        });
+        programsTableView.getSelectionModel().selectedItemProperty().addListener((_, _, newSelection) ->
+                applyButton.setDisable(newSelection == null));
 
         // Initialize filter combo box
         filterComboBox.setItems(FXCollections.observableArrayList(
@@ -132,14 +136,16 @@ public class ScholarshipProgramsController extends BaseController {
         filterComboBox.getSelectionModel().selectFirst();
 
         // Add listener to filter combo box
-        filterComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+        filterComboBox.getSelectionModel().selectedItemProperty().addListener((_, _, newVal) -> {
             if (newVal != null) {
-                loadScholarshipPrograms();
+                applyFilter();
             }
         });
 
-        // Load scholarship programs
-        loadScholarshipPrograms();
+        // Only load scholarship programs if the list is empty (not passed from dashboard)
+        if (programsList.isEmpty()) {
+            loadScholarshipPrograms();
+        }
         
         // Set status message
         statusLabel.setText(LangManager.getBundle().getString("scholarship.status.disabled"));
@@ -197,13 +203,97 @@ public class ScholarshipProgramsController extends BaseController {
     }
     
     /**
+     * Sets the scholarship programs for this controller.
+     * 
+     * @param programs The scholarship programs to set
+     */
+    public void setScholarshipPrograms(ArrayList<ScholarshipProgramDTO> programs) {
+        if (programs != null) {
+            this.programsList.clear();
+            this.programsList.addAll(programs);
+            
+            // Apply the current filter
+            applyFilter();
+            
+            logger.info("Scholarship programs data set from dashboard: {} programs", programs.size());
+        }
+    }
+    
+    /**
+     * Applies the current filter to the scholarship programs.
+     */
+    private void applyFilter() {
+        String filter = filterComboBox.getSelectionModel().getSelectedItem();
+        if(filter == null) {
+            filter = LangManager.getBundle().getString("scholarship.filter.all");
+        }
+        
+        // Create a temporary list with all programs (either from the original list or by loading from server)
+        List<ScholarshipProgramDTO> allPrograms = new ArrayList<>(programsList);
+        if (allPrograms.isEmpty() && getClientConnection() != null) {
+            try {
+                allPrograms = getClientConnection().getScholarshipPrograms();
+            } catch (Exception e) {
+                logger.error("Error loading scholarship programs for filtering", e);
+                statusLabel.setText(LangManager.getBundle().getString("scholarship.status.error") + " " + e.getMessage());
+                return;
+            }
+        }
+        
+        // Clear the current list
+        programsList.clear();
+        
+        // Apply filter
+        List<ScholarshipProgramDTO> filteredPrograms = new ArrayList<>();
+        if (LangManager.getBundle().getString("scholarship.filter.all").equals(filter)) {
+            filteredPrograms.addAll(allPrograms);
+        } else if (LangManager.getBundle().getString("scholarship.filter.active").equals(filter)) {
+            for (ScholarshipProgramDTO program : allPrograms) {
+                if (program.isActive()) {
+                    filteredPrograms.add(program);
+                }
+            }
+        } else if (LangManager.getBundle().getString("scholarship.filter.accepting").equals(filter)) {
+            for (ScholarshipProgramDTO program : allPrograms) {
+                if (program.isActive() && program.isAcceptingApplications()) {
+                    filteredPrograms.add(program);
+                }
+            }
+        }
+        
+        // Add filtered programs to the observable list
+        programsList.addAll(filteredPrograms);
+        
+        // Update status label
+        statusLabel.setText(LangManager.getBundle().getString("scholarship.status.loaded") + " " + filteredPrograms.size());
+    }
+    
+    /**
      * Handles the back button action.
      *
      * @param event The action event
      */
     @FXML
     public void handleBackAction(ActionEvent event) {
-        ChangeScene.changeScene(event, "/fxml/dashboard_screen.fxml", LangManager.getBundle().getString("dashboard.title"), getClientConnection(), user);
+        if (newApplication != null) {
+            // Navigate back to dashboard with the new application
+            ChangeScene.changeSceneWithData(
+                    event, 
+                    "/fxml/dashboard_screen.fxml", 
+                    LangManager.getBundle().getString("dashboard.title"), 
+                    getClientConnection(), 
+                    user,
+                    newApplication,
+                    "addNewApplication");
+        } else {
+            // Navigate back to dashboard normally
+            ChangeScene.changeScene(
+                    event, 
+                    "/fxml/dashboard_screen.fxml", 
+                    LangManager.getBundle().getString("dashboard.title"), 
+                    getClientConnection(), 
+                    user);
+        }
     }
     
     /**
@@ -250,6 +340,13 @@ public class ScholarshipProgramsController extends BaseController {
             controller.initializeData();
             controller.setup(selectedProgram);
             
+            // Set the callback to receive the submitted application
+            controller.setCallback(application -> {
+                newApplication = application;
+                statusLabel.setText(LangManager.getBundle().getString("scholarship.status.application_submitted"));
+                logger.info("Scholarship application submitted for program: {}", selectedProgram.getId());
+            });
+            
             // Create and show the dialog
             Stage dialogStage = new Stage();
             dialogStage.setTitle(LangManager.getBundle().getString("scholarship.dialog.title"));
@@ -257,13 +354,6 @@ public class ScholarshipProgramsController extends BaseController {
             dialogStage.initOwner(((Node) event.getSource()).getScene().getWindow());
             dialogStage.setScene(new Scene(root));
             dialogStage.showAndWait();
-            
-            // Check if an application was submitted
-            ScholarshipApplicationDTO application = controller.getResult();
-            if (application != null) {
-                statusLabel.setText(LangManager.getBundle().getString("scholarship.status.application_submitted"));
-                logger.info("Scholarship application submitted for program: {}", selectedProgram.getId());
-            }
         } catch (IOException e) {
             logger.error("Error opening scholarship application dialog", e);
             AlertManager.showErrorAlert(LangManager.getBundle().getString("error.title"), 
