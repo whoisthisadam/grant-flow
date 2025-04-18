@@ -107,4 +107,37 @@ public class AcademicPeriodDaoImpl extends BaseDaoImpl<AcademicPeriod, Long> imp
             throw e;
         }
     }
+    
+    @Override
+    public List<AcademicPeriod> findByActive(boolean active) {
+        logger.debug("Finding academic periods with active status: {}", active);
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<AcademicPeriod> query = builder.createQuery(AcademicPeriod.class);
+            Root<AcademicPeriod> root = query.from(AcademicPeriod.class);
+            
+            LocalDate today = LocalDate.now();
+            
+            if (active) {
+                // If active=true, find periods where current date is between start and end dates
+                query.select(root)
+                     .where(builder.and(
+                         builder.lessThanOrEqualTo(root.get("startDate"), today),
+                         builder.greaterThanOrEqualTo(root.get("endDate"), today)
+                     ));
+            } else {
+                // If active=false, find periods where current date is not between start and end dates
+                query.select(root)
+                     .where(builder.or(
+                         builder.greaterThan(root.get("startDate"), today),
+                         builder.lessThan(root.get("endDate"), today)
+                     ));
+            }
+            
+            return session.createQuery(query).getResultList();
+        } catch (Exception e) {
+            logger.error("Error finding academic periods with active status: {}", active, e);
+            throw e;
+        }
+    }
 }

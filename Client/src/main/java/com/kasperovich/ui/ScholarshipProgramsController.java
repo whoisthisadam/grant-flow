@@ -2,6 +2,7 @@ package com.kasperovich.ui;
 
 import com.kasperovich.config.AlertManager;
 import com.kasperovich.dto.auth.UserDTO;
+import com.kasperovich.dto.scholarship.ScholarshipApplicationDTO;
 import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
 import com.kasperovich.i18n.LangManager;
 import com.kasperovich.operations.ChangeScene;
@@ -12,19 +13,19 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Controller for the scholarship programs screen.
@@ -71,12 +72,11 @@ public class ScholarshipProgramsController extends BaseController {
     private Label statusLabel;
     
     private UserDTO user;
-    private ObservableList<ScholarshipProgramDTO> programsList = FXCollections.observableArrayList();
+    private final ObservableList<ScholarshipProgramDTO> programsList = FXCollections.observableArrayList();
 
 
     /**
-     * Initializes the controller and loads data.
-     * Called after dependencies are injected.
+     * Initializes the controller.
      */
     @Override
     public void initializeData() {
@@ -143,15 +143,6 @@ public class ScholarshipProgramsController extends BaseController {
         
         // Set status message
         statusLabel.setText(LangManager.getBundle().getString("scholarship.status.disabled"));
-    }
-
-    /**
-     * Sets the user for this controller.
-     *
-     * @param user The user to set
-     */
-    public void setUser(UserDTO user) {
-        this.user = user;
     }
 
     /**
@@ -240,11 +231,44 @@ public class ScholarshipProgramsController extends BaseController {
             return;
         }
         
-        // Show message that functionality is disabled
-        AlertManager.showInformationAlert(LangManager.getBundle().getString("info.title"), 
-                LangManager.getBundle().getString("scholarship.status.disabled"));
+        // Check if the program is active and accepting applications
+        if (!selectedProgram.isActive() || !selectedProgram.isAcceptingApplications()) {
+            AlertManager.showWarningAlert(LangManager.getBundle().getString("warning.title"), 
+                    LangManager.getBundle().getString("scholarship.warning.not_accepting"));
+            return;
+        }
         
-        statusLabel.setText(LangManager.getBundle().getString("scholarship.status.disabled"));
+        try {
+            // Load the application dialog
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/scholarship_application_dialog.fxml"));
+            loader.setResources(LangManager.getBundle());
+            Parent root = loader.load();
+            
+            // Get controller and set up the dialog
+            ScholarshipApplicationDialogController controller = loader.getController();
+            controller.setAccess(this.clientConnection);
+            controller.initializeData();
+            controller.setup(selectedProgram);
+            
+            // Create and show the dialog
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(LangManager.getBundle().getString("scholarship.dialog.title"));
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(((Node) event.getSource()).getScene().getWindow());
+            dialogStage.setScene(new Scene(root));
+            dialogStage.showAndWait();
+            
+            // Check if an application was submitted
+            ScholarshipApplicationDTO application = controller.getResult();
+            if (application != null) {
+                statusLabel.setText(LangManager.getBundle().getString("scholarship.status.application_submitted"));
+                logger.info("Scholarship application submitted for program: {}", selectedProgram.getId());
+            }
+        } catch (IOException e) {
+            logger.error("Error opening scholarship application dialog", e);
+            AlertManager.showErrorAlert(LangManager.getBundle().getString("error.title"), 
+                    LangManager.getBundle().getString("scholarship.error.dialog") + ": " + e.getMessage());
+        }
     }
 
     @Override

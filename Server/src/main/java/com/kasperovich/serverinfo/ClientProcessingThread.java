@@ -2,22 +2,33 @@ package com.kasperovich.serverinfo;
 
 import com.kasperovich.commands.fromserver.ResponseFromServer;
 import com.kasperovich.commands.fromserver.ResponseWrapper;
+import com.kasperovich.commands.fromserver.ScholarshipApplicationResponse;
+import com.kasperovich.commands.fromserver.ScholarshipApplicationsResponse;
+import com.kasperovich.commands.fromserver.AcademicPeriodsResponse;
 import com.kasperovich.commands.toserver.Command;
 import com.kasperovich.commands.toserver.CommandWrapper;
+import com.kasperovich.commands.toserver.SubmitScholarshipApplicationCommand;
 import com.kasperovich.config.ConnectedClientConfig;
 import com.kasperovich.dto.auth.LoginRequest;
 import com.kasperovich.dto.auth.RegistrationRequest;
 import com.kasperovich.dto.auth.UserDTO;
 import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
+import com.kasperovich.dto.scholarship.ScholarshipApplicationDTO;
+import com.kasperovich.dto.scholarship.AcademicPeriodDTO;
 import com.kasperovich.service.AuthenticationService;
 import com.kasperovich.service.ScholarshipService;
+import com.kasperovich.service.ScholarshipApplicationService;
+import com.kasperovich.service.AcademicPeriodService;
 import com.kasperovich.utils.LoggerUtil;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +43,8 @@ public class ClientProcessingThread extends Thread {
     private final ObjectInputStream objectInputStream;
     private final AuthenticationService authService;
     private final ScholarshipService scholarshipService;
+    private final ScholarshipApplicationService scholarshipApplicationService;
+    private final AcademicPeriodService academicPeriodService;
     private Long authenticatedUserId;
 
     /**
@@ -47,6 +60,8 @@ public class ClientProcessingThread extends Thread {
         objectInputStream = new ObjectInputStream(socket.getInputStream());
         this.authService = AuthenticationService.getInstance();
         this.scholarshipService = new ScholarshipService();
+        this.scholarshipApplicationService = new ScholarshipApplicationService();
+        this.academicPeriodService = new AcademicPeriodService();
         logger.debug("Created new client processing thread for client: {}", clientInfo.getConnectionSocket().getInetAddress());
     }
 
@@ -159,6 +174,18 @@ public class ClientProcessingThread extends Thread {
             }
             case GET_SCHOLARSHIP_PROGRAMS: {
                 handleGetScholarshipPrograms(commandWrapper);
+                break;
+            }
+            case APPLY_FOR_SCHOLARSHIP: {
+                handleApplyForScholarship(commandWrapper);
+                break;
+            }
+            case GET_USER_APPLICATIONS: {
+                handleGetUserApplications(commandWrapper);
+                break;
+            }
+            case GET_ACADEMIC_PERIODS: {
+                handleGetAcademicPeriods(commandWrapper);
                 break;
             }
             default: {
@@ -302,6 +329,97 @@ public class ClientProcessingThread extends Thread {
         } catch (Exception e) {
             logger.error("Error getting scholarship programs", e);
             sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Error getting scholarship programs: " + e.getMessage()));
+        }
+    }
+    
+    /**
+     * Handles applying for a scholarship.
+     *
+     * @param commandWrapper the command wrapper
+     * @throws IOException if an I/O error occurs
+     */
+    private void handleApplyForScholarship(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling APPLY_FOR_SCHOLARSHIP command");
+        
+        try {
+            // Extract application data
+            SubmitScholarshipApplicationCommand command = commandWrapper.getData();
+            
+            if (command == null) {
+                logger.warn("Scholarship application data is missing");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Scholarship application data is missing"));
+                return;
+            }
+            
+            // Submit the application
+            ScholarshipApplicationDTO application = scholarshipApplicationService.submitApplication(
+                    authenticatedUserId,
+                    command.getProgramId(),
+                    command.getPeriodId(),
+                    command.getAdditionalInfo()
+            );
+            
+            // Create response with the application
+            ScholarshipApplicationResponse response = new ScholarshipApplicationResponse(
+                    true, 
+                    "Application submitted successfully", 
+                    application
+            );
+            
+            logger.info("Scholarship application submitted successfully. ID: {}", application.getId());
+            sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
+        } catch (Exception e) {
+            logger.error("Error submitting scholarship application", e);
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Error submitting scholarship application: " + e.getMessage()));
+        }
+    }
+    
+    /**
+     * Handles getting user applications.
+     *
+     * @param commandWrapper the command wrapper
+     * @throws IOException if an I/O error occurs
+     */
+    private void handleGetUserApplications(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling GET_USER_APPLICATIONS command");
+        
+        try {
+            // Get user applications
+            List<ScholarshipApplicationDTO> applications = scholarshipApplicationService.getUserApplications(authenticatedUserId);
+            
+            // Create response with the applications list
+            ScholarshipApplicationsResponse response = new ScholarshipApplicationsResponse(applications);
+            
+            logger.info("Returning {} scholarship applications for user {}", applications.size(), authenticatedUserId);
+            sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
+        } catch (Exception e) {
+            logger.error("Error getting user applications", e);
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Error getting user applications: " + e.getMessage()));
+        }
+    }
+    
+    /**
+     * Handles getting academic periods.
+     *
+     * @param commandWrapper the command wrapper
+     * @throws IOException if an I/O error occurs
+     */
+    private void handleGetAcademicPeriods(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling GET_ACADEMIC_PERIODS command");
+        
+        try {
+            // Get academic periods from the database
+            List<AcademicPeriodDTO> periods = academicPeriodService.getAllAcademicPeriods();
+            
+            // Create response with the periods list
+            AcademicPeriodsResponse periodsResponse = new AcademicPeriodsResponse(periods);
+            ResponseWrapper response = new ResponseWrapper(ResponseFromServer.SUCCESS, periodsResponse);
+            
+            logger.info("Returning {} academic periods", periods.size());
+            sendObject(response);
+        } catch (Exception e) {
+            logger.error("Error getting academic periods", e);
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Error getting academic periods: " + e.getMessage()));
         }
     }
     

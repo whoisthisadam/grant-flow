@@ -153,6 +153,36 @@ Database migrations are handled automatically when the server starts.
 4. Follow the established package structure
 5. Document public APIs
 
+## Hibernate and Entity Relationship Guidelines
+
+### Handling Lazy Loading
+
+- **Always use JOIN FETCH in HQL queries when retrieving entities with relationships**
+  - When retrieving entities that have relationships (OneToMany, ManyToOne, etc.), use JOIN FETCH in your HQL queries to eagerly load related entities
+  - This prevents LazyInitializationException when accessing related entities outside of the Hibernate session
+  - Example:
+    ```java
+    // Instead of this:
+    "FROM ScholarshipApplication a WHERE a.applicant = :applicant"
+    
+    // Use this:
+    "FROM ScholarshipApplication a " +
+    "LEFT JOIN FETCH a.applicant " +
+    "LEFT JOIN FETCH a.program " +
+    "LEFT JOIN FETCH a.period " +
+    "LEFT JOIN FETCH a.reviewer " +
+    "WHERE a.applicant = :applicant"
+    ```
+  - Benefits:
+    - Reduces the number of database queries
+    - Prevents LazyInitializationException
+    - Makes code more robust and maintainable
+    - Avoids the need for complex exception handling in service or DTO conversion layers
+
+- **Avoid handling lazy loading exceptions in service or DTO layers**
+  - Fix the root cause by properly fetching related entities in the DAO layer
+  - Don't rely on Hibernate.initialize() or try-catch blocks to handle lazy loading issues
+
 ## UI Navigation Rule
 
 - **Always use the `ChangeScene.changeScene` utility for switching between JavaFX screens.**

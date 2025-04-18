@@ -4,5 +4,6 @@
     <file url="file://$PROJECT_DIR$/Server/src/main/resources/db/migration/V1__initial_schema.sql" dialect="AZURE" />
     <file url="file://$PROJECT_DIR$/Server/src/main/resources/db/migration/V2__sample_data.sql" dialect="AZURE" />
     <file url="file://$PROJECT_DIR$/Server/src/main/resources/db/migration/V3__additional_sample_data.sql" dialect="AZURE" />
+    <file url="file://$PROJECT_DIR$/Server/src/main/resources/test_data_scholarship_applications.sql" dialect="AZURE" />
   </component>
 </project>

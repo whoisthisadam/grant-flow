@@ -1,12 +1,14 @@
 package com.kasperovich.clientconnection;
 
-import com.kasperovich.commands.fromserver.ResponseFromServer;
-import com.kasperovich.commands.fromserver.ResponseWrapper;
+import com.kasperovich.commands.fromserver.*;
 import com.kasperovich.commands.toserver.Command;
 import com.kasperovich.commands.toserver.CommandWrapper;
+import com.kasperovich.commands.toserver.SubmitScholarshipApplicationCommand;
 import com.kasperovich.dto.auth.LoginRequest;
 import com.kasperovich.dto.auth.RegistrationRequest;
 import com.kasperovich.dto.auth.UserDTO;
+import com.kasperovich.dto.scholarship.AcademicPeriodDTO;
+import com.kasperovich.dto.scholarship.ScholarshipApplicationDTO;
 import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
 import com.kasperovich.utils.LoggerUtil;
 import lombok.Getter;
@@ -234,7 +236,7 @@ public class ClientConnection {
             
             ResponseWrapper response = receiveObject();
             
-            if (response.getResponse() == ResponseFromServer.LOGOUT_SUCCESS) {
+            if (response.getResponse() == ResponseFromServer.SUCCESS) {
                 logger.info("Logout successful");
                 this.authToken = null;
                 this.currentUser = null;
@@ -278,6 +280,150 @@ public class ClientConnection {
             }
         } catch (Exception e) {
             logger.error("Error getting scholarship programs from server", e);
+            return new ArrayList<>();
+        }
+    }
+
+    /**
+     * Gets a list of available academic periods from the server.
+     * 
+     * @return a list of academic periods
+     */
+    public List<AcademicPeriodDTO> getAcademicPeriods() {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to get academic periods but no user is authenticated");
+            return new ArrayList<>();
+        }
+        
+        try {
+            logger.debug("Getting academic periods from server");
+            
+            // Create and send command to get academic periods
+            CommandWrapper command = new CommandWrapper(Command.GET_ACADEMIC_PERIODS);
+            command.setAuthToken(authToken);
+            sendObject(command);
+            
+            // Receive response
+            ResponseWrapper response = receiveObject();
+            
+            if (response.getResponse() == ResponseFromServer.SUCCESS) {
+                // Extract periods from response
+                AcademicPeriodsResponse periodsResponse = response.getData();
+                
+                if (periodsResponse != null && periodsResponse.getPeriods() != null) {
+                    List<AcademicPeriodDTO> periods = periodsResponse.getPeriods();
+                    logger.info("Retrieved {} academic periods from server", periods.size());
+                    return periods;
+                } else {
+                    logger.warn("Received empty periods response");
+                    return new ArrayList<>();
+                }
+            } else {
+                logger.warn("Failed to get academic periods: {}", response.getResponse());
+                return new ArrayList<>();
+            }
+        } catch (Exception e) {
+            logger.error("Error getting academic periods", e);
+            return new ArrayList<>();
+        }
+    }
+    
+    /**
+     * Submits a scholarship application.
+     * 
+     * @param programId the ID of the scholarship program
+     * @param periodId the ID of the academic period
+     * @param additionalInfo additional information for the application
+     * @return the submitted application if successful, null otherwise
+     */
+    public ScholarshipApplicationDTO submitScholarshipApplication(Long programId, Long periodId, String additionalInfo) {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to submit scholarship application but no user is authenticated");
+            return null;
+        }
+        
+        try {
+            logger.debug("Submitting scholarship application for program {} and period {}", programId, periodId);
+            
+            // Create and send command to submit scholarship application
+            SubmitScholarshipApplicationCommand command = new SubmitScholarshipApplicationCommand();
+            command.setProgramId(programId);
+            command.setPeriodId(periodId);
+            command.setAdditionalInfo(additionalInfo);
+            
+            CommandWrapper wrapper = new CommandWrapper(Command.APPLY_FOR_SCHOLARSHIP, command);
+            wrapper.setAuthToken(authToken);
+            
+            sendObject(wrapper);
+            
+            // Receive response
+            ResponseWrapper response = receiveObject();
+            
+            if (response.getResponse() == ResponseFromServer.SUCCESS) {
+                // Extract application from response
+                ScholarshipApplicationResponse applicationResponse = response.getData();
+                
+                if (applicationResponse != null && applicationResponse.isSuccess()) {
+                    ScholarshipApplicationDTO application = applicationResponse.getApplication();
+                    logger.info("Successfully submitted scholarship application for program {} and period {}", 
+                        programId, periodId);
+                    return application;
+                } else {
+                    String errorMessage = applicationResponse != null ? applicationResponse.getMessage() : "Unknown error";
+                    logger.warn("Failed to submit scholarship application: {}", errorMessage);
+                    return null;
+                }
+            } else {
+                logger.warn("Failed to submit scholarship application: {}", response.getResponse());
+                return null;
+            }
+        } catch (Exception e) {
+            logger.error("Error submitting scholarship application", e);
+            return null;
+        }
+    }
+    
+    /**
+     * Gets a list of scholarship applications for the current user.
+     * 
+     * @return a list of scholarship applications
+     */
+    public List<ScholarshipApplicationDTO> getUserApplications() {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to get user applications but no user is authenticated");
+            return new ArrayList<>();
+        }
+        
+        try {
+            logger.debug("Getting scholarship applications for user {}", currentUser.getUsername());
+            
+            // Create and send command to get user applications
+            CommandWrapper command = new CommandWrapper(Command.GET_USER_APPLICATIONS);
+            command.setAuthToken(authToken);
+            sendObject(command);
+            
+            // Receive response
+            ResponseWrapper response = receiveObject();
+            
+            if (response.getResponse() == ResponseFromServer.SUCCESS) {
+                // Extract applications from response
+                ScholarshipApplicationsResponse applicationsResponse = response.getData();
+                
+                if (applicationsResponse != null && applicationsResponse.getApplications() != null) {
+                    List<ScholarshipApplicationDTO> applications = applicationsResponse.getApplications();
+                    logger.info("Retrieved {} scholarship applications for user {}", 
+                        applications.size(), currentUser.getUsername());
+                    return applications;
+                } else {
+                    logger.warn("Received empty applications response");
+                    return new ArrayList<>();
+                }
+            } else {
+                logger.warn("Failed to get user applications: {}", response.getResponse());
+                return new ArrayList<>();
+            }
+        } catch (Exception e) {
+            logger.error("Error getting user applications", e);
             return new ArrayList<>();
         }
     }

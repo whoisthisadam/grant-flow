@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.kasperovich.ui.ScholarshipApplicationsController"
+            prefHeight="600.0" prefWidth="800.0">
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="10" left="20"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Label fx:id="titleLabel" text="%applications.title" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="backButton" text="%dashboard.back" onAction="#handleBackAction" />
+            </HBox>
+            <Separator/>
+        </VBox>
+    </top>
+    
+    <center>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="10" right="20" bottom="20" left="20"/>
+            </padding>
+            
+            <TableView fx:id="applicationsTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="programColumn" text="%applications.program_column" prefWidth="200"/>
+                    <TableColumn fx:id="periodColumn" text="%applications.period_column" prefWidth="150"/>
+                    <TableColumn fx:id="submissionDateColumn" text="%applications.submission_date_column" prefWidth="150"/>
+                    <TableColumn fx:id="statusColumn" text="%applications.status_column" prefWidth="100"/>
+                    <TableColumn fx:id="decisionDateColumn" text="%applications.decision_date_column" prefWidth="150"/>
+                </columns>
+            </TableView>
+            
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button fx:id="viewDetailsButton" text="%applications.view_details" onAction="#handleViewDetailsAction" disable="true"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

@@ -69,15 +69,8 @@ public class DTOConverter {
         
         // Set creator information if available
         if (program.getCreatedBy() != null) {
-            try {
-                User creator = program.getCreatedBy();
-                dto.setCreatedById(creator.getId());
-                dto.setCreatedByUsername(creator.getUsername());
-            } catch (Exception e) {
-                logger.warn("Error accessing creator information for program: {}", program.getId(), e);
-                dto.setCreatedById(program.getCreatedBy().getId());
-                dto.setCreatedByUsername("User #" + program.getCreatedBy().getId());
-            }
+            dto.setCreatedById(program.getCreatedBy().getId());
+            dto.setCreatedByUsername(program.getCreatedBy().getUsername());
         }
         
         return dto;
@@ -104,55 +97,30 @@ public class DTOConverter {
         // Set applicant information
         User applicant = application.getApplicant();
         if (applicant != null) {
-            try {
-                dto.setApplicantId(applicant.getId());
-                dto.setApplicantUsername(applicant.getUsername());
-                dto.setApplicantFullName(applicant.getFirstName() + " " + applicant.getLastName());
-            } catch (Exception e) {
-                logger.warn("Error accessing applicant information for application: {}", application.getId(), e);
-                dto.setApplicantId(applicant.getId());
-                dto.setApplicantUsername("User #" + applicant.getId());
-                dto.setApplicantFullName("User #" + applicant.getId());
-            }
+            dto.setApplicantId(applicant.getId());
+            dto.setApplicantUsername(applicant.getUsername());
+            dto.setApplicantFullName(applicant.getFirstName() + " " + applicant.getLastName());
         }
         
         // Set program information
         ScholarshipProgram program = application.getProgram();
         if (program != null) {
-            try {
-                dto.setProgramId(program.getId());
-                dto.setProgramName(program.getName());
-            } catch (Exception e) {
-                logger.warn("Error accessing program information for application: {}", application.getId(), e);
-                dto.setProgramId(program.getId());
-                dto.setProgramName("Program #" + program.getId());
-            }
+            dto.setProgramId(program.getId());
+            dto.setProgramName(program.getName());
         }
         
         // Set period information
         AcademicPeriod period = application.getPeriod();
         if (period != null) {
-            try {
-                dto.setPeriodId(period.getId());
-                dto.setPeriodName(period.getName());
-            } catch (Exception e) {
-                logger.warn("Error accessing period information for application: {}", application.getId(), e);
-                dto.setPeriodId(period.getId());
-                dto.setPeriodName("Period #" + period.getId());
-            }
+            dto.setPeriodId(period.getId());
+            dto.setPeriodName(period.getName());
         }
         
         // Set reviewer information if available
         User reviewer = application.getReviewer();
         if (reviewer != null) {
-            try {
-                dto.setReviewerId(reviewer.getId());
-                dto.setReviewerUsername(reviewer.getUsername());
-            } catch (Exception e) {
-                logger.warn("Error accessing reviewer information for application: {}", application.getId(), e);
-                dto.setReviewerId(reviewer.getId());
-                dto.setReviewerUsername("User #" + reviewer.getId());
-            }
+            dto.setReviewerId(reviewer.getId());
+            dto.setReviewerUsername(reviewer.getUsername());
         }
         
         return dto;

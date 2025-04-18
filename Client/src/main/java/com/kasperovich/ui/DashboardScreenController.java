@@ -2,24 +2,20 @@ package com.kasperovich.ui;
 
 import com.kasperovich.config.AlertManager;
 import com.kasperovich.dto.auth.UserDTO;
+import com.kasperovich.dto.scholarship.ScholarshipApplicationDTO;
 import com.kasperovich.i18n.LangManager;
 import com.kasperovich.operations.ChangeScene;
 import com.kasperovich.utils.LoggerUtil;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
 import lombok.Setter;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
-import java.util.Locale;
+import java.util.List;
 
 /**
  * Controller for the dashboard screen.
@@ -38,6 +34,18 @@ public class DashboardScreenController extends BaseController {
     
     @FXML
     private ListView<String> recentActivityList;
+    
+    @FXML
+    private Button dashboardButton;
+    
+    @FXML
+    private Button scholarshipsButton;
+    
+    @FXML
+    private Button applicationsButton;
+    
+    @FXML
+    private Button profileButton;
 
     /**
      * -- SETTER --
@@ -54,6 +62,14 @@ public class DashboardScreenController extends BaseController {
      */
     @Override
     public void initializeData() {
+        // Set up the sidebar navigation buttons
+        setupNavigationButtons();
+        
+        // Initialize user data if available
+        if (user != null) {
+            initializeUserData();
+        }
+        
         updateTexts();
     }
 
@@ -108,31 +124,19 @@ public class DashboardScreenController extends BaseController {
             }
             
             if (success) {
-                // Navigate back to the main screen
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main_screen.fxml"));
-                Parent root = loader.load();
-                
-                // Get the controller and set the client connection
-                MainScreenController mainController = loader.getController();
-                mainController.setClientConnection(getClientConnection());
-                
-                // Create a new scene
-                Scene scene = new Scene(root);
-                
-                // Get the current stage
-                Stage stage = (Stage) logoutButton.getScene().getWindow();
-                
-                // Set the new scene on the current stage
-                stage.setScene(scene);
-                stage.setTitle("Grant Flow");
-                stage.show();
+                // Navigate back to the main screen using ChangeScene utility
+                ChangeScene.changeScene(event, 
+                        "/fxml/main_screen.fxml", 
+                        "Grant Flow", 
+                        getClientConnection(), 
+                        null);
                 
                 logger.info("User logged out and navigated to main screen");
             } else {
                 logger.warn("Logout failed");
                 AlertManager.showErrorAlert("Logout Failed", "Could not log out. Please try again.");
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error("Error navigating to main screen after logout", e);
             AlertManager.showErrorAlert("Navigation Error", "Could not navigate to main screen: " + e.getMessage());
         }
@@ -206,10 +210,36 @@ public class DashboardScreenController extends BaseController {
      */
     @FXML
     public void handleViewApplicationsAction(ActionEvent event) {
-        // Placeholder for view applications functionality
-        AlertManager.showInformationAlert("Feature Disabled", 
-                "Scholarship application functionality is temporarily disabled.");
-        logger.debug("View applications action requested but functionality is disabled");
+        try {
+            // Get the user's applications
+            List<ScholarshipApplicationDTO> applications = getClientConnection().getUserApplications();
+            
+            if (applications.isEmpty()) {
+                AlertManager.showInformationAlert(
+                    LangManager.getBundle().getString("applications.no_applications_title"),
+                    LangManager.getBundle().getString("applications.no_applications_message")
+                );
+                return;
+            }
+            
+            // Use the changeSceneWithData method to navigate and pass the applications data
+            ChangeScene.changeSceneWithData(
+                    event, 
+                    "/fxml/scholarship_applications_screen.fxml", 
+                    LangManager.getBundle().getString("applications.title"), 
+                    getClientConnection(), 
+                    user,
+                    applications,
+                    "setApplications");
+            
+            logger.info("Navigated to scholarship applications screen");
+        } catch (Exception e) {
+            logger.error("Error navigating to scholarship applications screen", e);
+            AlertManager.showErrorAlert(
+                LangManager.getBundle().getString("navigation.error"),
+                LangManager.getBundle().getString("navigation.could_not_load_applications_screen") + e.getMessage()
+            );
+        }
     }
     
     /**
@@ -247,5 +277,25 @@ public class DashboardScreenController extends BaseController {
         AlertManager.showInformationAlert("Feature Disabled", 
                 "Application status check functionality is temporarily disabled.");
         logger.debug("Check status action requested but functionality is disabled");
+    }
+
+    /**
+     * Sets up the sidebar navigation buttons with their action handlers.
+     */
+    private void setupNavigationButtons() {
+        // Dashboard button just refreshes the current view
+        dashboardButton.setOnAction(event -> {
+            // Refresh dashboard data
+            initializeUserData();
+        });
+        
+        // Scholarships button navigates to scholarship programs screen
+        scholarshipsButton.setOnAction(this::handleViewScholarshipsAction);
+        
+        // Applications button navigates to applications screen
+        applicationsButton.setOnAction(this::handleViewApplicationsAction);
+        
+        // Profile button shows profile screen
+        profileButton.setOnAction(this::handleProfileAction);
     }
 }

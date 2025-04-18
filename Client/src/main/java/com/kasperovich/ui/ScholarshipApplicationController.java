@@ -3,6 +3,7 @@ package com.kasperovich.ui;
 import com.kasperovich.config.AlertManager;
 import com.kasperovich.dto.auth.UserDTO;
 import com.kasperovich.dto.scholarship.AcademicPeriodDTO;
+import com.kasperovich.dto.scholarship.ScholarshipApplicationDTO;
 import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
 import com.kasperovich.i18n.LangManager;
 import com.kasperovich.operations.ChangeScene;
@@ -16,10 +17,11 @@ import lombok.Setter;
 import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  * Controller for the scholarship application form.
- * Note: Scholarship functionality has been temporarily disabled.
  */
 public class ScholarshipApplicationController extends BaseController {
     private static final Logger logger = LoggerUtil.getLogger(ScholarshipApplicationController.class);
@@ -35,7 +37,7 @@ public class ScholarshipApplicationController extends BaseController {
     
     @FXML
     private Label amountLabel;
-    
+
     @FXML
     private Label deadlineLabel;
     
@@ -76,7 +78,13 @@ public class ScholarshipApplicationController extends BaseController {
         academicPeriodComboBox.setConverter(new javafx.util.StringConverter<AcademicPeriodDTO>() {
             @Override
             public String toString(AcademicPeriodDTO period) {
-                return period == null ? "" : period.getName() + " (" + period.getType() + ")";
+                if (period == null) {
+                    return "";
+                }
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy");
+                return period.getName() + " (" + 
+                       period.getStartDate().format(formatter) + " - " + 
+                       period.getEndDate().format(formatter) + ")";
             }
             
             @Override
@@ -113,7 +121,16 @@ public class ScholarshipApplicationController extends BaseController {
             amountLabel.setText("$" + scholarshipProgram.getFundingAmount());
             
             LocalDate deadline = scholarshipProgram.getApplicationDeadline();
-            deadlineLabel.setText(deadline != null ? deadline.toString() : "N/A");
+            if (deadline != null) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
+                deadlineLabel.setText(deadline.format(formatter));
+            } else {
+                deadlineLabel.setText(LangManager.getBundle().getString("scholarship.not_available"));
+            }
+            
+            // Update status label
+            statusLabel.setText(LangManager.getBundle().getString("scholarship.status.ready_to_apply"));
+            statusLabel.setStyle("-fx-text-fill: green;");
             
             // Validate form
             validateForm();
@@ -130,6 +147,16 @@ public class ScholarshipApplicationController extends BaseController {
                 motivationTextArea.getText().length() >= 100;
         
         submitButton.setDisable(!isValid);
+        
+        // Update character count feedback
+        int currentLength = motivationTextArea.getText().length();
+        if (currentLength < 100) {
+            statusLabel.setText(LangManager.getBundle().getString("scholarship.status.motivation_length") + " " + currentLength);
+            statusLabel.setStyle("-fx-text-fill: red;");
+        } else {
+            statusLabel.setText(LangManager.getBundle().getString("scholarship.status.ready_to_submit"));
+            statusLabel.setStyle("-fx-text-fill: green;");
+        }
     }
     
     /**
@@ -140,25 +167,34 @@ public class ScholarshipApplicationController extends BaseController {
     @FXML
     public void handleSubmitAction(ActionEvent event) {
         if (scholarshipProgram == null || user == null) {
-            AlertManager.showErrorAlert("Error",  "Missing scholarship program or user data.");
+            AlertManager.showErrorAlert("Error", "Missing scholarship program or user data.");
             return;
         }
         
-        // Create application DTO
-        // ScholarshipApplicationDTO application = new ScholarshipApplicationDTO();
-        // application.setUserId(user.getId());
-        // application.setScholarshipProgramId(scholarshipProgram.getId());
-        // application.setAcademicPeriodId(academicPeriodComboBox.getValue().getId());
-        // application.setMotivationLetter(motivationTextArea.getText());
+        // Get selected academic period
+        AcademicPeriodDTO selectedPeriod = academicPeriodComboBox.getValue();
+        if (selectedPeriod == null) {
+            AlertManager.showErrorAlert("Error", "Please select an academic period.");
+            return;
+        }
         
         // Submit application
         try {
-            // boolean success = clientConnection.submitScholarshipApplication(application);
-            boolean success = true; // Temporary placeholder
+            ScholarshipApplicationDTO application = getClientConnection().submitScholarshipApplication(
+                    scholarshipProgram.getId(),
+                    selectedPeriod.getId(),
+                    motivationTextArea.getText()
+            );
             
-            if (success) {
-                AlertManager.showInformationAlert("Success", "Your application for " + scholarshipProgram.getName() + " has been submitted successfully.");
-                navigateToDashboard();
+            if (application != null) {
+                AlertManager.showInformationAlert(
+                    "Application Submitted", 
+                    "Your application for " + scholarshipProgram.getName() + " has been submitted successfully.\n\n" +
+                    "Application ID: " + application.getId() + "\n" +
+                    "Status: " + application.getStatus() + "\n" +
+                    "Submission Date: " + application.getSubmissionDate().format(DateTimeFormatter.ofPattern("MMMM d, yyyy HH:mm"))
+                );
+                navigateToDashboard(event);
             } else {
                 AlertManager.showErrorAlert("Error", "Failed to submit your application. Please try again later.");
             }
@@ -175,7 +211,7 @@ public class ScholarshipApplicationController extends BaseController {
      */
     @FXML
     public void handleCancelAction(ActionEvent event) {
-        navigateToDashboard();
+        navigateToDashboard(event);
     }
     
     /**
@@ -185,14 +221,16 @@ public class ScholarshipApplicationController extends BaseController {
      */
     @FXML
     public void handleBackAction(ActionEvent event) {
-        navigateToDashboard();
+        navigateToDashboard(event);
     }
     
     /**
      * Navigates back to the dashboard screen.
+     * 
+     * @param event The action event that triggered the navigation
      */
-    private void navigateToDashboard() {
-        ChangeScene.changeScene(new ActionEvent(submitButton, null), 
+    private void navigateToDashboard(ActionEvent event) {
+        ChangeScene.changeScene(event, 
                 "/fxml/dashboard_screen.fxml", 
                 LangManager.getBundle().getString("dashboard.title"), 
                 getClientConnection(), 
@@ -204,21 +242,23 @@ public class ScholarshipApplicationController extends BaseController {
      */
     private void loadAcademicPeriods() {
         try {
-            // List<AcademicPeriodDTO> periods = clientConnection.getAcademicPeriods();
-            // academicPeriods.setAll(periods);
+            List<AcademicPeriodDTO> periods = getClientConnection().getAcademicPeriods();
             
-            // Temporary placeholder data
-            AcademicPeriodDTO period1 = new AcademicPeriodDTO();
-            period1.setId(1L);
-            period1.setName("Fall 2024");
-            period1.setType("Semester");
+            // Filter to only show active periods
+            List<AcademicPeriodDTO> activePeriods = periods.stream()
+                    .filter(AcademicPeriodDTO::isActive)
+                    .toList();
             
-            AcademicPeriodDTO period2 = new AcademicPeriodDTO();
-            period2.setId(2L);
-            period2.setName("Spring 2025");
-            period2.setType("Semester");
+            academicPeriods.setAll(activePeriods);
             
-            academicPeriods.setAll(period1, period2);
+            if (activePeriods.isEmpty()) {
+                statusLabel.setText(LangManager.getBundle().getString("scholarship.no_active_periods"));
+                statusLabel.setStyle("-fx-text-fill: red;");
+                submitButton.setDisable(true);
+            } else if (activePeriods.size() == 1) {
+                // Auto-select if there's only one option
+                academicPeriodComboBox.setValue(activePeriods.get(0));
+            }
         } catch (Exception e) {
             logger.error("Error loading academic periods", e);
             AlertManager.showErrorAlert("Error", "Failed to load academic periods: " + e.getMessage());
@@ -231,7 +271,6 @@ public class ScholarshipApplicationController extends BaseController {
         submitButton.setText(LangManager.getBundle().getString("scholarship.application.submit"));
         cancelButton.setText(LangManager.getBundle().getString("scholarship.application.cancel"));
         backButton.setText(LangManager.getBundle().getString("dashboard.back"));
-        statusLabel.setText(LangManager.getBundle().getString("scholarship.status.disabled"));
     }
     
     @Override

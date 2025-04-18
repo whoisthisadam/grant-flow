@@ -40,4 +40,12 @@ public interface AcademicPeriodDao extends BaseDao<AcademicPeriod, Long> {
      * @return a list of academic periods of the specified type
      */
     List<AcademicPeriod> findByType(String type);
+    
+    /**
+     * Finds all academic periods with the specified active status.
+     *
+     * @param active the active status to filter by
+     * @return a list of academic periods with the specified active status
+     */
+    List<AcademicPeriod> findByActive(boolean active);
 }

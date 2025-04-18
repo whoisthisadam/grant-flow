@@ -29,13 +29,4 @@ public class AcademicPeriodsResponse implements Serializable {
         this.responseType = ResponseFromServer.ERROR;
         this.message = errorMessage;
     }
-    
-    /**
-     * Gets the error message if there was an error.
-     * 
-     * @return the error message, or null if there was no error
-     */
-    public String getErrorMessage() {
-        return message;
-    }
 }

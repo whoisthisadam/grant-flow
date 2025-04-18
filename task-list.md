@@ -64,9 +64,9 @@ A Full Stack application with JavaFX Client and Server components for calculatin
 
 ### 7. Regular User Flow Implementation - Server Side
 - <input type="checkbox" class="task-list-item-checkbox" checked> Implement user registration and authentication (UC-R1)
-- <input type="checkbox" class="task-list-item-checkbox"> Create scholarship application processing (UC-R2)
+- <input type="checkbox" class="task-list-item-checkbox" checked> Create scholarship application processing (UC-R2)
 - <input type="checkbox" class="task-list-item-checkbox"> Implement academic record management (UC-R3)
-- <input type="checkbox" class="task-list-item-checkbox"> Develop scholarship status tracking system (UC-R4)
+- <input type="checkbox" class="task-list-item-checkbox" checked> Develop scholarship status tracking system (UC-R4)
 - <input type="checkbox" class="task-list-item-checkbox"> Implement payment processing and acknowledgment (UC-R5)
 - <input type="checkbox" class="task-list-item-checkbox"> Create reporting engine for academic performance (UC-R7)
 
@@ -78,7 +78,7 @@ A Full Stack application with JavaFX Client and Server components for calculatin
 - <input type="checkbox" class="task-list-item-checkbox"> Develop system configuration management (UC-A5)
 - <input type="checkbox" class="task-list-item-checkbox"> Create reporting and analytics engine (UC-A6)
 - <input type="checkbox" class="task-list-item-checkbox"> Implement batch processing capabilities (UC-A7)
-- <input type="checkbox" class="task-list-item-checkbox"> Develop academic period management (UC-A8)
+- <input type="checkbox" class="task-list-item-checkbox" checked> Develop academic period management (UC-A8)
 
 ## Client-Side Tasks
 
@@ -108,15 +108,15 @@ A Full Stack application with JavaFX Client and Server components for calculatin
 
 ### 12. Regular User Flow Implementation - Client Side
 - <input type="checkbox" class="task-list-item-checkbox" checked> Design and implement user registration interface (UC-R1)
-- <input type="checkbox" class="task-list-item-checkbox"> Create scholarship application interface (UC-R2)
+- <input type="checkbox" class="task-list-item-checkbox" checked> Create scholarship application interface (UC-R2)
 - <input type="checkbox" class="task-list-item-checkbox"> Implement academic record management UI (UC-R3)
-- <input type="checkbox" class="task-list-item-checkbox"> Develop scholarship status dashboard (UC-R4)
+- <input type="checkbox" class="task-list-item-checkbox" checked> Develop scholarship status dashboard (UC-R4)
 - <input type="checkbox" class="task-list-item-checkbox"> Create payment receipt and acknowledgment UI (UC-R5)
 - <input type="checkbox" class="task-list-item-checkbox" checked> Implement language preference UI and logic (UC-R6)
 - <input type="checkbox" class="task-list-item-checkbox"> Design academic performance reporting interface (UC-R7)
 
 ### 13. Admin Flow Implementation - Client Side
-- <input type="checkbox" class="task-list-item-checkbox"> Create scholarship program management interface (UC-A1)
+- <input type="checkbox" class="task-list-item-checkbox" checked> Create scholarship program management interface (UC-A1)
 - <input type="checkbox" class="task-list-item-checkbox"> Implement application review dashboard (UC-A2)
 - <input type="checkbox" class="task-list-item-checkbox"> Design user account management interface (UC-A3)
 - <input type="checkbox" class="task-list-item-checkbox"> Create fund allocation and tracking UI (UC-A4)
