@@ -8,6 +8,7 @@ import com.kasperovich.dto.auth.UserDTO;
 import com.kasperovich.dto.scholarship.AcademicPeriodDTO;
 import com.kasperovich.dto.scholarship.ScholarshipApplicationDTO;
 import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
+import com.kasperovich.entities.UserRole;
 import com.kasperovich.utils.LoggerUtil;
 import lombok.Getter;
 import org.apache.logging.log4j.Logger;
@@ -583,7 +584,7 @@ public class ClientConnection {
         }
         
         // Check if user is admin
-        if (!currentUser.getRole().equals("ADMIN")) {
+        if (!currentUser.getRole().equals(UserRole.ADMIN.name())) {
             logger.warn("Non-admin user attempted to create scholarship program: {}", currentUser.getUsername());
             throw new Exception("Only administrators can create scholarship programs");
         }
@@ -635,7 +636,7 @@ public class ClientConnection {
         }
         
         // Check if user is admin
-        if (!currentUser.getRole().equals("ADMIN")) {
+        if (!currentUser.getRole().equals(UserRole.ADMIN.name())) {
             logger.warn("Non-admin user attempted to update scholarship program: {}", currentUser.getUsername());
             throw new Exception("Only administrators can update scholarship programs");
         }
@@ -687,7 +688,7 @@ public class ClientConnection {
         }
         
         // Check if user is admin
-        if (!currentUser.getRole().equals("ADMIN")) {
+        if (!currentUser.getRole().equals(UserRole.ADMIN.name())) {
             logger.warn("Non-admin user attempted to delete scholarship program: {}", currentUser.getUsername());
             throw new Exception("Only administrators can delete scholarship programs");
         }
@@ -722,6 +723,190 @@ public class ClientConnection {
         } catch (Exception e) {
             logger.error("Error deleting scholarship program", e);
             throw new Exception("Error deleting scholarship program: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Gets all pending scholarship applications.
+     * Only administrators can use this method.
+     *
+     * @return a list of pending scholarship applications
+     * @throws Exception if an error occurs or the user is not authorized
+     */
+    public List<ScholarshipApplicationDTO> getPendingApplications() throws Exception {
+        logger.debug("Getting pending scholarship applications");
+        
+        if (authToken == null) {
+            throw new Exception("You must be logged in to view pending applications");
+        }
+        
+        try {
+            GetPendingApplicationsCommand command = new GetPendingApplicationsCommand();
+            CommandWrapper commandWrapper = new CommandWrapper(Command.GET_PENDING_APPLICATIONS, command);
+            commandWrapper.setAuthToken(authToken);
+            
+            sendObject(commandWrapper);
+            ResponseWrapper response = receiveObject();
+            
+            if (response.getResponse() == ResponseFromServer.ERROR) {
+                String errorMessage = "Failed to get pending applications";
+                if (response.getData() instanceof ApplicationsResponse) {
+                    ApplicationsResponse appResponse = (ApplicationsResponse) response.getData();
+                    errorMessage = appResponse.getErrorMessage();
+                }
+                logger.warn(errorMessage);
+                throw new Exception(errorMessage);
+            }
+            
+            if (response.getData() instanceof ApplicationsResponse) {
+                ApplicationsResponse appResponse = (ApplicationsResponse) response.getData();
+                logger.info("Retrieved {} pending applications", appResponse.getApplications().size());
+                return appResponse.getApplications();
+            } else {
+                throw new Exception("Unexpected response type");
+            }
+        } catch (IOException e) {
+            logger.error("Error getting pending applications", e);
+            throw new Exception("Error connecting to server: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Gets all scholarship applications.
+     * Only administrators can use this method.
+     *
+     * @return a list of all scholarship applications
+     * @throws Exception if an error occurs or the user is not authorized
+     */
+    public List<ScholarshipApplicationDTO> getAllApplications() throws Exception {
+        logger.debug("Getting all scholarship applications");
+        
+        if (authToken == null) {
+            throw new Exception("You must be logged in to view all applications");
+        }
+        
+        try {
+            GetAllApplicationsCommand command = new GetAllApplicationsCommand();
+            CommandWrapper commandWrapper = new CommandWrapper(Command.GET_ALL_APPLICATIONS, command);
+            commandWrapper.setAuthToken(authToken);
+            
+            sendObject(commandWrapper);
+            ResponseWrapper response = receiveObject();
+            
+            if (response.getResponse() == ResponseFromServer.ERROR) {
+                String errorMessage = "Failed to get all applications";
+                if (response.getData() instanceof ApplicationsResponse) {
+                    ApplicationsResponse appResponse = (ApplicationsResponse) response.getData();
+                    errorMessage = appResponse.getErrorMessage();
+                }
+                logger.warn(errorMessage);
+                throw new Exception(errorMessage);
+            }
+            
+            if (response.getData() instanceof ApplicationsResponse) {
+                ApplicationsResponse appResponse = (ApplicationsResponse) response.getData();
+                logger.info("Retrieved {} applications", appResponse.getApplications().size());
+                return appResponse.getApplications();
+            } else {
+                throw new Exception("Unexpected response type");
+            }
+        } catch (IOException e) {
+            logger.error("Error getting all applications", e);
+            throw new Exception("Error connecting to server: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Approves a scholarship application.
+     * Only administrators can use this method.
+     *
+     * @param applicationId the ID of the application to approve
+     * @param comments comments about the approval decision
+     * @return the updated application
+     * @throws Exception if an error occurs or the user is not authorized
+     */
+    public ScholarshipApplicationDTO approveApplication(Long applicationId, String comments) throws Exception {
+        logger.debug("Approving scholarship application with ID: {}", applicationId);
+        
+        if (authToken == null) {
+            throw new Exception("You must be logged in to approve applications");
+        }
+        
+        try {
+            ApproveApplicationCommand command = new ApproveApplicationCommand(applicationId, comments);
+            CommandWrapper commandWrapper = new CommandWrapper(Command.APPROVE_APPLICATION, command);
+            commandWrapper.setAuthToken(authToken);
+            
+            sendObject(commandWrapper);
+            ResponseWrapper response = receiveObject();
+            
+            if (response.getResponse() == ResponseFromServer.ERROR) {
+                String errorMessage = "Failed to approve application";
+                if (response.getData() instanceof ApplicationReviewResponse) {
+                    ApplicationReviewResponse appResponse = (ApplicationReviewResponse) response.getData();
+                    errorMessage = appResponse.getErrorMessage();
+                }
+                logger.warn(errorMessage);
+                throw new Exception(errorMessage);
+            }
+            
+            if (response.getData() instanceof ApplicationReviewResponse) {
+                ApplicationReviewResponse appResponse = (ApplicationReviewResponse) response.getData();
+                logger.info("Application with ID: {} has been approved", applicationId);
+                return appResponse.getApplication();
+            } else {
+                throw new Exception("Unexpected response type");
+            }
+        } catch (IOException e) {
+            logger.error("Error approving application", e);
+            throw new Exception("Error connecting to server: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Rejects a scholarship application.
+     * Only administrators can use this method.
+     *
+     * @param applicationId the ID of the application to reject
+     * @param comments comments about the rejection decision
+     * @return the updated application
+     * @throws Exception if an error occurs or the user is not authorized
+     */
+    public ScholarshipApplicationDTO rejectApplication(Long applicationId, String comments) throws Exception {
+        logger.debug("Rejecting scholarship application with ID: {}", applicationId);
+        
+        if (authToken == null) {
+            throw new Exception("You must be logged in to reject applications");
+        }
+        
+        try {
+            RejectApplicationCommand command = new RejectApplicationCommand(applicationId, comments);
+            CommandWrapper commandWrapper = new CommandWrapper(Command.REJECT_APPLICATION, command);
+            commandWrapper.setAuthToken(authToken);
+            
+            sendObject(commandWrapper);
+            ResponseWrapper response = receiveObject();
+            
+            if (response.getResponse() == ResponseFromServer.ERROR) {
+                String errorMessage = "Failed to reject application";
+                if (response.getData() instanceof ApplicationReviewResponse) {
+                    ApplicationReviewResponse appResponse = (ApplicationReviewResponse) response.getData();
+                    errorMessage = appResponse.getErrorMessage();
+                }
+                logger.warn(errorMessage);
+                throw new Exception(errorMessage);
+            }
+            
+            if (response.getData() instanceof ApplicationReviewResponse) {
+                ApplicationReviewResponse appResponse = (ApplicationReviewResponse) response.getData();
+                logger.info("Application with ID: {} has been rejected", applicationId);
+                return appResponse.getApplication();
+            } else {
+                throw new Exception("Unexpected response type");
+            }
+        } catch (IOException e) {
+            logger.error("Error rejecting application", e);
+            throw new Exception("Error connecting to server: " + e.getMessage());
         }
     }
 }

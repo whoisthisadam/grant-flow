@@ -1,40 +1,22 @@
 package com.kasperovich.serverinfo;
 
-import com.kasperovich.commands.fromserver.ResponseFromServer;
-import com.kasperovich.commands.fromserver.ResponseWrapper;
-import com.kasperovich.commands.fromserver.ScholarshipApplicationResponse;
-import com.kasperovich.commands.fromserver.ScholarshipApplicationsResponse;
-import com.kasperovich.commands.fromserver.ScholarshipProgramOperationResponse;
-import com.kasperovich.commands.fromserver.AcademicPeriodsResponse;
-import com.kasperovich.commands.fromserver.UpdateProfileResponse;
-import com.kasperovich.commands.toserver.Command;
-import com.kasperovich.commands.toserver.CommandWrapper;
-import com.kasperovich.commands.toserver.CreateScholarshipProgramCommand;
-import com.kasperovich.commands.toserver.SubmitScholarshipApplicationCommand;
-import com.kasperovich.commands.toserver.UpdateProfileCommand;
-import com.kasperovich.commands.toserver.UpdateScholarshipProgramCommand;
+import com.kasperovich.commands.fromserver.*;
+import com.kasperovich.commands.toserver.*;
 import com.kasperovich.config.ConnectedClientConfig;
 import com.kasperovich.dto.auth.LoginRequest;
 import com.kasperovich.dto.auth.RegistrationRequest;
 import com.kasperovich.dto.auth.UserDTO;
-import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
-import com.kasperovich.dto.scholarship.ScholarshipApplicationDTO;
 import com.kasperovich.dto.scholarship.AcademicPeriodDTO;
-import com.kasperovich.service.AuthenticationService;
-import com.kasperovich.service.ScholarshipService;
-import com.kasperovich.service.ScholarshipApplicationService;
-import com.kasperovich.service.AcademicPeriodService;
-import com.kasperovich.service.UserService;
+import com.kasperovich.dto.scholarship.ScholarshipApplicationDTO;
+import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
+import com.kasperovich.service.*;
 import com.kasperovich.utils.LoggerUtil;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -210,6 +192,22 @@ public class ClientProcessingThread extends Thread {
             }
             case DELETE_SCHOLARSHIP_PROGRAM: {
                 handleDeleteScholarshipProgram(commandWrapper);
+                break;
+            }
+            case GET_PENDING_APPLICATIONS: {
+                handleGetPendingApplications(commandWrapper);
+                break;
+            }
+            case GET_ALL_APPLICATIONS: {
+                handleGetAllApplications(commandWrapper);
+                break;
+            }
+            case APPROVE_APPLICATION: {
+                handleApproveApplication(commandWrapper);
+                break;
+            }
+            case REJECT_APPLICATION: {
+                handleRejectApplication(commandWrapper);
                 break;
             }
             default: {
@@ -660,6 +658,110 @@ public class ClientProcessingThread extends Thread {
                     ScholarshipProgramOperationResponse.OperationType.DELETE
             );
             sendObject(new ResponseWrapper(ResponseFromServer.ERROR, response));
+        }
+    }
+    
+    /**
+     * Handles the GET_PENDING_APPLICATIONS command.
+     *
+     * @param commandWrapper the command wrapper
+     */
+    private void handleGetPendingApplications(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling GET_PENDING_APPLICATIONS command");
+        
+        try {
+            // Get pending applications for admin
+            List<ScholarshipApplicationDTO> applications = scholarshipApplicationService.getPendingApplicationsForAdmin(authenticatedUserId);
+            
+            // Send response
+            ApplicationsResponse response = new ApplicationsResponse(applications);
+            sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
+            logger.info("Sent {} pending applications to user: {}", applications.size(), authenticatedUserId);
+            
+        } catch (Exception e) {
+            logger.error("Error handling GET_PENDING_APPLICATIONS command", e);
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, 
+                    new ApplicationsResponse(e.getMessage())));
+        }
+    }
+    
+    /**
+     * Handles the GET_ALL_APPLICATIONS command.
+     *
+     * @param commandWrapper the command wrapper
+     */
+    private void handleGetAllApplications(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling GET_ALL_APPLICATIONS command");
+        
+        try {
+            // Get all applications for admin
+            List<ScholarshipApplicationDTO> applications = scholarshipApplicationService.getAllApplicationsForAdmin(authenticatedUserId);
+            
+            // Send response
+            ApplicationsResponse response = new ApplicationsResponse(applications);
+            sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
+            logger.info("Sent {} applications to user: {}", applications.size(), authenticatedUserId);
+            
+        } catch (Exception e) {
+            logger.error("Error handling GET_ALL_APPLICATIONS command", e);
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, 
+                    new ApplicationsResponse(e.getMessage())));
+        }
+    }
+    
+    /**
+     * Handles the APPROVE_APPLICATION command.
+     *
+     * @param commandWrapper the command wrapper
+     */
+    private void handleApproveApplication(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling APPROVE_APPLICATION command");
+        
+        try {
+            ApproveApplicationCommand command = commandWrapper.getData();
+            String comments = command.getComments();
+            
+            // Approve the application with auth validation
+            ScholarshipApplicationDTO application = scholarshipApplicationService.approveApplicationWithAuth(
+                    command.getApplicationId(), authenticatedUserId, comments);
+            
+            // Send response
+            ApplicationReviewResponse response = new ApplicationReviewResponse(application);
+            sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
+            logger.info("Application {} approved by user: {}", command.getApplicationId(), authenticatedUserId);
+            
+        } catch (Exception e) {
+            logger.error("Error handling APPROVE_APPLICATION command", e);
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, 
+                    new ApplicationReviewResponse(e.getMessage())));
+        }
+    }
+    
+    /**
+     * Handles the REJECT_APPLICATION command.
+     *
+     * @param commandWrapper the command wrapper
+     */
+    private void handleRejectApplication(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling REJECT_APPLICATION command");
+        
+        try {
+            RejectApplicationCommand command = commandWrapper.getData();
+            String comments = command.getComments();
+            
+            // Reject the application with auth validation
+            ScholarshipApplicationDTO application = scholarshipApplicationService.rejectApplicationWithAuth(
+                    command.getApplicationId(), authenticatedUserId, comments);
+            
+            // Send response
+            ApplicationReviewResponse response = new ApplicationReviewResponse(application);
+            sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
+            logger.info("Application {} rejected by user: {}", command.getApplicationId(), authenticatedUserId);
+            
+        } catch (Exception e) {
+            logger.error("Error handling REJECT_APPLICATION command", e);
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, 
+                    new ApplicationReviewResponse(e.getMessage())));
         }
     }
     

@@ -72,7 +72,7 @@ A Full Stack application with JavaFX Client and Server components for calculatin
 
 ### 8. Admin Flow Implementation - Server Side
 - <input type="checkbox" class="task-list-item-checkbox" checked> Implement scholarship program management (UC-A1)
-- <input type="checkbox" class="task-list-item-checkbox"> Develop application review workflow (UC-A2)
+- <input type="checkbox" class="task-list-item-checkbox" checked> Develop application review workflow (UC-A2)
 - <input type="checkbox" class="task-list-item-checkbox"> Create user account management system (UC-A3)
 - <input type="checkbox" class="task-list-item-checkbox"> Implement fund allocation and tracking (UC-A4)
 - <input type="checkbox" class="task-list-item-checkbox"> Develop system configuration management (UC-A5)
@@ -118,7 +118,7 @@ A Full Stack application with JavaFX Client and Server components for calculatin
 
 ### 13. Admin Flow Implementation - Client Side
 - <input type="checkbox" class="task-list-item-checkbox" checked> Create scholarship program management interface (UC-A1)
-- <input type="checkbox" class="task-list-item-checkbox"> Implement application review dashboard (UC-A2)
+- <input type="checkbox" class="task-list-item-checkbox" checked> Implement application review dashboard (UC-A2)
 - <input type="checkbox" class="task-list-item-checkbox"> Design user account management interface (UC-A3)
 - <input type="checkbox" class="task-list-item-checkbox"> Create fund allocation and tracking UI (UC-A4)
 - <input type="checkbox" class="task-list-item-checkbox"> Implement system configuration interface (UC-A5)

@@ -9,16 +9,12 @@ import com.kasperovich.dao.impl.ScholarshipApplicationDaoImpl;
 import com.kasperovich.dao.impl.ScholarshipProgramDaoImpl;
 import com.kasperovich.dao.impl.UserDaoImpl;
 import com.kasperovich.dto.scholarship.ScholarshipApplicationDTO;
-import com.kasperovich.entities.AcademicPeriod;
-import com.kasperovich.entities.ScholarshipApplication;
-import com.kasperovich.entities.ScholarshipProgram;
-import com.kasperovich.entities.User;
+import com.kasperovich.entities.*;
 import com.kasperovich.utils.DTOConverter;
 import com.kasperovich.utils.LoggerUtil;
 import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -164,6 +160,260 @@ public class ScholarshipApplicationService {
             return dto;
         } catch (Exception e) {
             logger.error("Error getting application by ID", e);
+            throw e;
+        }
+    }
+    
+    /**
+     * Gets all pending scholarship applications.
+     *
+     * @return a list of pending application DTOs
+     * @throws Exception if any error occurs while retrieving applications
+     */
+    public List<ScholarshipApplicationDTO> getPendingApplications() throws Exception {
+        logger.debug("Getting all pending scholarship applications");
+        
+        try {
+            List<ScholarshipApplication> applications = applicationDao.findByStatus("PENDING");
+            
+            List<ScholarshipApplicationDTO> dtos = applications.stream()
+                    .map(dtoConverter::convertToDTO)
+                    .collect(Collectors.toList());
+            
+            logger.info("Retrieved {} pending scholarship applications", dtos.size());
+            return dtos;
+        } catch (Exception e) {
+            logger.error("Error getting pending applications", e);
+            throw e;
+        }
+    }
+    
+    /**
+     * Gets all scholarship applications.
+     *
+     * @return a list of all application DTOs
+     * @throws Exception if any error occurs while retrieving applications
+     */
+    public List<ScholarshipApplicationDTO> getAllApplications() throws Exception {
+        logger.debug("Getting all scholarship applications");
+        
+        try {
+            List<ScholarshipApplication> applications = applicationDao.findAll();
+            
+            List<ScholarshipApplicationDTO> dtos = applications.stream()
+                    .map(dtoConverter::convertToDTO)
+                    .collect(Collectors.toList());
+            
+            logger.info("Retrieved {} scholarship applications", dtos.size());
+            return dtos;
+        } catch (Exception e) {
+            logger.error("Error getting all applications", e);
+            throw e;
+        }
+    }
+    
+    /**
+     * Gets all pending scholarship applications for an admin user.
+     *
+     * @param userId the ID of the user requesting the applications
+     * @return a list of pending application DTOs
+     * @throws Exception if the user is not an admin or any error occurs while retrieving applications
+     */
+    public List<ScholarshipApplicationDTO> getPendingApplicationsForAdmin(Long userId) throws Exception {
+        logger.debug("Getting pending scholarship applications for admin user: {}", userId);
+        
+        try {
+            // Validate user is admin
+            User user = userDao.findById(userId)
+                    .orElseThrow(() -> new Exception("User not found with ID: " + userId));
+            
+            if (!UserRole.ADMIN.equals(user.getRole())) {
+                logger.warn("Non-admin user attempted to get pending applications: {}", userId);
+                throw new Exception("Only administrators can view pending applications");
+            }
+            
+            // Get pending applications
+            return getPendingApplications();
+        } catch (Exception e) {
+            logger.error("Error getting pending applications for admin", e);
+            throw e;
+        }
+    }
+    
+    /**
+     * Gets all scholarship applications for an admin user.
+     *
+     * @param userId the ID of the user requesting the applications
+     * @return a list of all application DTOs
+     * @throws Exception if the user is not an admin or any error occurs while retrieving applications
+     */
+    public List<ScholarshipApplicationDTO> getAllApplicationsForAdmin(Long userId) throws Exception {
+        logger.debug("Getting all scholarship applications for admin user: {}", userId);
+        
+        try {
+            // Validate user is admin
+            User user = userDao.findById(userId)
+                    .orElseThrow(() -> new Exception("User not found with ID: " + userId));
+
+            if (!UserRole.ADMIN.equals(user.getRole())) {
+                logger.warn("Non-admin user attempted to get all applications: {}", userId);
+                throw new Exception("Only administrators can view all applications");
+            }
+
+            // Get all applications
+            return getAllApplications();
+        } catch (Exception e) {
+            logger.error("Error getting all applications for admin", e);
+            throw e;
+        }
+    }
+    
+    /**
+     * Approves a scholarship application.
+     *
+     * @param applicationId the ID of the application to approve
+     * @param reviewerId the ID of the reviewer (admin)
+     * @param comments comments about the approval decision
+     * @return the updated application DTO
+     * @throws Exception if the application is not found, the reviewer is not an admin, or any other error occurs
+     */
+    public ScholarshipApplicationDTO approveApplication(Long applicationId, Long reviewerId, String comments) throws Exception {
+        logger.debug("Approving scholarship application with ID: {}", applicationId);
+        
+        try {
+            // Validate application
+            ScholarshipApplication application = applicationDao.findById(applicationId)
+                    .orElseThrow(() -> new Exception("Application not found with ID: " + applicationId));
+            
+            // Validate reviewer
+            User reviewer = userDao.findById(reviewerId)
+                    .orElseThrow(() -> new Exception("Reviewer not found with ID: " + reviewerId));
+            
+            // Check if reviewer is an admin
+            if (!UserRole.ADMIN.equals(reviewer.getRole())) {
+                throw new Exception("Only administrators can approve applications");
+            }
+            
+            // Check if application is already processed
+            if (!application.isPending()) {
+                throw new Exception("This application has already been " + application.getStatus().toLowerCase());
+            }
+            
+            // Approve the application
+            application.approve(reviewer, comments);
+            
+            // Update the application
+            ScholarshipApplication updatedApplication = applicationDao.update(application);
+            logger.info("Scholarship application with ID: {} has been approved", applicationId);
+            
+            return dtoConverter.convertToDTO(updatedApplication);
+        } catch (Exception e) {
+            logger.error("Error approving application", e);
+            throw e;
+        }
+    }
+    
+    /**
+     * Rejects a scholarship application.
+     *
+     * @param applicationId the ID of the application to reject
+     * @param reviewerId the ID of the reviewer (admin)
+     * @param comments comments about the rejection decision
+     * @return the updated application DTO
+     * @throws Exception if the application is not found, the reviewer is not an admin, or any other error occurs
+     */
+    public ScholarshipApplicationDTO rejectApplication(Long applicationId, Long reviewerId, String comments) throws Exception {
+        logger.debug("Rejecting scholarship application with ID: {}", applicationId);
+        
+        try {
+            // Validate application
+            ScholarshipApplication application = applicationDao.findById(applicationId)
+                    .orElseThrow(() -> new Exception("Application not found with ID: " + applicationId));
+            
+            // Validate reviewer
+            User reviewer = userDao.findById(reviewerId)
+                    .orElseThrow(() -> new Exception("Reviewer not found with ID: " + reviewerId));
+            
+            // Check if reviewer is an admin
+            if (!UserRole.ADMIN.equals(reviewer.getRole())) {
+                throw new Exception("Only administrators can reject applications");
+            }
+            
+            // Check if application is already processed
+            if (!application.isPending()) {
+                throw new Exception("This application has already been " + application.getStatus().toLowerCase());
+            }
+            
+            // Reject the application
+            application.reject(reviewer, comments);
+            
+            // Update the application
+            ScholarshipApplication updatedApplication = applicationDao.update(application);
+            logger.info("Scholarship application with ID: {} has been rejected", applicationId);
+            
+            return dtoConverter.convertToDTO(updatedApplication);
+        } catch (Exception e) {
+            logger.error("Error rejecting application", e);
+            throw e;
+        }
+    }
+    
+    /**
+     * Approves a scholarship application with validation for the authenticated user.
+     *
+     * @param applicationId the ID of the application to approve
+     * @param userId the ID of the authenticated user
+     * @param comments comments about the approval decision
+     * @return the updated application DTO
+     * @throws Exception if the user is not authorized, the application is not found, or any other error occurs
+     */
+    public ScholarshipApplicationDTO approveApplicationWithAuth(Long applicationId, Long userId, String comments) throws Exception {
+        logger.debug("Approving scholarship application with ID: {} by user: {}", applicationId, userId);
+        
+        try {
+            // Validate user is admin
+            User user = userDao.findById(userId)
+                    .orElseThrow(() -> new Exception("User not found with ID: " + userId));
+            
+            if (!UserRole.ADMIN.equals(user.getRole())) {
+                logger.warn("Non-admin user attempted to approve application: {}", userId);
+                throw new Exception("Only administrators can approve applications");
+            }
+            
+            // Approve the application
+            return approveApplication(applicationId, userId, comments);
+        } catch (Exception e) {
+            logger.error("Error approving application with authentication", e);
+            throw e;
+        }
+    }
+    
+    /**
+     * Rejects a scholarship application with validation for the authenticated user.
+     *
+     * @param applicationId the ID of the application to reject
+     * @param userId the ID of the authenticated user
+     * @param comments comments about the rejection decision
+     * @return the updated application DTO
+     * @throws Exception if the user is not authorized, the application is not found, or any other error occurs
+     */
+    public ScholarshipApplicationDTO rejectApplicationWithAuth(Long applicationId, Long userId, String comments) throws Exception {
+        logger.debug("Rejecting scholarship application with ID: {} by user: {}", applicationId, userId);
+        
+        try {
+            // Validate user is admin
+            User user = userDao.findById(userId)
+                    .orElseThrow(() -> new Exception("User not found with ID: " + userId));
+            
+            if (!UserRole.ADMIN.equals(user.getRole())) {
+                logger.warn("Non-admin user attempted to reject application: {}", userId);
+                throw new Exception("Only administrators can reject applications");
+            }
+            
+            // Reject the application
+            return rejectApplication(applicationId, userId, comments);
+        } catch (Exception e) {
+            logger.error("Error rejecting application with authentication", e);
             throw e;
         }
     }

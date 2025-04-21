@@ -71,6 +71,7 @@ public class AdminDashboardController extends BaseController {
         
         // Set up navigation button actions
         programsButton.setOnAction(this::handleProgramsAction);
+        applicationsButton.setOnAction(this::handleApplicationsAction);
         profileButton.setOnAction(this::handleProfileAction);
         
         updateTexts();
@@ -167,6 +168,31 @@ public class AdminDashboardController extends BaseController {
             AlertManager.showErrorAlert(
                 LangManager.getBundle().getString("navigation.error"),
                 "Could not navigate to scholarship programs screen: " + e.getMessage()
+            );
+        }
+    }
+    
+    /**
+     * Handles the applications button action.
+     * 
+     * @param event The action event
+     */
+    public void handleApplicationsAction(ActionEvent event) {
+        try {
+            ChangeScene.changeScene(
+                event,
+                "/fxml/admin_application_review.fxml",
+                LangManager.getBundle().getString("application.review.title"),
+                getClientConnection(),
+                user
+            );
+            
+            logger.debug("Navigated to application review screen from admin dashboard");
+        } catch (Exception e) {
+            logger.error("Error navigating to application review screen", e);
+            AlertManager.showErrorAlert(
+                LangManager.getBundle().getString("navigation.error"),
+                "Could not navigate to application review screen: " + e.getMessage()
             );
         }
     }

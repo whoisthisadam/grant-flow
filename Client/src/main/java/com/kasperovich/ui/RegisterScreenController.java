@@ -3,6 +3,7 @@ package com.kasperovich.ui;
 import com.kasperovich.clientconnection.ClientConnection;
 import com.kasperovich.config.AlertManager;
 import com.kasperovich.dto.auth.UserDTO;
+import com.kasperovich.entities.UserRole;
 import com.kasperovich.i18n.LangManager;
 import com.kasperovich.operations.ChangeScene;
 import com.kasperovich.utils.LoggerUtil;
@@ -73,8 +74,8 @@ public class RegisterScreenController extends BaseController {
     @Override
     public void initializeData() {
         // Initialize role combo box
-        roleComboBox.getItems().addAll("STUDENT", "ADMIN");
-        roleComboBox.setValue("STUDENT");
+        roleComboBox.getItems().addAll(UserRole.STUDENT.name(), UserRole.ADMIN.name());
+        roleComboBox.setValue(UserRole.STUDENT.name());
         updateTexts();
     }
     
