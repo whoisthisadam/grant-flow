@@ -291,7 +291,7 @@ public class DashboardScreenController extends BaseController {
     private boolean navigateToScholarshipProgramsScreen(String source) {
         try {
             // Use the changeSceneWithData method to navigate and pass the scholarship programs data
-            ChangeScene.changeSceneWithData(
+            ChangeScene.changeScene(
                     new ActionEvent(logoutButton, null), 
                     "/fxml/scholarship_programs_screen.fxml", 
                     LangManager.getBundle().getString("scholarship_programs.title"), 
@@ -345,7 +345,7 @@ public class DashboardScreenController extends BaseController {
             }
             
             // Use the changeSceneWithData method to navigate and pass the applications data
-            ChangeScene.changeSceneWithData(
+            ChangeScene.changeScene(
                     event, 
                     "/fxml/scholarship_applications_screen.fxml", 
                     LangManager.getBundle().getString("applications.title"), 

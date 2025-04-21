@@ -277,7 +277,7 @@ public class ScholarshipProgramsController extends BaseController {
     public void handleBackAction(ActionEvent event) {
         if (newApplication != null) {
             // Navigate back to dashboard with the new application
-            ChangeScene.changeSceneWithData(
+            ChangeScene.changeScene(
                     event, 
                     "/fxml/dashboard_screen.fxml", 
                     LangManager.getBundle().getString("dashboard.title"), 

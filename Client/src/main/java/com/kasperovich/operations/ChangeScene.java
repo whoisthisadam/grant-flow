@@ -67,9 +67,9 @@ public class ChangeScene {
      * @param <T> Controller type
      * @return The controller instance that was created
      */
-    public static <T extends BaseController> T changeSceneWithData(ActionEvent event, String fxmlFile, String title, 
-                                                        ClientConnection access, Object user, 
-                                                        Object additionalData, String setterMethodName) {
+    public static <T extends BaseController> T changeScene(ActionEvent event, String fxmlFile, String title,
+                                                           ClientConnection access, Object user,
+                                                           Object additionalData, String setterMethodName) {
         FXMLLoader loader = new FXMLLoader(ChangeScene.class.getResource(fxmlFile), LangManager.getBundle());
         Parent root;
         try {
