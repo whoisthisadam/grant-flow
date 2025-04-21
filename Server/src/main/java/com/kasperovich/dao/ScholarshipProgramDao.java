@@ -52,5 +52,5 @@ public interface ScholarshipProgramDao {
      *
      * @param program the scholarship program to delete
      */
-    void delete(ScholarshipProgram program);
+    boolean delete(ScholarshipProgram program);
 }

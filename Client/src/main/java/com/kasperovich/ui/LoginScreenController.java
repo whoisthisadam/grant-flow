@@ -2,6 +2,7 @@ package com.kasperovich.ui;
 
 import com.kasperovich.config.AlertManager;
 import com.kasperovich.dto.auth.UserDTO;
+import com.kasperovich.entities.UserRole;
 import com.kasperovich.i18n.LangManager;
 import com.kasperovich.operations.ChangeScene;
 import com.kasperovich.utils.LoggerUtil;
@@ -133,12 +134,61 @@ public class LoginScreenController extends BaseController {
     }
     
     /**
-     * Navigates to the dashboard screen.
+     * Checks if a user has admin role.
+     *
+     * @param user The user to check
+     * @return true if the user is an admin, false otherwise
+     */
+    private boolean isAdmin(UserDTO user) {
+        return user != null && user.getRole() != null && 
+               user.getRole().equals(UserRole.ADMIN.name());
+    }
+
+    /**
+     * Navigates to a specific dashboard screen.
+     *
+     * @param fxmlPath The path to the FXML file
+     * @param title The window title
+     * @param user The authenticated user
+     * @param isAdmin Whether the user is an admin (for logging)
+     */
+    private void navigateToScreen(String fxmlPath, String title, UserDTO user, boolean isAdmin) {
+        String userType = isAdmin ? "Admin" : "Regular";
+        logger.info("{} user logged in, navigating to {} dashboard: {}", 
+                   userType, userType.toLowerCase(), user.getUsername());
+        
+        ChangeScene.changeScene(
+            new ActionEvent(loginButton, null),
+            fxmlPath,
+            title,
+            getClientConnection(),
+            user
+        );
+    }
+
+    /**
+     * Navigates to the appropriate dashboard screen based on user role.
      *
      * @param user The authenticated user
      */
     private void navigateToDashboard(UserDTO user) {
-        ChangeScene.changeScene(new ActionEvent(loginButton, null), "/fxml/dashboard_screen.fxml", LangManager.getBundle().getString("dashboard.title"), getClientConnection(), user);
+        // Check if the user is an admin
+        if (isAdmin(user)) {
+            navigateToScreen(
+                "/fxml/admin_dashboard_screen.fxml",
+                LangManager.getBundle().getString("admin.dashboard.title"),
+                user,
+                true
+            );
+        } else {
+            // Regular user dashboard
+            navigateToScreen(
+                "/fxml/dashboard_screen.fxml",
+                LangManager.getBundle().getString("dashboard.title"),
+                user,
+                false
+            );
+        }
     }
     
     @Override

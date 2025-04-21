@@ -122,18 +122,20 @@ public class ScholarshipProgramDaoImpl implements ScholarshipProgramDao {
      * {@inheritDoc}
      */
     @Override
-    public void delete(ScholarshipProgram program) {
+    public boolean delete(ScholarshipProgram program) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.remove(program);
             transaction.commit();
             logger.debug("Deleted scholarship program with ID: {}", program.getId());
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             logger.error("Error deleting scholarship program with ID: {}", program.getId(), e);
+            return false;
         }
     }
 }

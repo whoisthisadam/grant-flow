@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.kasperovich.ui.AdminDashboardController"
+            prefHeight="600.0" prefWidth="800.0">
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="10" left="20"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Label text="%admin.dashboard.title" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label text="%dashboard.welcome" />
+                <Label fx:id="userNameLabel" style="-fx-font-weight: bold;" />
+                <Button fx:id="logoutButton" text="%dashboard.logout" onAction="#handleLogoutAction" />
+            </HBox>
+            <Separator/>
+        </VBox>
+    </top>
+    
+    <left>
+        <VBox spacing="5" style="-fx-background-color: #f0f0f0;" prefWidth="200">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Label text="%admin.navigation" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+            <Separator/>
+            <Button fx:id="dashboardButton" text="%admin.button.dashboard" maxWidth="Infinity" styleClass="nav-button" />
+            <Button fx:id="programsButton" text="%admin.button.programs" maxWidth="Infinity" styleClass="nav-button" />
+            <Button fx:id="applicationsButton" text="%admin.button.applications" maxWidth="Infinity" styleClass="nav-button" />
+            <Button fx:id="usersButton" text="%admin.button.users" maxWidth="Infinity" styleClass="nav-button" />
+            <Button fx:id="profileButton" text="%dashboard.button.profile" maxWidth="Infinity" styleClass="nav-button" />
+            
+            <Region VBox.vgrow="ALWAYS" />
+            
+            <Label fx:id="roleLabel" text="%dashboard.role" />
+            <Label fx:id="versionLabel" text="%dashboard.version" />
+        </VBox>
+    </left>
+    
+    <center>
+        <VBox>
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            
+            <Label text="%admin.dashboard.center.title" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <Separator/>
+            
+            <Label text="%admin.dashboard.placeholder" style="-fx-font-size: 16px; -fx-font-style: italic;" alignment="CENTER" VBox.vgrow="ALWAYS" />
+        </VBox>
+    </center>
+</BorderPane>

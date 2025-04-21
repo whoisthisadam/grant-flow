@@ -71,7 +71,7 @@ A Full Stack application with JavaFX Client and Server components for calculatin
 - <input type="checkbox" class="task-list-item-checkbox"> Create reporting engine for academic performance (UC-R7)
 
 ### 8. Admin Flow Implementation - Server Side
-- <input type="checkbox" class="task-list-item-checkbox"> Implement scholarship program management (UC-A1)
+- <input type="checkbox" class="task-list-item-checkbox" checked> Implement scholarship program management (UC-A1)
 - <input type="checkbox" class="task-list-item-checkbox"> Develop application review workflow (UC-A2)
 - <input type="checkbox" class="task-list-item-checkbox"> Create user account management system (UC-A3)
 - <input type="checkbox" class="task-list-item-checkbox"> Implement fund allocation and tracking (UC-A4)

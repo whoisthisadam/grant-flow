@@ -284,16 +284,6 @@ public class UserService {
     }
     
     /**
-     * Checks if a user is an administrator.
-     *
-     * @param user the user to check
-     * @return true if the user is an administrator, false otherwise
-     */
-    public boolean isAdmin(User user) {
-        return user != null && UserRole.ADMIN == user.getRole();
-    }
-    
-    /**
      * Generates a unique authentication token.
      *
      * @return a unique authentication token

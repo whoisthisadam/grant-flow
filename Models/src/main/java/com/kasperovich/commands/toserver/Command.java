@@ -26,5 +26,10 @@ public enum Command implements Serializable {
     GET_SCHOLARSHIP_PROGRAMS,
     APPLY_FOR_SCHOLARSHIP,
     GET_USER_APPLICATIONS,
-    GET_ACADEMIC_PERIODS
+    GET_ACADEMIC_PERIODS,
+    
+    // Admin scholarship management commands
+    CREATE_SCHOLARSHIP_PROGRAM,
+    UPDATE_SCHOLARSHIP_PROGRAM,
+    DELETE_SCHOLARSHIP_PROGRAM
 }

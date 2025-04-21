@@ -4,12 +4,15 @@ import com.kasperovich.commands.fromserver.ResponseFromServer;
 import com.kasperovich.commands.fromserver.ResponseWrapper;
 import com.kasperovich.commands.fromserver.ScholarshipApplicationResponse;
 import com.kasperovich.commands.fromserver.ScholarshipApplicationsResponse;
+import com.kasperovich.commands.fromserver.ScholarshipProgramOperationResponse;
 import com.kasperovich.commands.fromserver.AcademicPeriodsResponse;
 import com.kasperovich.commands.fromserver.UpdateProfileResponse;
 import com.kasperovich.commands.toserver.Command;
 import com.kasperovich.commands.toserver.CommandWrapper;
+import com.kasperovich.commands.toserver.CreateScholarshipProgramCommand;
 import com.kasperovich.commands.toserver.SubmitScholarshipApplicationCommand;
 import com.kasperovich.commands.toserver.UpdateProfileCommand;
+import com.kasperovich.commands.toserver.UpdateScholarshipProgramCommand;
 import com.kasperovich.config.ConnectedClientConfig;
 import com.kasperovich.dto.auth.LoginRequest;
 import com.kasperovich.dto.auth.RegistrationRequest;
@@ -195,6 +198,18 @@ public class ClientProcessingThread extends Thread {
             }
             case UPDATE_USER_PROFILE: {
                 handleUpdateUserProfile(commandWrapper);
+                break;
+            }
+            case CREATE_SCHOLARSHIP_PROGRAM: {
+                handleCreateScholarshipProgram(commandWrapper);
+                break;
+            }
+            case UPDATE_SCHOLARSHIP_PROGRAM: {
+                handleUpdateScholarshipProgram(commandWrapper);
+                break;
+            }
+            case DELETE_SCHOLARSHIP_PROGRAM: {
+                handleDeleteScholarshipProgram(commandWrapper);
                 break;
             }
             default: {
@@ -494,6 +509,155 @@ public class ClientProcessingThread extends Thread {
                     false, 
                     "Error updating user profile: " + e.getMessage(), 
                     null
+            );
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, response));
+        }
+    }
+    
+    /**
+     * Handles creating a scholarship program.
+     *
+     * @param commandWrapper the command wrapper
+     * @throws IOException if an I/O error occurs
+     */
+    private void handleCreateScholarshipProgram(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling CREATE_SCHOLARSHIP_PROGRAM command");
+        
+        try {
+            // Extract program data
+            CreateScholarshipProgramCommand command = commandWrapper.getData();
+            
+            if (command == null) {
+                logger.warn("Scholarship program data is missing");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Scholarship program data is missing"));
+                return;
+            }
+            
+            // Create the scholarship program
+            ScholarshipProgramDTO program = scholarshipService.createScholarshipProgram(command, authenticatedUserId);
+            
+            // Create response with the program
+            ScholarshipProgramOperationResponse response = ScholarshipProgramOperationResponse.success(
+                    "Scholarship program created successfully", 
+                    program,
+                    ScholarshipProgramOperationResponse.OperationType.CREATE
+            );
+            
+            logger.info("Scholarship program created successfully. ID: {}", program.getId());
+            sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
+        } catch (IllegalArgumentException e) {
+            logger.warn("Validation error creating scholarship program: {}", e.getMessage());
+            ScholarshipProgramOperationResponse response = ScholarshipProgramOperationResponse.error(
+                    e.getMessage(),
+                    ScholarshipProgramOperationResponse.OperationType.CREATE
+            );
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, response));
+        } catch (Exception e) {
+            logger.error("Error creating scholarship program", e);
+            ScholarshipProgramOperationResponse response = ScholarshipProgramOperationResponse.error(
+                    "Error creating scholarship program: " + e.getMessage(),
+                    ScholarshipProgramOperationResponse.OperationType.CREATE
+            );
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, response));
+        }
+    }
+    
+    /**
+     * Handles updating a scholarship program.
+     *
+     * @param commandWrapper the command wrapper
+     * @throws IOException if an I/O error occurs
+     */
+    private void handleUpdateScholarshipProgram(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling UPDATE_SCHOLARSHIP_PROGRAM command");
+        
+        try {
+            // Extract program data
+            UpdateScholarshipProgramCommand command = commandWrapper.getData();
+            
+            if (command == null) {
+                logger.warn("Scholarship program data is missing");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Scholarship program data is missing"));
+                return;
+            }
+            
+            // Update the scholarship program
+            ScholarshipProgramDTO program = scholarshipService.updateScholarshipProgram(command, authenticatedUserId);
+            
+            // Create response with the program
+            ScholarshipProgramOperationResponse response = ScholarshipProgramOperationResponse.success(
+                    "Scholarship program updated successfully", 
+                    program,
+                    ScholarshipProgramOperationResponse.OperationType.UPDATE
+            );
+            
+            logger.info("Scholarship program updated successfully. ID: {}", program.getId());
+            sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
+        } catch (IllegalArgumentException e) {
+            logger.warn("Validation error updating scholarship program: {}", e.getMessage());
+            ScholarshipProgramOperationResponse response = ScholarshipProgramOperationResponse.error(
+                    e.getMessage(),
+                    ScholarshipProgramOperationResponse.OperationType.UPDATE
+            );
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, response));
+        } catch (Exception e) {
+            logger.error("Error updating scholarship program", e);
+            ScholarshipProgramOperationResponse response = ScholarshipProgramOperationResponse.error(
+                    "Error updating scholarship program: " + e.getMessage(),
+                    ScholarshipProgramOperationResponse.OperationType.UPDATE
+            );
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, response));
+        }
+    }
+    
+    /**
+     * Handles deleting a scholarship program.
+     *
+     * @param commandWrapper the command wrapper
+     * @throws IOException if an I/O error occurs
+     */
+    private void handleDeleteScholarshipProgram(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling DELETE_SCHOLARSHIP_PROGRAM command");
+        
+        try {
+            // Extract program ID
+            Long programId = commandWrapper.getData();
+            
+            if (programId == null) {
+                logger.warn("Scholarship program ID is missing");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Scholarship program ID is missing"));
+                return;
+            }
+            
+            // Delete the scholarship program
+            boolean deleted = scholarshipService.deleteScholarshipProgram(programId, authenticatedUserId);
+            
+            // Create response
+            ScholarshipProgramOperationResponse response = deleted ?
+                    ScholarshipProgramOperationResponse.success(
+                            "Scholarship program deleted successfully", 
+                            null,
+                            ScholarshipProgramOperationResponse.OperationType.DELETE
+                    ) :
+                    ScholarshipProgramOperationResponse.error(
+                            "Failed to delete scholarship program",
+                            ScholarshipProgramOperationResponse.OperationType.DELETE
+                    );
+            
+            logger.info("Scholarship program deletion result for ID {}: {}", programId, deleted);
+            sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
+        } catch (IllegalArgumentException e) {
+            logger.warn("Validation error deleting scholarship program: {}", e.getMessage());
+            ScholarshipProgramOperationResponse response = ScholarshipProgramOperationResponse.error(
+                    e.getMessage(),
+                    ScholarshipProgramOperationResponse.OperationType.DELETE
+            );
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, response));
+        } catch (Exception e) {
+            logger.error("Error deleting scholarship program", e);
+            ScholarshipProgramOperationResponse response = ScholarshipProgramOperationResponse.error(
+                    "Error deleting scholarship program: " + e.getMessage(),
+                    ScholarshipProgramOperationResponse.OperationType.DELETE
             );
             sendObject(new ResponseWrapper(ResponseFromServer.ERROR, response));
         }

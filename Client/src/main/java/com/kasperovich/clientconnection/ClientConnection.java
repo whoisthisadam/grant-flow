@@ -1,10 +1,7 @@
 package com.kasperovich.clientconnection;
 
 import com.kasperovich.commands.fromserver.*;
-import com.kasperovich.commands.toserver.Command;
-import com.kasperovich.commands.toserver.CommandWrapper;
-import com.kasperovich.commands.toserver.SubmitScholarshipApplicationCommand;
-import com.kasperovich.commands.toserver.UpdateProfileCommand;
+import com.kasperovich.commands.toserver.*;
 import com.kasperovich.dto.auth.LoginRequest;
 import com.kasperovich.dto.auth.RegistrationRequest;
 import com.kasperovich.dto.auth.UserDTO;
@@ -23,6 +20,7 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ClientConnection {
     private static final Logger logger = LoggerUtil.getLogger(ClientConnection.class);
@@ -256,32 +254,39 @@ public class ClientConnection {
      * Gets a list of available scholarship programs from the server.
      * 
      * @return a list of scholarship programs
+     * @throws Exception if an error occurs
      */
-    public List<ScholarshipProgramDTO> getScholarshipPrograms() {
+    public List<ScholarshipProgramDTO> getScholarshipPrograms() throws Exception {
         if (!isAuthenticated()) {
             logger.warn("Attempted to get scholarship programs but no user is authenticated");
-            return new ArrayList<>();
+            throw new Exception("User not authenticated");
         }
         
+        logger.debug("Getting scholarship programs from server");
+        
         try {
-            logger.debug("Getting scholarship programs from server");
-            CommandWrapper command = new CommandWrapper(Command.GET_SCHOLARSHIP_PROGRAMS);
-            command.setAuthToken(authToken);
-            sendObject(command);
+            // Create command wrapper
+            CommandWrapper commandWrapper = new CommandWrapper(Command.GET_SCHOLARSHIP_PROGRAMS);
+            commandWrapper.setAuthToken(authToken);
             
-            ResponseWrapper response = receiveObject();
+            // Send command to server
+            sendObject(commandWrapper);
             
-            if (response.getResponse() == ResponseFromServer.SCHOLARSHIP_PROGRAMS_FOUND) {
-                List<ScholarshipProgramDTO> programs = response.getData();
-                logger.info("Received {} scholarship programs from server", programs.size());
+            // Receive response
+            ResponseWrapper responseWrapper = receiveObject();
+            
+            if (responseWrapper.getResponse() == ResponseFromServer.SCHOLARSHIP_PROGRAMS_FOUND) {
+                @SuppressWarnings("unchecked")
+                List<ScholarshipProgramDTO> programs = (List<ScholarshipProgramDTO>) responseWrapper.getData();
+                logger.debug("Received {} scholarship programs", programs.size());
                 return programs;
             } else {
-                logger.warn("Failed to get scholarship programs from server, response: {}", response.getResponse());
-                return new ArrayList<>();
+                logger.error("Error getting scholarship programs: {}", responseWrapper.getMessage());
+                throw new Exception("Error getting scholarship programs: " + responseWrapper.getMessage());
             }
         } catch (Exception e) {
-            logger.error("Error getting scholarship programs from server", e);
-            return new ArrayList<>();
+            logger.error("Error getting scholarship programs", e);
+            throw new Exception("Error getting scholarship programs: " + e.getMessage());
         }
     }
 
@@ -507,5 +512,216 @@ public class ClientConnection {
      */
     public boolean isAuthenticated() {
         return authToken != null && currentUser != null;
+    }
+
+    /**
+     * Gets all scholarship programs.
+     * 
+     * @return a list of all scholarship programs
+     * @throws Exception if an error occurs
+     */
+    public List<ScholarshipProgramDTO> getAllScholarshipPrograms() throws Exception {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to get all scholarship programs but no user is authenticated");
+            throw new Exception("User not authenticated");
+        }
+        
+        logger.debug("Getting all scholarship programs");
+        
+        try {
+            // Create command wrapper
+            CommandWrapper commandWrapper = new CommandWrapper(Command.GET_SCHOLARSHIP_PROGRAMS);
+            commandWrapper.setAuthToken(authToken);
+            
+            // Send command to server
+            sendObject(commandWrapper);
+            
+            // Receive response
+            ResponseWrapper responseWrapper = receiveObject();
+            
+            if (responseWrapper.getResponse() == ResponseFromServer.SCHOLARSHIP_PROGRAMS_FOUND) {
+                @SuppressWarnings("unchecked")
+                List<ScholarshipProgramDTO> programs = (List<ScholarshipProgramDTO>) responseWrapper.getData();
+                logger.debug("Received {} scholarship programs", programs.size());
+                return programs;
+            } else {
+                logger.error("Error getting scholarship programs: {}", responseWrapper.getMessage());
+                throw new Exception("Error getting scholarship programs: " + responseWrapper.getMessage());
+            }
+        } catch (Exception e) {
+            logger.error("Error getting scholarship programs", e);
+            throw new Exception("Error getting scholarship programs: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Gets active scholarship programs.
+     * 
+     * @return a list of active scholarship programs
+     * @throws Exception if an error occurs
+     */
+    public List<ScholarshipProgramDTO> getActiveScholarshipPrograms() throws Exception {
+        List<ScholarshipProgramDTO> allPrograms = getAllScholarshipPrograms();
+        
+        logger.debug("Filtering active scholarship programs");
+        return allPrograms.stream()
+                .filter(ScholarshipProgramDTO::isActive)
+                .collect(Collectors.toList());
+    }
+    
+    /**
+     * Creates a new scholarship program.
+     * 
+     * @param command the command containing the scholarship program data
+     * @return the created scholarship program
+     * @throws Exception if an error occurs
+     */
+    public ScholarshipProgramDTO createScholarshipProgram(CreateScholarshipProgramCommand command) throws Exception {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to create scholarship program but no user is authenticated");
+            throw new Exception("User not authenticated");
+        }
+        
+        // Check if user is admin
+        if (!currentUser.getRole().equals("ADMIN")) {
+            logger.warn("Non-admin user attempted to create scholarship program: {}", currentUser.getUsername());
+            throw new Exception("Only administrators can create scholarship programs");
+        }
+        
+        logger.debug("Creating new scholarship program: {}", command.getName());
+        
+        try {
+            // Create command wrapper
+            CommandWrapper commandWrapper = new CommandWrapper(Command.CREATE_SCHOLARSHIP_PROGRAM, command);
+            commandWrapper.setAuthToken(authToken);
+            
+            // Send command to server
+            sendObject(commandWrapper);
+            
+            // Receive response
+            ResponseWrapper responseWrapper = receiveObject();
+            
+            if (responseWrapper.getResponse() == ResponseFromServer.SUCCESS) {
+                ScholarshipProgramOperationResponse response = (ScholarshipProgramOperationResponse) responseWrapper.getData();
+                
+                if (response.isSuccess()) {
+                    logger.info("Created new scholarship program: {}", response.getProgram().getName());
+                    return response.getProgram();
+                } else {
+                    logger.error("Error creating scholarship program: {}", response.getMessage());
+                    throw new Exception(response.getMessage());
+                }
+            } else {
+                logger.error("Error creating scholarship program: {}", responseWrapper.getMessage());
+                throw new Exception("Error creating scholarship program: " + responseWrapper.getMessage());
+            }
+        } catch (Exception e) {
+            logger.error("Error creating scholarship program", e);
+            throw new Exception("Error creating scholarship program: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Updates an existing scholarship program.
+     * 
+     * @param command the command containing the updated scholarship program data
+     * @return the updated scholarship program
+     * @throws Exception if an error occurs
+     */
+    public ScholarshipProgramDTO updateScholarshipProgram(UpdateScholarshipProgramCommand command) throws Exception {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to update scholarship program but no user is authenticated");
+            throw new Exception("User not authenticated");
+        }
+        
+        // Check if user is admin
+        if (!currentUser.getRole().equals("ADMIN")) {
+            logger.warn("Non-admin user attempted to update scholarship program: {}", currentUser.getUsername());
+            throw new Exception("Only administrators can update scholarship programs");
+        }
+        
+        logger.debug("Updating scholarship program with ID: {}", command.getId());
+        
+        try {
+            // Create command wrapper
+            CommandWrapper commandWrapper = new CommandWrapper(Command.UPDATE_SCHOLARSHIP_PROGRAM, command);
+            commandWrapper.setAuthToken(authToken);
+            
+            // Send command to server
+            sendObject(commandWrapper);
+            
+            // Receive response
+            ResponseWrapper responseWrapper = receiveObject();
+            
+            if (responseWrapper.getResponse() == ResponseFromServer.SUCCESS) {
+                ScholarshipProgramOperationResponse response = (ScholarshipProgramOperationResponse) responseWrapper.getData();
+                
+                if (response.isSuccess()) {
+                    logger.info("Updated scholarship program: {}", response.getProgram().getName());
+                    return response.getProgram();
+                } else {
+                    logger.error("Error updating scholarship program: {}", response.getMessage());
+                    throw new Exception(response.getMessage());
+                }
+            } else {
+                logger.error("Error updating scholarship program: {}", responseWrapper.getMessage());
+                throw new Exception("Error updating scholarship program: " + responseWrapper.getMessage());
+            }
+        } catch (Exception e) {
+            logger.error("Error updating scholarship program", e);
+            throw new Exception("Error updating scholarship program: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Deletes a scholarship program.
+     * 
+     * @param programId the ID of the scholarship program to delete
+     * @return true if the program was deleted, false otherwise
+     * @throws Exception if an error occurs
+     */
+    public boolean deleteScholarshipProgram(Long programId) throws Exception {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to delete scholarship program but no user is authenticated");
+            throw new Exception("User not authenticated");
+        }
+        
+        // Check if user is admin
+        if (!currentUser.getRole().equals("ADMIN")) {
+            logger.warn("Non-admin user attempted to delete scholarship program: {}", currentUser.getUsername());
+            throw new Exception("Only administrators can delete scholarship programs");
+        }
+        
+        logger.debug("Deleting scholarship program with ID: {}", programId);
+        
+        try {
+            // Create command wrapper
+            CommandWrapper commandWrapper = new CommandWrapper(Command.DELETE_SCHOLARSHIP_PROGRAM, programId);
+            commandWrapper.setAuthToken(authToken);
+            
+            // Send command to server
+            sendObject(commandWrapper);
+            
+            // Receive response
+            ResponseWrapper responseWrapper = receiveObject();
+            
+            if (responseWrapper.getResponse() == ResponseFromServer.SUCCESS) {
+                ScholarshipProgramOperationResponse response = (ScholarshipProgramOperationResponse) responseWrapper.getData();
+                
+                if (response.isSuccess()) {
+                    logger.info("Deleted scholarship program with ID: {}", programId);
+                    return true;
+                } else {
+                    logger.error("Error deleting scholarship program: {}", response.getMessage());
+                    throw new Exception(response.getMessage());
+                }
+            } else {
+                logger.error("Error deleting scholarship program: {}", responseWrapper.getMessage());
+                throw new Exception("Error deleting scholarship program: " + responseWrapper.getMessage());
+            }
+        } catch (Exception e) {
+            logger.error("Error deleting scholarship program", e);
+            throw new Exception("Error deleting scholarship program: " + e.getMessage());
+        }
     }
 }
