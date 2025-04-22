@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.kasperovich.ui.AcademicPeriodManagementController"
+            prefHeight="600.0" prefWidth="800.0">
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10;">
+            <Button fx:id="backButton" text="%button.back" onAction="#handleBackAction"/>
+            <Label text="%academic.period.management.title" styleClass="page-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="createButton" text="%academic.period.create" onAction="#handleCreatePeriod"/>
+            <Button fx:id="refreshButton" text="%button.refresh" onAction="#handleRefresh"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <CheckBox fx:id="showInactiveCheckbox" text="%academic.period.show.inactive" onAction="#handleFilterChange"/>
+                <ComboBox fx:id="typeFilterComboBox" promptText="%academic.period.filter.type"/>
+            </HBox>
+            <TableView fx:id="periodsTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="nameColumn" text="%academic.period.name"/>
+                    <TableColumn fx:id="typeColumn" text="%academic.period.type"/>
+                    <TableColumn fx:id="startDateColumn" text="%academic.period.start_date"/>
+                    <TableColumn fx:id="endDateColumn" text="%academic.period.end_date"/>
+                    <TableColumn fx:id="statusColumn" text="%academic.period.status"/>
+                    <TableColumn fx:id="actionsColumn" text="%table.column.actions"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>
