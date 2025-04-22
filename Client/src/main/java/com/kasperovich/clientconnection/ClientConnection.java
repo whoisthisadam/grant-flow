@@ -895,7 +895,7 @@ public class ClientConnection {
             if (response.getResponse() == ResponseFromServer.ERROR) {
                 String errorMessage = "Failed to reject application";
                 if (response.getData() instanceof ApplicationReviewResponse) {
-                    ApplicationReviewResponse appResponse = (ApplicationReviewResponse) response.getData();
+                    ApplicationReviewResponse appResponse = response.getData();
                     errorMessage = appResponse.getErrorMessage();
                 }
                 logger.warn(errorMessage);
@@ -1429,6 +1429,233 @@ public class ClientConnection {
         } catch (Exception e) {
             logger.error("Error getting allocations by program", e);
             throw new Exception("Error getting allocations by program: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Gets all academic periods.
+     *
+     * @return list of all academic periods
+     * @throws IOException if communication error occurs
+     * @throws ClassNotFoundException if the class of the received object cannot be found
+     */
+    public List<AcademicPeriodDTO> getAllAcademicPeriods() throws IOException, ClassNotFoundException {
+        logger.debug("Getting all academic periods");
+        
+        GetAcademicPeriodsCommand command = new GetAcademicPeriodsCommand(false);
+        CommandWrapper commandWrapper = new CommandWrapper(Command.GET_ACADEMIC_PERIODS, command);
+        commandWrapper.setAuthToken(authToken);
+        
+        try {
+            sendObject(commandWrapper);
+            ResponseWrapper response = receiveObject();
+            
+            if (response.getResponse() == ResponseFromServer.SUCCESS) {
+                AcademicPeriodsResponse periodsResponse = response.getData();
+                if (periodsResponse != null) {
+                    List<AcademicPeriodDTO> periods = periodsResponse.getPeriods();
+                    logger.debug("Received {} academic periods", periods.size());
+                    return periods;
+                }
+            }
+            
+            logger.warn("Failed to get academic periods: {}", response.getResponse());
+            return new ArrayList<>();
+        } catch (Exception e) {
+            logger.error("Error getting academic periods", e);
+            throw e;
+        }
+    }
+    
+    /**
+     * Gets only active academic periods.
+     *
+     * @return list of active academic periods
+     * @throws IOException if communication error occurs
+     * @throws ClassNotFoundException if the class of the received object cannot be found
+     */
+    public List<AcademicPeriodDTO> getActiveAcademicPeriods() throws IOException, ClassNotFoundException {
+        logger.debug("Getting active academic periods");
+        
+        GetAcademicPeriodsCommand command = new GetAcademicPeriodsCommand(true);
+        CommandWrapper commandWrapper = new CommandWrapper(Command.GET_ACADEMIC_PERIODS, command);
+        commandWrapper.setAuthToken(authToken);
+        
+        try {
+            sendObject(commandWrapper);
+            ResponseWrapper response = receiveObject();
+            
+            if (response.getResponse() == ResponseFromServer.SUCCESS) {
+                AcademicPeriodsResponse periodsResponse = response.getData();
+                if (periodsResponse != null) {
+                    List<AcademicPeriodDTO> periods = periodsResponse.getPeriods();
+                    logger.debug("Received {} active academic periods", periods.size());
+                    return periods;
+                }
+            }
+            
+            logger.warn("Failed to get active academic periods: {}", response.getResponse());
+            return new ArrayList<>();
+        } catch (Exception e) {
+            logger.error("Error getting active academic periods", e);
+            throw e;
+        }
+    }
+    
+    /**
+     * Creates a new academic period.
+     *
+     * @param periodDTO the academic period to create
+     * @return the created academic period with ID
+     * @throws IOException if communication error occurs
+     * @throws ClassNotFoundException if the class of the received object cannot be found
+     */
+    public AcademicPeriodDTO createAcademicPeriod(AcademicPeriodDTO periodDTO) throws IOException, ClassNotFoundException {
+        logger.debug("Creating academic period: {}", periodDTO.getName());
+        
+        CreateAcademicPeriodCommand command = new CreateAcademicPeriodCommand(periodDTO);
+        CommandWrapper commandWrapper = new CommandWrapper(Command.CREATE_ACADEMIC_PERIOD, command);
+        commandWrapper.setAuthToken(authToken);
+        
+        try {
+            sendObject(commandWrapper);
+            ResponseWrapper response = receiveObject();
+            
+            if (response.getResponse() == ResponseFromServer.SUCCESS) {
+                AcademicPeriodResponse periodResponse = response.getData();
+                if (periodResponse != null) {
+                    AcademicPeriodDTO createdPeriod = periodResponse.getPeriod();
+                    logger.debug("Created academic period with ID: {}", createdPeriod.getId());
+                    return createdPeriod;
+                }
+            }
+            
+            String errorMessage = "Failed to create academic period";
+            if (response.getResponse() == ResponseFromServer.ERROR) {
+                errorMessage = response.getMessage();
+            }
+            logger.warn(errorMessage);
+            throw new IOException(errorMessage);
+        } catch (IOException | ClassNotFoundException e) {
+            logger.error("Error creating academic period", e);
+            throw e;
+        }
+    }
+    
+    /**
+     * Updates an existing academic period.
+     *
+     * @param periodDTO the academic period to update
+     * @return the updated academic period
+     * @throws IOException if communication error occurs
+     * @throws ClassNotFoundException if the class of the received object cannot be found
+     */
+    public AcademicPeriodDTO updateAcademicPeriod(AcademicPeriodDTO periodDTO) throws IOException, ClassNotFoundException {
+        logger.debug("Updating academic period with ID: {}", periodDTO.getId());
+        
+        UpdateAcademicPeriodCommand command = new UpdateAcademicPeriodCommand(periodDTO);
+        CommandWrapper commandWrapper = new CommandWrapper(Command.UPDATE_ACADEMIC_PERIOD, command);
+        commandWrapper.setAuthToken(authToken);
+        
+        try {
+            sendObject(commandWrapper);
+            ResponseWrapper response = receiveObject();
+            
+            if (response.getResponse() == ResponseFromServer.SUCCESS) {
+                AcademicPeriodResponse periodResponse = response.getData();
+                if (periodResponse != null) {
+                    AcademicPeriodDTO updatedPeriod = periodResponse.getPeriod();
+                    logger.debug("Updated academic period with ID: {}", updatedPeriod.getId());
+                    return updatedPeriod;
+                }
+            }
+            
+            String errorMessage = "Failed to update academic period";
+            if (response.getResponse() == ResponseFromServer.ERROR) {
+                errorMessage = response.getMessage();
+            }
+            logger.warn(errorMessage);
+            throw new IOException(errorMessage);
+        } catch (IOException | ClassNotFoundException e) {
+            logger.error("Error updating academic period", e);
+            throw e;
+        }
+    }
+    
+    /**
+     * Updates the status of an academic period.
+     *
+     * @param periodId the ID of the academic period
+     * @param active the new active status
+     * @return the updated academic period
+     * @throws IOException if communication error occurs
+     * @throws ClassNotFoundException if the class of the received object cannot be found
+     */
+    public AcademicPeriodDTO updateAcademicPeriodStatus(Long periodId, boolean active) throws IOException, ClassNotFoundException {
+        logger.debug("Updating academic period status: ID={}, active={}", periodId, active);
+        
+        UpdateAcademicPeriodStatusCommand command = new UpdateAcademicPeriodStatusCommand(periodId, active);
+        CommandWrapper commandWrapper = new CommandWrapper(Command.UPDATE_ACADEMIC_PERIOD_STATUS, command);
+        commandWrapper.setAuthToken(authToken);
+        
+        try {
+            sendObject(commandWrapper);
+            ResponseWrapper response = receiveObject();
+            
+            if (response.getResponse() == ResponseFromServer.SUCCESS) {
+                AcademicPeriodResponse periodResponse = response.getData();
+                if (periodResponse != null) {
+                    AcademicPeriodDTO updatedPeriod = periodResponse.getPeriod();
+                    logger.debug("Updated academic period status: ID={}, active={}", updatedPeriod.getId(), updatedPeriod.isActive());
+                    return updatedPeriod;
+                }
+            }
+            
+            String errorMessage = "Failed to update academic period status";
+            if (response.getResponse() == ResponseFromServer.ERROR) {
+                errorMessage = response.getMessage();
+            }
+            logger.warn(errorMessage);
+            throw new IOException(errorMessage);
+        } catch (IOException | ClassNotFoundException e) {
+            logger.error("Error updating academic period status", e);
+            throw e;
+        }
+    }
+    
+    /**
+     * Deletes an academic period.
+     *
+     * @param periodId the ID of the academic period to delete
+     * @return true if deleted successfully
+     * @throws IOException if communication error occurs
+     * @throws ClassNotFoundException if the class of the received object cannot be found
+     */
+    public boolean deleteAcademicPeriod(Long periodId) throws IOException, ClassNotFoundException {
+        logger.debug("Deleting academic period with ID: {}", periodId);
+        
+        DeleteAcademicPeriodCommand command = new DeleteAcademicPeriodCommand(periodId);
+        CommandWrapper commandWrapper = new CommandWrapper(Command.DELETE_ACADEMIC_PERIOD, command);
+        commandWrapper.setAuthToken(authToken);
+        
+        try {
+            sendObject(commandWrapper);
+            ResponseWrapper response = receiveObject();
+            
+            if (response.getResponse() == ResponseFromServer.SUCCESS) {
+                logger.debug("Deleted academic period with ID: {}", periodId);
+                return true;
+            }
+            
+            String errorMessage = "Failed to delete academic period";
+            if (response.getResponse() == ResponseFromServer.ERROR) {
+                errorMessage = response.getMessage();
+            }
+            logger.warn(errorMessage);
+            throw new IOException(errorMessage);
+        } catch (IOException | ClassNotFoundException e) {
+            logger.error("Error deleting academic period", e);
+            throw e;
         }
     }
 }

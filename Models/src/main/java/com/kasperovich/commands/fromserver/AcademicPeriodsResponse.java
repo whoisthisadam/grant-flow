@@ -15,16 +15,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AcademicPeriodsResponse implements Serializable {
-    
     private ResponseFromServer responseType;
     private List<AcademicPeriodDTO> periods;
     private String message;
-    
+
     public AcademicPeriodsResponse(List<AcademicPeriodDTO> periods) {
         this.responseType = ResponseFromServer.DATA_FOUND;
         this.periods = periods;
     }
-    
+
     public AcademicPeriodsResponse(String errorMessage) {
         this.responseType = ResponseFromServer.ERROR;
         this.message = errorMessage;

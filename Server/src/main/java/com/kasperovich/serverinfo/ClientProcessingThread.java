@@ -246,6 +246,18 @@ public class ClientProcessingThread extends Thread {
                 handleGetAllocationsByProgram(commandWrapper);
                 break;
             }
+            case CREATE_ACADEMIC_PERIOD:
+                handleCreateAcademicPeriod(commandWrapper);
+                break;
+            case UPDATE_ACADEMIC_PERIOD:
+                handleUpdateAcademicPeriod(commandWrapper);
+                break;
+            case UPDATE_ACADEMIC_PERIOD_STATUS:
+                handleUpdateAcademicPeriodStatus(commandWrapper);
+                break;
+            case DELETE_ACADEMIC_PERIOD:
+                handleDeleteAcademicPeriod(commandWrapper);
+                break;
             default: {
                 logger.warn("Received unknown command: {}", commandWrapper.getCommand());
                 sendObject(new ResponseWrapper(ResponseFromServer.UNKNOWN_COMMAND));
@@ -1157,6 +1169,179 @@ public class ClientProcessingThread extends Thread {
             logger.error("Error handling GET_ALLOCATIONS_BY_PROGRAM command", e);
             sendObject(new ResponseWrapper(ResponseFromServer.ERROR,
                     new FundAllocationsResponse(e.getMessage())));
+        }
+    }
+
+    /**
+     * Handles the CREATE_ACADEMIC_PERIOD command.
+     *
+     * @param commandWrapper the command wrapper
+     */
+    private void handleCreateAcademicPeriod(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling CREATE_ACADEMIC_PERIOD command");
+
+        try {
+            // Validate user is admin
+            if (authenticatedUserId == null) {
+                logger.warn("User not authenticated");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "User not authenticated"));
+                return;
+            }
+
+            CreateAcademicPeriodCommand command = commandWrapper.getData();
+
+            if (command == null || command.getPeriod() == null) {
+                logger.warn("Academic period data is missing");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Academic period data is missing"));
+                return;
+            }
+
+            // Create academic period
+            AcademicPeriodDTO period = academicPeriodService.createAcademicPeriod(command.getPeriod());
+
+            // Send response
+            AcademicPeriodResponse response = new AcademicPeriodResponse(period);
+            sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
+            logger.info("Academic period created successfully. ID: {}", period.getId());
+
+        } catch (IllegalArgumentException e) {
+            logger.warn("Invalid academic period data: {}", e.getMessage());
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, e.getMessage()));
+        } catch (Exception e) {
+            logger.error("Error handling CREATE_ACADEMIC_PERIOD command", e);
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Error creating academic period"));
+        }
+    }
+
+    /**
+     * Handles the UPDATE_ACADEMIC_PERIOD command.
+     *
+     * @param commandWrapper the command wrapper
+     */
+    private void handleUpdateAcademicPeriod(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling UPDATE_ACADEMIC_PERIOD command");
+
+        try {
+            // Validate user is admin
+            if (authenticatedUserId == null) {
+                logger.warn("User not authenticated");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "User not authenticated"));
+                return;
+            }
+
+            UpdateAcademicPeriodCommand command = commandWrapper.getData();
+
+            if (command == null || command.getPeriod() == null) {
+                logger.warn("Academic period data is missing");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Academic period data is missing"));
+                return;
+            }
+
+            // Update academic period
+            AcademicPeriodDTO period = academicPeriodService.updateAcademicPeriod(command.getPeriod());
+
+            // Send response
+            AcademicPeriodResponse response = new AcademicPeriodResponse(period);
+            sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
+            logger.info("Academic period updated successfully. ID: {}", period.getId());
+
+        } catch (IllegalArgumentException e) {
+            logger.warn("Invalid academic period data: {}", e.getMessage());
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, e.getMessage()));
+        } catch (Exception e) {
+            logger.error("Error handling UPDATE_ACADEMIC_PERIOD command", e);
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Error updating academic period"));
+        }
+    }
+
+    /**
+     * Handles the UPDATE_ACADEMIC_PERIOD_STATUS command.
+     *
+     * @param commandWrapper the command wrapper
+     */
+    private void handleUpdateAcademicPeriodStatus(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling UPDATE_ACADEMIC_PERIOD_STATUS command");
+
+        try {
+            // Validate user is admin
+            if (authenticatedUserId == null) {
+                logger.warn("User not authenticated");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "User not authenticated"));
+                return;
+            }
+
+            UpdateAcademicPeriodStatusCommand command = commandWrapper.getData();
+
+            if (command == null) {
+                logger.warn("Academic period status data is missing");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Academic period status data is missing"));
+                return;
+            }
+
+            // Update academic period status
+            AcademicPeriodDTO period = academicPeriodService.updateAcademicPeriodStatus(
+                    command.getPeriodId(), command.isActive());
+
+            // Send response
+            AcademicPeriodResponse response = new AcademicPeriodResponse(period);
+            sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
+            logger.info("Academic period status updated successfully. ID: {}", period.getId());
+
+        } catch (IllegalArgumentException e) {
+            logger.warn("Invalid academic period status data: {}", e.getMessage());
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, e.getMessage()));
+        } catch (Exception e) {
+            logger.error("Error handling UPDATE_ACADEMIC_PERIOD_STATUS command", e);
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Error updating academic period status"));
+        }
+    }
+
+    /**
+     * Handles the DELETE_ACADEMIC_PERIOD command.
+     *
+     * @param commandWrapper the command wrapper
+     */
+    private void handleDeleteAcademicPeriod(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling DELETE_ACADEMIC_PERIOD command");
+
+        try {
+            // Validate user is admin
+            if (authenticatedUserId == null) {
+                logger.warn("User not authenticated");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "User not authenticated"));
+                return;
+            }
+
+            DeleteAcademicPeriodCommand command = commandWrapper.getData();
+
+            if (command == null) {
+                logger.warn("Academic period ID is missing");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Academic period ID is missing"));
+                return;
+            }
+
+            // Delete academic period
+            boolean deleted = academicPeriodService.deleteAcademicPeriod(command.getPeriodId());
+
+            // Send response
+            if (deleted) {
+                sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, "Academic period deleted successfully"));
+                logger.info("Academic period deleted successfully. ID: {}", command.getPeriodId());
+            } else {
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Failed to delete academic period"));
+                logger.warn("Failed to delete academic period. ID: {}", command.getPeriodId());
+            }
+
+        } catch (IllegalArgumentException e) {
+            logger.warn("Invalid academic period ID: {}", e.getMessage());
+            var response = new ResponseWrapper(ResponseFromServer.ERROR, e.getMessage());
+            response.setMessage(e.getMessage());
+            sendObject(response);
+        } catch (Exception e) {
+            logger.error("Error handling DELETE_ACADEMIC_PERIOD command", e);
+            var response = new ResponseWrapper(ResponseFromServer.ERROR, e.getMessage());
+            response.setMessage("Error deleting academic period");
+            sendObject(response);
         }
     }
 

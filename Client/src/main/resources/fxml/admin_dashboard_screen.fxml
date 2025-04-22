@@ -35,6 +35,7 @@
             <Button fx:id="programsButton" text="%admin.button.programs" maxWidth="Infinity" styleClass="nav-button" />
             <Button fx:id="applicationsButton" text="%admin.button.applications" maxWidth="Infinity" styleClass="nav-button" />
             <Button fx:id="fundAllocationButton" text="%admin.button.fund.allocation" maxWidth="Infinity" styleClass="nav-button" onAction="#handleFundAllocationAction" />
+            <Button fx:id="academicPeriodsButton" text="%admin.button.academic-periods" maxWidth="Infinity" styleClass="nav-button" />
             <Button fx:id="usersButton" text="%admin.button.users" maxWidth="Infinity" styleClass="nav-button" />
             <Button fx:id="profileButton" text="%dashboard.button.profile" maxWidth="Infinity" styleClass="nav-button" />
             

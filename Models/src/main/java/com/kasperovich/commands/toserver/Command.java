@@ -50,5 +50,11 @@ public enum Command implements Serializable {
     // Fund allocation commands
     ALLOCATE_FUNDS,
     GET_ALLOCATIONS_BY_BUDGET,
-    GET_ALLOCATIONS_BY_PROGRAM
+    GET_ALLOCATIONS_BY_PROGRAM,
+    
+    // Academic period management commands
+    CREATE_ACADEMIC_PERIOD,
+    UPDATE_ACADEMIC_PERIOD,
+    UPDATE_ACADEMIC_PERIOD_STATUS,
+    DELETE_ACADEMIC_PERIOD
 }

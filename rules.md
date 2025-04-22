@@ -334,3 +334,53 @@ The scholarship-related functionality has been temporarily disabled in the clien
   - Returning null from client methods instead of throwing exceptions with error messages
   - Displaying generic error messages instead of the specific server error
   - Using different error handling patterns for different operations
+
+## ClientConnection Usage Guidelines
+
+### Sending Commands and Receiving Responses
+
+- **Use `sendObject(commandWrapper)` instead of `sendCommand(wrapper)`**
+  - This ensures that the command is properly wrapped and sent to the server
+
+- **Use `ResponseWrapper response = receiveObject()` instead of `ServerResponse response = receiveResponse()`**
+  - This ensures that the response is properly unwrapped and handled
+
+- **Check response with `response.getResponse() == ResponseFromServer.SUCCESS` instead of `response.isSuccess()`**
+  - This ensures that the response is properly checked and handled
+
+- **Always handle both `IOException` and `ClassNotFoundException` in the method signature and catch blocks**
+  - This ensures that all possible exceptions are handled and the application remains stable
+
+Example usage:
+```java
+try {
+    CommandWrapper command = new CommandWrapper(CommandType.MY_COMMAND, params);
+    sendObject(command);
+    
+    ResponseWrapper response = receiveObject();
+    if (response.getResponse() == ResponseFromServer.SUCCESS) {
+        Result result = (Result) response.getData();
+        // Handle success
+    } else {
+        // Handle error
+    }
+} catch (IOException | ClassNotFoundException e) {
+    logger.error("Error sending or receiving data", e);
+    // Handle exception
+}
+```
+
+## Notes
+
+- **Do not use `cd` commands in the `run_command` tool**
+  - Instead, specify the working directory using the `cwd` parameter.
+  - Example: `run_command("mvn clean install", cwd="Server")`
+
+- **When implementing new methods in ClientConnection, use the correct pattern for communication**
+  - Use `sendObject(commandWrapper)` instead of `sendCommand(wrapper)`
+  - Use `ResponseWrapper response = receiveObject()` instead of `ServerResponse response = receiveResponse()`
+  - Check response with `response.getResponse() == ResponseFromServer.SUCCESS` instead of `response.isSuccess()`
+  - Always handle both `IOException` and `ClassNotFoundException` in the method signature and catch blocks
+  - Follow the existing pattern in other methods for consistency
+
+- **Always use the `ChangeScene.changeScene` utility for switching between JavaFX screens.**

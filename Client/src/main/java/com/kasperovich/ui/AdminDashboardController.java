@@ -43,6 +43,9 @@ public class AdminDashboardController extends BaseController {
     private Button fundAllocationButton;
     
     @FXML
+    private Button academicPeriodsButton;
+    
+    @FXML
     private Button usersButton;
     
     @FXML
@@ -76,6 +79,7 @@ public class AdminDashboardController extends BaseController {
         programsButton.setOnAction(this::handleProgramsAction);
         applicationsButton.setOnAction(this::handleApplicationsAction);
         fundAllocationButton.setOnAction(this::handleFundAllocationAction);
+        academicPeriodsButton.setOnAction(this::handleAcademicPeriodsAction);
         profileButton.setOnAction(this::handleProfileAction);
         
         updateTexts();
@@ -93,6 +97,7 @@ public class AdminDashboardController extends BaseController {
         programsButton.setText(LangManager.getBundle().getString("admin.button.programs"));
         applicationsButton.setText(LangManager.getBundle().getString("admin.button.applications"));
         fundAllocationButton.setText(LangManager.getBundle().getString("admin.button.fund-allocation"));
+        academicPeriodsButton.setText(LangManager.getBundle().getString("admin.button.academic-periods"));
         usersButton.setText(LangManager.getBundle().getString("admin.button.users"));
         profileButton.setText(LangManager.getBundle().getString("dashboard.button.profile"));
     }
@@ -223,6 +228,30 @@ public class AdminDashboardController extends BaseController {
             AlertManager.showErrorAlert(
                 LangManager.getBundle().getString("navigation.error"),
                 "Could not navigate to fund allocation screen: " + e.getMessage()
+            );
+        }
+    }
+    
+    /**
+     * Handles the academic periods button action.
+     * 
+     * @param event The action event
+     */
+    private void handleAcademicPeriodsAction(ActionEvent event) {
+        try {
+            logger.info("Navigating to academic period management screen");
+            ChangeScene.changeScene(
+                event,
+                "/fxml/academic_period_management.fxml",
+                LangManager.getBundle().getString("academic.period.management.title"),
+                getClientConnection(),
+                user
+            );
+        } catch (Exception e) {
+            logger.error("Error navigating to academic period management screen", e);
+            AlertManager.showErrorAlert(
+                LangManager.getBundle().getString("error.title"),
+                LangManager.getBundle().getString("error.navigation")
             );
         }
     }
