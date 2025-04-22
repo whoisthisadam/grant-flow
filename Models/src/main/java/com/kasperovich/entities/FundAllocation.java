@@ -38,10 +38,10 @@ public class FundAllocation implements Serializable {
     @JoinColumn(name = "program_id", nullable = false)
     private ScholarshipProgram program;
     
-    @Column(name = "amount", nullable = false)
+    @Column(name = "amount", nullable = false, precision = 12, scale = 2)
     private BigDecimal amount;
     
-    @Column(name = "previous_amount")
+    @Column(name = "previous_amount", precision = 12, scale = 2)
     private BigDecimal previousAmount = BigDecimal.ZERO;
     
     @Column(name = "allocation_date", nullable = false)

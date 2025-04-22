@@ -37,13 +37,13 @@ public class Budget implements Serializable {
     @Column(name = "fiscal_period")
     private String fiscalPeriod;
     
-    @Column(name = "total_amount", nullable = false)
+    @Column(name = "total_amount", nullable = false, precision = 12, scale = 2)
     private BigDecimal totalAmount;
     
-    @Column(name = "allocated_amount")
+    @Column(name = "allocated_amount", precision = 12, scale = 2)
     private BigDecimal allocatedAmount = BigDecimal.ZERO;
     
-    @Column(name = "remaining_amount")
+    @Column(name = "remaining_amount", precision = 12, scale = 2)
     private BigDecimal remainingAmount;
     
     @Column(name = "start_date", nullable = false)

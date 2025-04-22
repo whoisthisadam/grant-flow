@@ -37,10 +37,10 @@ public class ScholarshipProgram implements Serializable {
     @Column(length = 500)
     private String description;
 
-    @Column(name = "funding_amount", nullable = false)
+    @Column(name = "funding_amount", nullable = false, precision = 12, scale = 2)
     private BigDecimal fundingAmount;
 
-    @Column(name = "min_gpa")
+    @Column(name = "min_gpa", precision = 3, scale = 2)
     private BigDecimal minGpa;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -56,13 +56,13 @@ public class ScholarshipProgram implements Serializable {
     @Column(name = "application_deadline")
     private LocalDate applicationDeadline;
     
-    @Column(name = "allocated_amount")
+    @Column(name = "allocated_amount", precision = 12, scale = 2)
     private BigDecimal allocatedAmount = BigDecimal.ZERO;
     
-    @Column(name = "used_amount")
+    @Column(name = "used_amount", precision = 12, scale = 2)
     private BigDecimal usedAmount = BigDecimal.ZERO;
     
-    @Column(name = "remaining_amount")
+    @Column(name = "remaining_amount", precision = 12, scale = 2)
     private BigDecimal remainingAmount = BigDecimal.ZERO;
 
     /**
