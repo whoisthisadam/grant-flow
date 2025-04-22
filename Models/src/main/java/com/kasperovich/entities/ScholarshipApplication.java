@@ -57,9 +57,6 @@ public class ScholarshipApplication implements Serializable {
     @JoinColumn(name = "reviewer_id")
     private User reviewer;
     
-    @Column(name = "additional_info", length = 2000)
-    private String additionalInfo;
-    
     /**
      * Approves the application with the given reviewer and comments.
      *

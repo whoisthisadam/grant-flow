@@ -14,6 +14,7 @@ import com.kasperovich.utils.DTOConverter;
 import com.kasperovich.utils.LoggerUtil;
 import org.apache.logging.log4j.Logger;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +31,7 @@ public class ScholarshipApplicationService {
     private final AcademicPeriodDao periodDao;
     private final UserDao userDao;
     private final DTOConverter dtoConverter;
+    private final FundManagementService fundManagementService;
     
     /**
      * Constructs a new ScholarshipApplicationService with default DAOs.
@@ -40,6 +42,7 @@ public class ScholarshipApplicationService {
         this.periodDao = new AcademicPeriodDaoImpl();
         this.userDao = new UserDaoImpl();
         this.dtoConverter = new DTOConverter();
+        this.fundManagementService = new FundManagementService();
     }
     
     /**
@@ -101,7 +104,6 @@ public class ScholarshipApplicationService {
             application.setPeriod(period.get());
             application.setSubmissionDate(LocalDateTime.now());
             application.setStatus("PENDING");
-            application.setAdditionalInfo(additionalInfo);
             
             ScholarshipApplication savedApplication = applicationDao.save(application);
             logger.info("Scholarship application submitted successfully. ID: {}", savedApplication.getId());
@@ -299,11 +301,25 @@ public class ScholarshipApplicationService {
                 throw new Exception("This application has already been " + application.getStatus().toLowerCase());
             }
             
+            // Get the scholarship amount from the program
+            ScholarshipProgram program = application.getProgram();
+            BigDecimal scholarshipAmount = program.getFundingAmount();
+            
+            // Check if there are sufficient funds available for this scholarship
+            if (!fundManagementService.hasSufficientFunds(program.getId(), scholarshipAmount)) {
+                throw new Exception("Insufficient funds available for this scholarship program. Please allocate more funds before approving applications.");
+            }
+            
             // Approve the application
             application.approve(reviewer, comments);
             
             // Update the application
             ScholarshipApplication updatedApplication = applicationDao.update(application);
+            
+            // Record the fund usage
+            fundManagementService.recordFundUsage(program.getId(), scholarshipAmount, reviewerId);
+            logger.info("Recorded fund usage of {} for program ID: {}", scholarshipAmount, program.getId());
+            
             logger.info("Scholarship application with ID: {} has been approved", applicationId);
             
             return dtoConverter.convertToDTO(updatedApplication);

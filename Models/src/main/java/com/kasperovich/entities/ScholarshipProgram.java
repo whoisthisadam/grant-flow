@@ -55,6 +55,15 @@ public class ScholarshipProgram implements Serializable {
 
     @Column(name = "application_deadline")
     private LocalDate applicationDeadline;
+    
+    @Column(name = "allocated_amount")
+    private BigDecimal allocatedAmount = BigDecimal.ZERO;
+    
+    @Column(name = "used_amount")
+    private BigDecimal usedAmount = BigDecimal.ZERO;
+    
+    @Column(name = "remaining_amount")
+    private BigDecimal remainingAmount = BigDecimal.ZERO;
 
     /**
      * Checks if applications are currently being accepted for this program.
@@ -71,5 +80,33 @@ public class ScholarshipProgram implements Serializable {
         }
         
         return !LocalDate.now().isAfter(applicationDeadline);
+    }
+    
+    /**
+     * Checks if the program has sufficient funds available.
+     *
+     * @param amount the amount to check
+     * @return true if the program has sufficient funds
+     */
+    public boolean hasSufficientFunds(BigDecimal amount) {
+        if (amount == null || remainingAmount == null) {
+            return false;
+        }
+        return remainingAmount.compareTo(amount) >= 0;
+    }
+    
+    /**
+     * Recalculates the remaining amount based on allocated and used amounts.
+     */
+    public void calculateRemainingAmount() {
+        if (allocatedAmount == null) {
+            allocatedAmount = BigDecimal.ZERO;
+        }
+        
+        if (usedAmount == null) {
+            usedAmount = BigDecimal.ZERO;
+        }
+        
+        remainingAmount = allocatedAmount.subtract(usedAmount);
     }
 }

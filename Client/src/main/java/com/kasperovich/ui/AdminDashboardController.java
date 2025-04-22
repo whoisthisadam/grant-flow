@@ -40,6 +40,9 @@ public class AdminDashboardController extends BaseController {
     private Button applicationsButton;
     
     @FXML
+    private Button fundAllocationButton;
+    
+    @FXML
     private Button usersButton;
     
     @FXML
@@ -72,6 +75,7 @@ public class AdminDashboardController extends BaseController {
         // Set up navigation button actions
         programsButton.setOnAction(this::handleProgramsAction);
         applicationsButton.setOnAction(this::handleApplicationsAction);
+        fundAllocationButton.setOnAction(this::handleFundAllocationAction);
         profileButton.setOnAction(this::handleProfileAction);
         
         updateTexts();
@@ -88,6 +92,7 @@ public class AdminDashboardController extends BaseController {
         dashboardButton.setText(LangManager.getBundle().getString("admin.button.dashboard"));
         programsButton.setText(LangManager.getBundle().getString("admin.button.programs"));
         applicationsButton.setText(LangManager.getBundle().getString("admin.button.applications"));
+        fundAllocationButton.setText(LangManager.getBundle().getString("admin.button.fund-allocation"));
         usersButton.setText(LangManager.getBundle().getString("admin.button.users"));
         profileButton.setText(LangManager.getBundle().getString("dashboard.button.profile"));
     }
@@ -193,6 +198,31 @@ public class AdminDashboardController extends BaseController {
             AlertManager.showErrorAlert(
                 LangManager.getBundle().getString("navigation.error"),
                 "Could not navigate to application review screen: " + e.getMessage()
+            );
+        }
+    }
+    
+    /**
+     * Handles the fund allocation button action.
+     * 
+     * @param event The action event
+     */
+    public void handleFundAllocationAction(ActionEvent event) {
+        try {
+            ChangeScene.changeScene(
+                event,
+                "/fxml/fund_allocation_screen.fxml",
+                LangManager.getBundle().getString("fund.allocation.title"),
+                getClientConnection(),
+                user
+            );
+            
+            logger.debug("Navigated to fund allocation screen from admin dashboard");
+        } catch (Exception e) {
+            logger.error("Error navigating to fund allocation screen", e);
+            AlertManager.showErrorAlert(
+                LangManager.getBundle().getString("navigation.error"),
+                "Could not navigate to fund allocation screen: " + e.getMessage()
             );
         }
     }

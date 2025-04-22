@@ -2,13 +2,19 @@ package com.kasperovich.utils;
 
 import com.kasperovich.dto.auth.UserDTO;
 import com.kasperovich.dto.scholarship.AcademicPeriodDTO;
+import com.kasperovich.dto.scholarship.BudgetDTO;
+import com.kasperovich.dto.scholarship.FundAllocationDTO;
 import com.kasperovich.dto.scholarship.ScholarshipApplicationDTO;
 import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
 import com.kasperovich.entities.AcademicPeriod;
+import com.kasperovich.entities.Budget;
+import com.kasperovich.entities.FundAllocation;
 import com.kasperovich.entities.ScholarshipApplication;
 import com.kasperovich.entities.ScholarshipProgram;
 import com.kasperovich.entities.User;
 import org.apache.logging.log4j.Logger;
+
+import java.math.BigDecimal;
 
 /**
  * Utility class for converting between entity objects and DTOs.
@@ -72,6 +78,13 @@ public class DTOConverter {
             dto.setCreatedById(program.getCreatedBy().getId());
             dto.setCreatedByUsername(program.getCreatedBy().getUsername());
         }
+        
+        // Set fund tracking information
+        dto.setAllocatedAmount(program.getAllocatedAmount());
+        dto.setUsedAmount(program.getUsedAmount());
+        dto.setRemainingAmount(program.getRemainingAmount());
+        dto.setHasFundsAvailable(program.getRemainingAmount() != null && 
+                                program.getRemainingAmount().compareTo(BigDecimal.ZERO) > 0);
         
         return dto;
     }
@@ -144,6 +157,86 @@ public class DTOConverter {
         dto.setEndDate(period.getEndDate());
         dto.setType(period.getType());
         dto.setActive(period.isActive());
+        
+        return dto;
+    }
+    
+    /**
+     * Converts a Budget entity to a BudgetDTO.
+     *
+     * @param budget the Budget entity
+     * @return the BudgetDTO
+     */
+    public BudgetDTO convertToDTO(Budget budget) {
+        if (budget == null) {
+            return null;
+        }
+        
+        BudgetDTO dto = new BudgetDTO();
+        dto.setId(budget.getId());
+        dto.setFiscalYear(budget.getFiscalYear());
+        dto.setFiscalPeriod(budget.getFiscalPeriod());
+        dto.setTotalAmount(budget.getTotalAmount());
+        dto.setAllocatedAmount(budget.getAllocatedAmount());
+        dto.setRemainingAmount(budget.getRemainingAmount());
+        dto.setStartDate(budget.getStartDate());
+        dto.setEndDate(budget.getEndDate());
+        dto.setDescription(budget.getDescription());
+        dto.setStatus(budget.getStatus());
+        dto.setCreatedAt(budget.getCreatedAt());
+        dto.setUpdatedAt(budget.getUpdatedAt());
+        
+        // Set creator information if available
+        if (budget.getCreatedBy() != null) {
+            dto.setCreatedById(budget.getCreatedBy().getId());
+            dto.setCreatedByName(budget.getCreatedBy().getFirstName() + " " + budget.getCreatedBy().getLastName());
+        }
+        
+        return dto;
+    }
+    
+    /**
+     * Converts a FundAllocation entity to a FundAllocationDTO.
+     *
+     * @param allocation the FundAllocation entity
+     * @return the FundAllocationDTO
+     */
+    public FundAllocationDTO convertToDTO(FundAllocation allocation) {
+        if (allocation == null) {
+            return null;
+        }
+        
+        FundAllocationDTO dto = new FundAllocationDTO();
+        dto.setId(allocation.getId());
+        dto.setAmount(allocation.getAmount());
+        dto.setPreviousAmount(allocation.getPreviousAmount());
+        dto.setAllocationDate(allocation.getAllocationDate());
+        dto.setStatus(allocation.getStatus());
+        dto.setNotes(allocation.getNotes());
+        
+        // Set budget information
+        Budget budget = allocation.getBudget();
+        if (budget != null) {
+            dto.setBudgetId(budget.getId());
+            dto.setBudgetFiscalYear(budget.getFiscalYear().toString());
+            if (budget.getFiscalPeriod() != null) {
+                dto.setBudgetFiscalPeriod(budget.getFiscalPeriod());
+            }
+        }
+        
+        // Set program information
+        ScholarshipProgram program = allocation.getProgram();
+        if (program != null) {
+            dto.setProgramId(program.getId());
+            dto.setProgramName(program.getName());
+        }
+        
+        // Set allocator information
+        User allocator = allocation.getAllocatedBy();
+        if (allocator != null) {
+            dto.setAllocatedById(allocator.getId());
+            dto.setAllocatedByName(allocator.getFirstName() + " " + allocator.getLastName());
+        }
         
         return dto;
     }

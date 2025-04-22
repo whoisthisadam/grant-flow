@@ -28,4 +28,8 @@ public class ScholarshipProgramDTO implements Serializable {
     private boolean active;
     private LocalDate applicationDeadline;
     private boolean acceptingApplications;
+    private BigDecimal allocatedAmount;
+    private BigDecimal usedAmount;
+    private BigDecimal remainingAmount;
+    private boolean hasFundsAvailable;
 }

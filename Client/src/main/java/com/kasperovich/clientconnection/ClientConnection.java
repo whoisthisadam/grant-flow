@@ -6,8 +6,11 @@ import com.kasperovich.dto.auth.LoginRequest;
 import com.kasperovich.dto.auth.RegistrationRequest;
 import com.kasperovich.dto.auth.UserDTO;
 import com.kasperovich.dto.scholarship.AcademicPeriodDTO;
+import com.kasperovich.dto.scholarship.BudgetDTO;
+import com.kasperovich.dto.scholarship.FundAllocationDTO;
 import com.kasperovich.dto.scholarship.ScholarshipApplicationDTO;
 import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
+import com.kasperovich.entities.BudgetStatus;
 import com.kasperovich.entities.UserRole;
 import com.kasperovich.utils.LoggerUtil;
 import lombok.Getter;
@@ -17,15 +20,17 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ClientConnection {
     private static final Logger logger = LoggerUtil.getLogger(ClientConnection.class);
-    private static final int DEFAULT_TIMEOUT_MS = 3000;
+    private static final int DEFAULT_TIMEOUT_MS = 10000;
     
     private Socket connectionSocket;
     private final String serverIp;
@@ -759,7 +764,7 @@ public class ClientConnection {
             }
             
             if (response.getData() instanceof ApplicationsResponse) {
-                ApplicationsResponse appResponse = (ApplicationsResponse) response.getData();
+                ApplicationsResponse appResponse = response.getData();
                 logger.info("Retrieved {} pending applications", appResponse.getApplications().size());
                 return appResponse.getApplications();
             } else {
@@ -796,7 +801,7 @@ public class ClientConnection {
             if (response.getResponse() == ResponseFromServer.ERROR) {
                 String errorMessage = "Failed to get all applications";
                 if (response.getData() instanceof ApplicationsResponse) {
-                    ApplicationsResponse appResponse = (ApplicationsResponse) response.getData();
+                    ApplicationsResponse appResponse = response.getData();
                     errorMessage = appResponse.getErrorMessage();
                 }
                 logger.warn(errorMessage);
@@ -851,7 +856,7 @@ public class ClientConnection {
             }
             
             if (response.getData() instanceof ApplicationReviewResponse) {
-                ApplicationReviewResponse appResponse = (ApplicationReviewResponse) response.getData();
+                ApplicationReviewResponse appResponse = response.getData();
                 logger.info("Application with ID: {} has been approved", applicationId);
                 return appResponse.getApplication();
             } else {
@@ -898,7 +903,7 @@ public class ClientConnection {
             }
             
             if (response.getData() instanceof ApplicationReviewResponse) {
-                ApplicationReviewResponse appResponse = (ApplicationReviewResponse) response.getData();
+                ApplicationReviewResponse appResponse = response.getData();
                 logger.info("Application with ID: {} has been rejected", applicationId);
                 return appResponse.getApplication();
             } else {
@@ -907,6 +912,523 @@ public class ClientConnection {
         } catch (IOException e) {
             logger.error("Error rejecting application", e);
             throw new Exception("Error connecting to server: " + e.getMessage());
+        }
+    }
+
+    // Fund Management Methods
+    
+    /**
+     * Gets all budgets from the server.
+     * 
+     * @return a list of budgets
+     * @throws Exception if an error occurs
+     */
+    public List<BudgetDTO> getAllBudgets() throws Exception {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to get all budgets but no user is authenticated");
+            throw new Exception("User not authenticated");
+        }
+        
+        if (!currentUser.getRole().equals(UserRole.ADMIN.name())) {
+            logger.warn("Non-admin user attempted to get all budgets");
+            throw new Exception("Only administrators can access budget information");
+        }
+        
+        logger.debug("Getting all budgets from server");
+        
+        try {
+            // Create command wrapper
+            CommandWrapper commandWrapper = new CommandWrapper(Command.GET_ALL_BUDGETS);
+            commandWrapper.setAuthToken(authToken);
+            
+            // Send command to server
+            sendObject(commandWrapper);
+            
+            // Receive response
+            ResponseWrapper responseWrapper = receiveObject();
+            
+            if (responseWrapper.getResponse() == ResponseFromServer.SUCCESS) {
+                BudgetsResponse budgetsResponse = responseWrapper.getData();
+                
+                if (budgetsResponse != null && budgetsResponse.isSuccess()) {
+                    List<BudgetDTO> budgets = budgetsResponse.getBudgets();
+                    logger.debug("Received {} budgets", budgets.size());
+                    return budgets;
+                } else {
+                    String errorMessage = budgetsResponse != null ? budgetsResponse.getErrorMessage() : "Unknown error";
+                    logger.error("Error getting budgets: {}", errorMessage);
+                    throw new Exception("Error getting budgets: " + errorMessage);
+                }
+            } else {
+                logger.error("Error getting budgets: {}", responseWrapper.getMessage());
+                throw new Exception("Error getting budgets: " + responseWrapper.getMessage());
+            }
+        } catch (Exception e) {
+            logger.error("Error getting budgets", e);
+            throw new Exception("Error getting budgets: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Gets the active budget from the server.
+     * 
+     * @return the active budget, or null if no budget is active
+     * @throws Exception if an error occurs
+     */
+    public BudgetDTO getActiveBudget() throws Exception {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to get active budget but no user is authenticated");
+            throw new Exception("User not authenticated");
+        }
+        
+        if (!currentUser.getRole().equals(UserRole.ADMIN.name())) {
+            logger.warn("Non-admin user attempted to get active budget");
+            throw new Exception("Only administrators can access budget information");
+        }
+        
+        logger.debug("Getting active budget from server");
+        
+        try {
+            // Create command wrapper
+            CommandWrapper commandWrapper = new CommandWrapper(Command.GET_ACTIVE_BUDGET);
+            commandWrapper.setAuthToken(authToken);
+            
+            // Send command to server
+            sendObject(commandWrapper);
+            
+            // Receive response
+            ResponseWrapper responseWrapper = receiveObject();
+            
+            if (responseWrapper.getResponse() == ResponseFromServer.SUCCESS) {
+                BudgetResponse budgetResponse = responseWrapper.getData();
+                
+                if (budgetResponse != null && budgetResponse.isSuccess()) {
+                    BudgetDTO budget = budgetResponse.getBudget();
+                    logger.debug("Received active budget: {}", budget != null ? budget.getId() : "none");
+                    return budget;
+                } else {
+                    String errorMessage = budgetResponse != null ? budgetResponse.getErrorMessage() : "Unknown error";
+                    logger.error("Error getting active budget: {}", errorMessage);
+                    throw new Exception("Error getting active budget: " + errorMessage);
+                }
+            } else {
+                logger.error("Error getting active budget: {}", responseWrapper.getMessage());
+                throw new Exception("Error getting active budget: " + responseWrapper.getMessage());
+            }
+        } catch (Exception e) {
+            logger.error("Error getting active budget", e);
+            throw new Exception("Error getting active budget: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Creates a new budget.
+     * 
+     * @param fiscalYear the fiscal year
+     * @param fiscalPeriod the fiscal period
+     * @param totalAmount the total amount
+     * @param startDate the start date
+     * @param endDate the end date
+     * @param description the description
+     * @return the created budget
+     * @throws Exception if an error occurs
+     */
+    public BudgetDTO createBudget(Integer fiscalYear, String fiscalPeriod, BigDecimal totalAmount, 
+                                 LocalDate startDate, LocalDate endDate, String description) throws Exception {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to create budget but no user is authenticated");
+            throw new Exception("User not authenticated");
+        }
+        
+        if (!currentUser.getRole().equals(UserRole.ADMIN.name())) {
+            logger.warn("Non-admin user attempted to create budget");
+            throw new Exception("Only administrators can create budgets");
+        }
+        
+        logger.debug("Creating new budget for fiscal year: {}", fiscalYear);
+        
+        try {
+            // Create command data
+            CreateBudgetCommand createBudgetCommand = new CreateBudgetCommand(
+                fiscalYear, fiscalPeriod, totalAmount, startDate, endDate, description);
+            
+            // Create command wrapper
+            CommandWrapper commandWrapper = new CommandWrapper(Command.CREATE_BUDGET, createBudgetCommand);
+            commandWrapper.setAuthToken(authToken);
+            
+            // Send command to server
+            sendObject(commandWrapper);
+            
+            // Receive response
+            ResponseWrapper responseWrapper = receiveObject();
+            
+            if (responseWrapper.getResponse() == ResponseFromServer.SUCCESS) {
+                BudgetResponse budgetResponse = responseWrapper.getData();
+                
+                if (budgetResponse != null && budgetResponse.isSuccess()) {
+                    BudgetDTO budget = budgetResponse.getBudget();
+                    logger.info("Budget created successfully. ID: {}", budget.getId());
+                    return budget;
+                } else {
+                    String errorMessage = budgetResponse != null ? budgetResponse.getErrorMessage() : "Unknown error";
+                    logger.error("Error creating budget: {}", errorMessage);
+                    throw new Exception("Error creating budget: " + errorMessage);
+                }
+            } else {
+                logger.error("Error creating budget: {}", responseWrapper.getMessage());
+                throw new Exception("Error creating budget: " + responseWrapper.getMessage());
+            }
+        } catch (Exception e) {
+            logger.error("Error creating budget", e);
+            throw new Exception("Error creating budget: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Updates an existing budget.
+     * 
+     * @param id the budget ID
+     * @param fiscalYear the fiscal year
+     * @param fiscalPeriod the fiscal period
+     * @param totalAmount the total amount
+     * @param startDate the start date
+     * @param endDate the end date
+     * @param description the description
+     * @param status the budget status
+     * @return the updated budget
+     * @throws Exception if an error occurs
+     */
+    public BudgetDTO updateBudget(Long id, Integer fiscalYear, String fiscalPeriod, BigDecimal totalAmount,
+                                 LocalDate startDate, LocalDate endDate, String description, BudgetStatus status) throws Exception {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to update budget but no user is authenticated");
+            throw new Exception("User not authenticated");
+        }
+        
+        if (!currentUser.getRole().equals(UserRole.ADMIN.name())) {
+            logger.warn("Non-admin user attempted to update budget");
+            throw new Exception("Only administrators can update budgets");
+        }
+        
+        logger.debug("Updating budget with ID: {}", id);
+        
+        try {
+            // Create command data
+            UpdateBudgetCommand updateBudgetCommand = new UpdateBudgetCommand(
+                id, fiscalYear, fiscalPeriod, totalAmount, startDate, endDate, description, status);
+            
+            // Create command wrapper
+            CommandWrapper commandWrapper = new CommandWrapper(Command.UPDATE_BUDGET, updateBudgetCommand);
+            commandWrapper.setAuthToken(authToken);
+            
+            // Send command to server
+            sendObject(commandWrapper);
+            
+            // Receive response
+            ResponseWrapper responseWrapper = receiveObject();
+            
+            if (responseWrapper.getResponse() == ResponseFromServer.SUCCESS) {
+                BudgetResponse budgetResponse = responseWrapper.getData();
+                
+                if (budgetResponse != null && budgetResponse.isSuccess()) {
+                    BudgetDTO budget = budgetResponse.getBudget();
+                    logger.info("Budget updated successfully. ID: {}", budget.getId());
+                    return budget;
+                } else {
+                    String errorMessage = budgetResponse != null ? budgetResponse.getErrorMessage() : "Unknown error";
+                    logger.error("Error updating budget: {}", errorMessage);
+                    throw new Exception("Error updating budget: " + errorMessage);
+                }
+            } else {
+                logger.error("Error updating budget: {}", responseWrapper.getMessage());
+                throw new Exception("Error updating budget: " + responseWrapper.getMessage());
+            }
+        } catch (Exception e) {
+            logger.error("Error updating budget", e);
+            throw new Exception("Error updating budget: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Activates a budget.
+     * 
+     * @param budgetId the budget ID
+     * @return the activated budget
+     * @throws Exception if an error occurs
+     */
+    public BudgetDTO activateBudget(Long budgetId) throws Exception {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to activate budget but no user is authenticated");
+            throw new Exception("User not authenticated");
+        }
+        
+        if (!currentUser.getRole().equals(UserRole.ADMIN.name())) {
+            logger.warn("Non-admin user attempted to activate budget");
+            throw new Exception("Only administrators can activate budgets");
+        }
+        
+        logger.debug("Activating budget with ID: {}", budgetId);
+        
+        try {
+            // Create command data
+            ActivateBudgetCommand activateBudgetCommand = new ActivateBudgetCommand(budgetId);
+            
+            // Create command wrapper
+            CommandWrapper commandWrapper = new CommandWrapper(Command.ACTIVATE_BUDGET, activateBudgetCommand);
+            commandWrapper.setAuthToken(authToken);
+            
+            // Send command to server
+            sendObject(commandWrapper);
+            
+            // Receive response
+            ResponseWrapper responseWrapper = receiveObject();
+            
+            if (responseWrapper.getResponse() == ResponseFromServer.SUCCESS) {
+                BudgetResponse budgetResponse = responseWrapper.getData();
+                
+                if (budgetResponse != null && budgetResponse.isSuccess()) {
+                    BudgetDTO budget = budgetResponse.getBudget();
+                    logger.info("Budget activated successfully. ID: {}", budget.getId());
+                    return budget;
+                } else {
+                    String errorMessage = budgetResponse != null ? budgetResponse.getErrorMessage() : "Unknown error";
+                    logger.error("Error activating budget: {}", errorMessage);
+                    throw new Exception("Error activating budget: " + errorMessage);
+                }
+            } else {
+                logger.error("Error activating budget: {}", responseWrapper.getMessage());
+                throw new Exception("Error activating budget: " + responseWrapper.getMessage());
+            }
+        } catch (Exception e) {
+            logger.error("Error activating budget", e);
+            throw new Exception("Error activating budget: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Closes a budget.
+     * 
+     * @param budgetId the budget ID
+     * @return the closed budget
+     * @throws Exception if an error occurs
+     */
+    public BudgetDTO closeBudget(Long budgetId) throws Exception {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to close budget but no user is authenticated");
+            throw new Exception("User not authenticated");
+        }
+        
+        if (!currentUser.getRole().equals(UserRole.ADMIN.name())) {
+            logger.warn("Non-admin user attempted to close budget");
+            throw new Exception("Only administrators can close budgets");
+        }
+        
+        logger.debug("Closing budget with ID: {}", budgetId);
+        
+        try {
+            // Create command data
+            CloseBudgetCommand closeBudgetCommand = new CloseBudgetCommand(budgetId);
+            
+            // Create command wrapper
+            CommandWrapper commandWrapper = new CommandWrapper(Command.CLOSE_BUDGET, closeBudgetCommand);
+            commandWrapper.setAuthToken(authToken);
+            
+            // Send command to server
+            sendObject(commandWrapper);
+            
+            // Receive response
+            ResponseWrapper responseWrapper = receiveObject();
+            
+            if (responseWrapper.getResponse() == ResponseFromServer.SUCCESS) {
+                BudgetResponse budgetResponse = responseWrapper.getData();
+                
+                if (budgetResponse != null && budgetResponse.isSuccess()) {
+                    BudgetDTO budget = budgetResponse.getBudget();
+                    logger.info("Budget closed successfully. ID: {}", budget.getId());
+                    return budget;
+                } else {
+                    String errorMessage = budgetResponse != null ? budgetResponse.getErrorMessage() : "Unknown error";
+                    logger.error("Error closing budget: {}", errorMessage);
+                    throw new Exception("Error closing budget: " + errorMessage);
+                }
+            } else {
+                logger.error("Error closing budget: {}", responseWrapper.getMessage());
+                throw new Exception("Error closing budget: " + responseWrapper.getMessage());
+            }
+        } catch (Exception e) {
+            logger.error("Error closing budget", e);
+            throw new Exception("Error closing budget: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Allocates funds from a budget to a scholarship program.
+     * 
+     * @param budgetId the budget ID
+     * @param programId the scholarship program ID
+     * @param amount the amount to allocate
+     * @param notes optional notes about the allocation
+     * @return the fund allocation
+     * @throws Exception if an error occurs
+     */
+    public FundAllocationDTO allocateFunds(Long budgetId, Long programId, BigDecimal amount, String notes) throws Exception {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to allocate funds but no user is authenticated");
+            throw new Exception("User not authenticated");
+        }
+        
+        if (!currentUser.getRole().equals(UserRole.ADMIN.name())) {
+            logger.warn("Non-admin user attempted to allocate funds");
+            throw new Exception("Only administrators can allocate funds");
+        }
+        
+        logger.debug("Allocating {} funds from budget {} to program {}", amount, budgetId, programId);
+        
+        try {
+            // Create command data
+            AllocateFundsCommand allocateFundsCommand = new AllocateFundsCommand(budgetId, programId, amount, notes);
+            
+            // Create command wrapper
+            CommandWrapper commandWrapper = new CommandWrapper(Command.ALLOCATE_FUNDS, allocateFundsCommand);
+            commandWrapper.setAuthToken(authToken);
+            
+            // Send command to server
+            sendObject(commandWrapper);
+            
+            // Receive response
+            ResponseWrapper responseWrapper = receiveObject();
+            
+            if (responseWrapper.getResponse() == ResponseFromServer.SUCCESS) {
+                FundAllocationResponse allocationResponse = responseWrapper.getData();
+                
+                if (allocationResponse != null && allocationResponse.isSuccess()) {
+                    FundAllocationDTO allocation = allocationResponse.getAllocation();
+                    logger.info("Funds allocated successfully. ID: {}", allocation.getId());
+                    return allocation;
+                } else {
+                    String errorMessage = allocationResponse != null ? allocationResponse.getErrorMessage() : "Unknown error";
+                    logger.error("Error allocating funds: {}", errorMessage);
+                    throw new Exception("Error allocating funds: " + errorMessage);
+                }
+            } else {
+                logger.error("Error allocating funds: {}", responseWrapper.getMessage());
+                throw new Exception("Error allocating funds: " + responseWrapper.getMessage());
+            }
+        } catch (Exception e) {
+            logger.error("Error allocating funds", e);
+            throw new Exception("Error allocating funds: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Gets all fund allocations for a specific budget.
+     * 
+     * @param budgetId the budget ID
+     * @return a list of fund allocations
+     * @throws Exception if an error occurs
+     */
+    public List<FundAllocationDTO> getAllocationsByBudget(Long budgetId) throws Exception {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to get allocations by budget but no user is authenticated");
+            throw new Exception("User not authenticated");
+        }
+        
+        if (!currentUser.getRole().equals(UserRole.ADMIN.name())) {
+            logger.warn("Non-admin user attempted to get allocations by budget");
+            throw new Exception("Only administrators can access fund allocation information");
+        }
+        
+        logger.debug("Getting fund allocations for budget: {}", budgetId);
+        
+        try {
+            // Create command data
+            GetAllocationsByBudgetCommand getAllocationsByBudgetCommand = new GetAllocationsByBudgetCommand(budgetId);
+            
+            // Create command wrapper
+            CommandWrapper commandWrapper = new CommandWrapper(Command.GET_ALLOCATIONS_BY_BUDGET, getAllocationsByBudgetCommand);
+            commandWrapper.setAuthToken(authToken);
+            
+            // Send command to server
+            sendObject(commandWrapper);
+            
+            // Receive response
+            ResponseWrapper responseWrapper = receiveObject();
+            
+            if (responseWrapper.getResponse() == ResponseFromServer.SUCCESS) {
+                FundAllocationsResponse allocationsResponse = responseWrapper.getData();
+                
+                if (allocationsResponse != null && allocationsResponse.isSuccess()) {
+                    List<FundAllocationDTO> allocations = allocationsResponse.getAllocations();
+                    logger.debug("Received {} fund allocations for budget {}", allocations.size(), budgetId);
+                    return allocations;
+                } else {
+                    String errorMessage = allocationsResponse != null ? allocationsResponse.getErrorMessage() : "Unknown error";
+                    logger.error("Error getting allocations by budget: {}", errorMessage);
+                    throw new Exception("Error getting allocations by budget: " + errorMessage);
+                }
+            } else {
+                logger.error("Error getting allocations by budget: {}", responseWrapper.getMessage());
+                throw new Exception("Error getting allocations by budget: " + responseWrapper.getMessage());
+            }
+        } catch (Exception e) {
+            logger.error("Error getting allocations by budget", e);
+            throw new Exception("Error getting allocations by budget: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Gets all fund allocations for a specific scholarship program.
+     * 
+     * @param programId the scholarship program ID
+     * @return a list of fund allocations
+     * @throws Exception if an error occurs
+     */
+    public List<FundAllocationDTO> getAllocationsByProgram(Long programId) throws Exception {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to get allocations by program but no user is authenticated");
+            throw new Exception("User not authenticated");
+        }
+        
+        if (!currentUser.getRole().equals(UserRole.ADMIN.name())) {
+            logger.warn("Non-admin user attempted to get allocations by program");
+            throw new Exception("Only administrators can access fund allocation information");
+        }
+        
+        logger.debug("Getting fund allocations for program: {}", programId);
+        
+        try {
+            // Create command data
+            GetAllocationsByProgramCommand getAllocationsByProgramCommand = new GetAllocationsByProgramCommand(programId);
+            
+            // Create command wrapper
+            CommandWrapper commandWrapper = new CommandWrapper(Command.GET_ALLOCATIONS_BY_PROGRAM, getAllocationsByProgramCommand);
+            commandWrapper.setAuthToken(authToken);
+            
+            // Send command to server
+            sendObject(commandWrapper);
+            
+            // Receive response
+            ResponseWrapper responseWrapper = receiveObject();
+            
+            if (responseWrapper.getResponse() == ResponseFromServer.SUCCESS) {
+                FundAllocationsResponse allocationsResponse = responseWrapper.getData();
+                
+                if (allocationsResponse != null && allocationsResponse.isSuccess()) {
+                    List<FundAllocationDTO> allocations = allocationsResponse.getAllocations();
+                    logger.debug("Received {} fund allocations for program {}", allocations.size(), programId);
+                    return allocations;
+                } else {
+                    String errorMessage = allocationsResponse != null ? allocationsResponse.getErrorMessage() : "Unknown error";
+                    logger.error("Error getting allocations by program: {}", errorMessage);
+                    throw new Exception("Error getting allocations by program: " + errorMessage);
+                }
+            } else {
+                logger.error("Error getting allocations by program: {}", responseWrapper.getMessage());
+                throw new Exception("Error getting allocations by program: " + responseWrapper.getMessage());
+            }
+        } catch (Exception e) {
+            logger.error("Error getting allocations by program", e);
+            throw new Exception("Error getting allocations by program: " + e.getMessage());
         }
     }
 }

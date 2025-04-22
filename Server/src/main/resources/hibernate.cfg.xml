@@ -33,6 +33,8 @@
         <mapping class="com.kasperovich.entities.ScholarshipProgram" />
         <mapping class="com.kasperovich.entities.Payment" />
         <mapping class="com.kasperovich.entities.Course" />
+        <mapping class="com.kasperovich.entities.Budget" />
+        <mapping class="com.kasperovich.entities.FundAllocation" />
         
     </session-factory>
 </hibernate-configuration>

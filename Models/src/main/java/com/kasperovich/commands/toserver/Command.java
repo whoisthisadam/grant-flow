@@ -37,5 +37,18 @@ public enum Command implements Serializable {
     GET_PENDING_APPLICATIONS,
     GET_ALL_APPLICATIONS,
     APPROVE_APPLICATION,
-    REJECT_APPLICATION
+    REJECT_APPLICATION,
+    
+    // Fund management commands
+    GET_ALL_BUDGETS,
+    GET_ACTIVE_BUDGET,
+    CREATE_BUDGET,
+    UPDATE_BUDGET,
+    ACTIVATE_BUDGET,
+    CLOSE_BUDGET,
+    
+    // Fund allocation commands
+    ALLOCATE_FUNDS,
+    GET_ALLOCATIONS_BY_BUDGET,
+    GET_ALLOCATIONS_BY_PROGRAM
 }
