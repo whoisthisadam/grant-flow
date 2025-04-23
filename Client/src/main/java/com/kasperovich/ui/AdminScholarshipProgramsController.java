@@ -41,7 +41,7 @@ public class AdminScholarshipProgramsController extends BaseController {
     private Button backButton;
     
     @FXML
-    private Button createButton;
+    private Button addButton;
     
     @FXML
     private Button refreshButton;
@@ -74,7 +74,7 @@ public class AdminScholarshipProgramsController extends BaseController {
     private TableColumn<ScholarshipProgramDTO, Void> actionsColumn;
     
     @FXML
-    private Label totalCountLabel;
+    private Label statusLabel;
     
     @Setter
     private UserDTO user;
@@ -116,13 +116,13 @@ public class AdminScholarshipProgramsController extends BaseController {
             return new SimpleStringProperty(amount != null ? "$" + amount.toString() : "");
         });
         
-        // Format min GPA
+        // Format minimum GPA
         minGpaColumn.setCellValueFactory(cellData -> {
-            BigDecimal gpa = cellData.getValue().getMinGpa();
-            return new SimpleStringProperty(gpa != null ? gpa.toString() : "");
+            BigDecimal minGpa = cellData.getValue().getMinGpa();
+            return new SimpleStringProperty(minGpa != null ? minGpa.toString() : "");
         });
         
-        // Format deadline date
+        // Format deadline
         deadlineColumn.setCellValueFactory(cellData -> {
             LocalDate deadline = cellData.getValue().getApplicationDeadline();
             return new SimpleStringProperty(deadline != null ? 
@@ -169,6 +169,10 @@ public class AdminScholarshipProgramsController extends BaseController {
                             ScholarshipProgramDTO program = getTableView().getItems().get(getIndex());
                             handleDeleteAction(program);
                         });
+                        
+                        // Style buttons
+                        editButton.getStyleClass().add("edit-button");
+                        deleteButton.getStyleClass().add("delete-button");
                     }
                     
                     @Override
@@ -217,7 +221,7 @@ public class AdminScholarshipProgramsController extends BaseController {
      * Updates the total count label.
      */
     private void updateTotalCount() {
-        totalCountLabel.setText(LangManager.getBundle().getString("admin.programs.total_count") + ": " + programsList.size());
+        statusLabel.setText(LangManager.getBundle().getString("admin.programs.total_count") + ": " + programsList.size());
     }
     
     /**
@@ -402,8 +406,8 @@ public class AdminScholarshipProgramsController extends BaseController {
     @Override
     public void updateTexts() {
         backButton.setText(LangManager.getBundle().getString("button.back"));
-        createButton.setText(LangManager.getBundle().getString("admin.programs.create"));
-        refreshButton.setText(LangManager.getBundle().getString("admin.programs.refresh"));
+        addButton.setText(LangManager.getBundle().getString("admin.programs.create"));
+        refreshButton.setText(LangManager.getBundle().getString("dashboard.refresh"));
         showInactiveCheckbox.setText(LangManager.getBundle().getString("admin.programs.show_inactive"));
         
         // Update table column headers

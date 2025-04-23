@@ -1658,4 +1658,74 @@ public class ClientConnection {
             throw e;
         }
     }
+
+    /**
+     * Gets scholarship distribution report
+     *
+     * @param startDate Start date for report period
+     * @param endDate End date for report period
+     * @return List of ScholarshipDistributionDTO objects
+     * @throws IOException if communication error occurs
+     */
+    public List<com.kasperovich.dto.report.ScholarshipDistributionDTO> getScholarshipDistributionReport(LocalDate startDate, LocalDate endDate) throws IOException {
+        // In a real implementation, this would send a command to the server
+        // For now, we'll mock the response
+        
+        // Mock data
+        List<com.kasperovich.dto.report.ScholarshipDistributionDTO> mockData = new ArrayList<>();
+        mockData.add(new com.kasperovich.dto.report.ScholarshipDistributionDTO("Merit Scholarship", new BigDecimal("50000.00"), 25, 15, 60.0));
+        mockData.add(new com.kasperovich.dto.report.ScholarshipDistributionDTO("Research Grant", new BigDecimal("75000.00"), 18, 10, 55.5));
+        mockData.add(new com.kasperovich.dto.report.ScholarshipDistributionDTO("Athletic Scholarship", new BigDecimal("30000.00"), 12, 8, 66.7));
+        mockData.add(new com.kasperovich.dto.report.ScholarshipDistributionDTO("International Student Fund", new BigDecimal("45000.00"), 20, 12, 60.0));
+        mockData.add(new com.kasperovich.dto.report.ScholarshipDistributionDTO("STEM Excellence Award", new BigDecimal("60000.00"), 30, 22, 73.3));
+        
+        return mockData;
+    }
+    
+    /**
+     * Gets application status report
+     *
+     * @param programId Program ID to filter by (can be null for all programs)
+     * @param periodId Period ID to filter by (can be null for all periods)
+     * @return List of ApplicationStatusDTO objects
+     * @throws IOException if communication error occurs
+     */
+    public List<com.kasperovich.dto.report.ApplicationStatusDTO> getApplicationStatusReport(Long programId, Long periodId) throws IOException {
+        // In a real implementation, this would send a command to the server
+        // For now, we'll mock the response
+        
+        // Mock data
+        List<com.kasperovich.dto.report.ApplicationStatusDTO> mockData = new ArrayList<>();
+        mockData.add(new com.kasperovich.dto.report.ApplicationStatusDTO("Merit Scholarship", "Fall 2024", 10, 15, 5, new BigDecimal("37500.00")));
+        mockData.add(new com.kasperovich.dto.report.ApplicationStatusDTO("Research Grant", "Fall 2024", 8, 10, 0, new BigDecimal("75000.00")));
+        mockData.add(new com.kasperovich.dto.report.ApplicationStatusDTO("Athletic Scholarship", "Spring 2025", 4, 8, 0, new BigDecimal("24000.00")));
+        mockData.add(new com.kasperovich.dto.report.ApplicationStatusDTO("International Student Fund", "Fall 2024", 8, 12, 0, new BigDecimal("36000.00")));
+        mockData.add(new com.kasperovich.dto.report.ApplicationStatusDTO("STEM Excellence Award", "Spring 2025", 8, 22, 0, new BigDecimal("55000.00")));
+        
+        return mockData;
+    }
+    
+    /**
+     * Gets user activity report
+     *
+     * @param startDate Start date for report period
+     * @param endDate End date for report period
+     * @return List of UserActivityDTO objects
+     * @throws IOException if communication error occurs
+     */
+    public List<com.kasperovich.dto.report.UserActivityDTO> getUserActivityReport(LocalDate startDate, LocalDate endDate) throws IOException {
+        // In a real implementation, this would send a command to the server
+        // For now, we'll mock the response
+        
+        // Mock data
+        List<com.kasperovich.dto.report.UserActivityDTO> mockData = new ArrayList<>();
+        mockData.add(new com.kasperovich.dto.report.UserActivityDTO("2024-01", 15, 12));
+        mockData.add(new com.kasperovich.dto.report.UserActivityDTO("2024-02", 22, 18));
+        mockData.add(new com.kasperovich.dto.report.UserActivityDTO("2024-03", 18, 15));
+        mockData.add(new com.kasperovich.dto.report.UserActivityDTO("2024-04", 25, 20));
+        mockData.add(new com.kasperovich.dto.report.UserActivityDTO("2024-05", 30, 28));
+        mockData.add(new com.kasperovich.dto.report.UserActivityDTO("2024-06", 20, 15));
+        
+        return mockData;
+    }
 }

@@ -3,59 +3,181 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.kasperovich.ui.AdminDashboardController"
-            prefHeight="600.0" prefWidth="800.0">
+            prefHeight="600.0" prefWidth="800.0"
+            stylesheets="@../css/application.css">
     <top>
-        <VBox spacing="10">
+        <VBox>
             <padding>
-                <Insets top="20" right="20" bottom="10" left="20"/>
+                <Insets top="15" right="20" bottom="10" left="20"/>
             </padding>
-            <HBox alignment="CENTER_LEFT" spacing="20">
-                <Label text="%admin.dashboard.title" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            <HBox alignment="CENTER_LEFT" spacing="20" styleClass="gradient-header">
+                <padding>
+                    <Insets top="10" right="15" bottom="10" left="15"/>
+                </padding>
+                <Label text="%admin.dashboard.title" styleClass="title-label" style="-fx-text-fill: white; -fx-font-size: 18px;"/>
                 <Region HBox.hgrow="ALWAYS" />
-                <Label text="%dashboard.welcome" />
-                <Label fx:id="userNameLabel" style="-fx-font-weight: bold;" />
-                <Button fx:id="logoutButton" text="%dashboard.logout" onAction="#handleLogoutAction" />
+                <Label text="%dashboard.welcome" style="-fx-text-fill: white;"/>
+                <Label fx:id="userNameLabel" styleClass="bold-label" style="-fx-text-fill: white;"/>
+                <Button fx:id="logoutButton" text="%dashboard.logout" onAction="#handleLogoutAction" styleClass="logout-button" />
             </HBox>
-            <Separator/>
+            <Separator styleClass="separator"/>
         </VBox>
     </top>
     
     <left>
-        <VBox spacing="5" style="-fx-background-color: #f0f0f0;" prefWidth="200">
+        <VBox spacing="5" styleClass="gradient-sidebar" prefWidth="200">
             <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets top="15" right="10" bottom="15" left="10"/>
             </padding>
-            <Label text="%admin.navigation" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+            <Label text="%admin.navigation" styleClass="nav-title-label"/>
             <Separator/>
-            <Button fx:id="dashboardButton" text="%admin.button.dashboard" maxWidth="Infinity" styleClass="nav-button" />
-            <Button fx:id="programsButton" text="%admin.button.programs" maxWidth="Infinity" styleClass="nav-button" />
-            <Button fx:id="applicationsButton" text="%admin.button.applications" maxWidth="Infinity" styleClass="nav-button" />
-            <Button fx:id="fundAllocationButton" text="%admin.button.fund.allocation" maxWidth="Infinity" styleClass="nav-button" onAction="#handleFundAllocationAction" />
-            <Button fx:id="academicPeriodsButton" text="%admin.button.academic-periods" maxWidth="Infinity" styleClass="nav-button" />
-            <Button fx:id="usersButton" text="%admin.button.users" maxWidth="Infinity" styleClass="nav-button" />
-            <Button fx:id="profileButton" text="%dashboard.button.profile" maxWidth="Infinity" styleClass="nav-button" />
+            <Button fx:id="dashboardButton" text="%admin.button.dashboard" maxWidth="Infinity" styleClass="sidebar-button" />
+            <Button fx:id="programsButton" text="%admin.button.programs" maxWidth="Infinity" styleClass="sidebar-button" onAction="#handleProgramsAction" />
+            <Button fx:id="applicationsButton" text="%admin.button.applications" maxWidth="Infinity" styleClass="sidebar-button" onAction="#handleApplicationsAction" />
+            <Button fx:id="fundAllocationButton" text="%admin.button.fund.allocation" maxWidth="Infinity" styleClass="sidebar-button" onAction="#handleFundAllocationAction" />
+            <Button fx:id="academicPeriodsButton" text="%admin.button.academic-periods" maxWidth="Infinity" styleClass="sidebar-button" onAction="#handleAcademicPeriodsAction" />
+            <Button fx:id="reportsButton" text="%admin.button.reports" maxWidth="Infinity" styleClass="sidebar-button" onAction="#handleReportsAction" />
+            <Button fx:id="usersButton" text="%admin.button.users" maxWidth="Infinity" styleClass="sidebar-button"/>
+<!--                    onAction="#handleUsersAction" />-->
+            <Button fx:id="profileButton" text="%dashboard.button.profile" maxWidth="Infinity" styleClass="sidebar-button" onAction="#handleProfileAction" />
             
             <Region VBox.vgrow="ALWAYS" />
             
-            <Label fx:id="roleLabel" text="%dashboard.role" />
-            <Label fx:id="versionLabel" text="%dashboard.version" />
+            <Label fx:id="roleLabel" text="%dashboard.role" styleClass="footer-label" />
+            <Label fx:id="versionLabel" text="%dashboard.version" styleClass="footer-label" />
         </VBox>
     </left>
     
     <center>
-        <VBox>
-            <padding>
-                <Insets top="20" right="20" bottom="20" left="20"/>
-            </padding>
-            
-            <Label text="%admin.dashboard.center.title" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-            <Separator/>
-            
-            <Label text="%admin.dashboard.placeholder" style="-fx-font-size: 16px; -fx-font-style: italic;" alignment="CENTER" VBox.vgrow="ALWAYS" />
-        </VBox>
+        <ScrollPane fitToWidth="true" styleClass="transparent-scroll-pane">
+            <VBox spacing="20" styleClass="content-box">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                
+                <Label text="%admin.dashboard.center.title" styleClass="section-title"/>
+                
+                <!-- Statistics Cards Row -->
+                <HBox spacing="15" alignment="CENTER">
+                    <VBox styleClass="program-card" prefWidth="200" prefHeight="120" alignment="CENTER">
+                        <Label text="Active Programs" styleClass="card-title"/>
+                        <Label fx:id="activeProgramsCount" text="12" styleClass="stat-number"/>
+                        <Label text="Current active scholarship programs" styleClass="card-subtitle"/>
+                    </VBox>
+                    
+                    <VBox styleClass="program-card" prefWidth="200" prefHeight="120" alignment="CENTER">
+                        <Label text="Pending Applications" styleClass="card-title"/>
+                        <Label fx:id="pendingApplicationsCount" text="28" styleClass="stat-number"/>
+                        <Label text="Applications awaiting review" styleClass="card-subtitle"/>
+                    </VBox>
+                    
+                    <VBox styleClass="program-card" prefWidth="200" prefHeight="120" alignment="CENTER">
+                        <Label text="Total Allocated" styleClass="card-title"/>
+                        <Label fx:id="totalAllocatedAmount" text="125000" styleClass="stat-number"/>
+                        <Label text="Funds allocated this period" styleClass="card-subtitle"/>
+                    </VBox>
+                </HBox>
+                
+                <!-- Quick Actions Section -->
+                <Label text="Quick Actions" styleClass="section-title"/>
+                <GridPane hgap="15" vgap="15">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="33.3" />
+                        <ColumnConstraints percentWidth="33.3" />
+                        <ColumnConstraints percentWidth="33.3" />
+                    </columnConstraints>
+                    
+                    <VBox styleClass="quick-action-button" GridPane.columnIndex="0" GridPane.rowIndex="0" onMouseClicked="#handleProgramsAction">
+                        <padding>
+                            <Insets top="15" right="15" bottom="15" left="15"/>
+                        </padding>
+                        <Label text="Manage Programs" styleClass="action-title"/>
+                        <Label text="Create or edit scholarship programs" styleClass="action-description"/>
+                    </VBox>
+                    
+                    <VBox styleClass="quick-action-button" GridPane.columnIndex="1" GridPane.rowIndex="0" onMouseClicked="#handleApplicationsAction">
+                        <padding>
+                            <Insets top="15" right="15" bottom="15" left="15"/>
+                        </padding>
+                        <Label text="Review Applications" styleClass="action-title"/>
+                        <Label text="Process pending scholarship applications" styleClass="action-description"/>
+                    </VBox>
+                    
+                    <VBox styleClass="quick-action-button" GridPane.columnIndex="2" GridPane.rowIndex="0" onMouseClicked="#handleFundAllocationAction">
+                        <padding>
+                            <Insets top="15" right="15" bottom="15" left="15"/>
+                        </padding>
+                        <Label text="Allocate Funds" styleClass="action-title"/>
+                        <Label text="Manage budget and allocate funds" styleClass="action-description"/>
+                    </VBox>
+                    
+                    <VBox styleClass="quick-action-button" GridPane.columnIndex="0" GridPane.rowIndex="1" onMouseClicked="#handleAcademicPeriodsAction">
+                        <padding>
+                            <Insets top="15" right="15" bottom="15" left="15"/>
+                        </padding>
+                        <Label text="Academic Periods" styleClass="action-title"/>
+                        <Label text="Manage academic periods and deadlines" styleClass="action-description"/>
+                    </VBox>
+                    
+                    <VBox styleClass="quick-action-button" GridPane.columnIndex="1" GridPane.rowIndex="1" onMouseClicked="#handleReportsAction">
+                        <padding>
+                            <Insets top="15" right="15" bottom="15" left="15"/>
+                        </padding>
+                        <Label text="Generate Reports" styleClass="action-title"/>
+                        <Label text="View analytics and export reports" styleClass="action-description"/>
+                    </VBox>
+                    
+                    <VBox styleClass="quick-action-button" GridPane.columnIndex="2" GridPane.rowIndex="1">
+<!--                          onMouseClicked="#handleUsersAction">-->
+                        <padding>
+                            <Insets top="15" right="15" bottom="15" left="15"/>
+                        </padding>
+                        <Label text="User Management" styleClass="action-title"/>
+                        <Label text="Manage system users and roles" styleClass="action-description"/>
+                    </VBox>
+                </GridPane>
+                
+                <!-- Recent Activity Section -->
+                <Label text="Recent Activity" styleClass="section-title"/>
+                <VBox styleClass="section-box">
+                    <TableView fx:id="recentActivityTable" VBox.vgrow="ALWAYS" prefHeight="200" styleClass="table-view">
+                        <columns>
+                            <TableColumn fx:id="activityDateColumn" text="Date" prefWidth="150" styleClass="table-column">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="date" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="activityTypeColumn" text="Activity" prefWidth="150" styleClass="table-column">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="type" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="activityDetailsColumn" text="Details" prefWidth="300" styleClass="table-column">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="details" />
+                                </cellValueFactory>
+                            </TableColumn>
+                        </columns>
+                        <placeholder>
+                            <Label text="No recent activity to display" styleClass="placeholder-label"/>
+                        </placeholder>
+                    </TableView>
+                </VBox>
+            </VBox>
+        </ScrollPane>
     </center>
+    
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" styleClass="footer-box">
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
+            <Label text=" 2025 Grant Flow System" styleClass="footer-label"/>
+        </HBox>
+    </bottom>
 </BorderPane>

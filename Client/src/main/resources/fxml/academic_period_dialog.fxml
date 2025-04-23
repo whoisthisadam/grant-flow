@@ -5,7 +5,8 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.kasperovich.ui.AcademicPeriodDialogController"
-      spacing="15" style="-fx-padding: 20;" prefWidth="400.0">
+      spacing="10" prefWidth="400" prefHeight="350"
+      stylesheets="@../css/application.css">
     <GridPane hgap="10" vgap="10">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="120.0" />

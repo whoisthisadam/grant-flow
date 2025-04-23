@@ -1,0 +1,772 @@
+/* Main application stylesheet */
+
+/* Root styles */
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-font-size: 12px;
+    -fx-background-color: #f5f5f5;
+}
+
+/* Button styles */
+.button {
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: #333333;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-border-color: #cccccc;
+    -fx-padding: 8px 15px;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-transition: all 0.2s ease;
+}
+
+.button:hover {
+    -fx-background-color: #e0e0e0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+.button:pressed {
+    -fx-background-color: #d0d0d0;
+}
+
+/* Navigation button styles */
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333333;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10px;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #e0e0e0;
+    -fx-effect: none;
+}
+
+.nav-button:hover {
+    -fx-background-color: #e8f0fe;
+    -fx-text-fill: #4a86e8;
+    -fx-border-color: #4a86e8;
+}
+
+.nav-button:pressed {
+    -fx-background-color: #d8e5fd;
+}
+
+/* Table styles - updated */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.table-view .column-header {
+    -fx-background-color: #4a86e8;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 5px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+}
+
+.table-view .table-row-cell {
+    -fx-padding: 5px 0;
+}
+
+/*.table-view .table-row-cell:odd {*/
+/*    -fx-background-color: #f5f9ff;*/
+/*}*/
+
+/*.table-view .table-row-cell:selected {*/
+/*    -fx-background-color: #d0e1fd;*/
+/*    -fx-text-fill: #333333;*/
+/*}*/
+
+/* Form styles - enhanced */
+.text-field, .password-field, .combo-box, .date-picker {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 4px;
+    -fx-padding: 8px;
+    -fx-font-size: 13px;
+}
+
+.text-field:focused, .password-field:focused, .combo-box:focused, .date-picker:focused {
+    -fx-border-color: #4a86e8;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(74,134,232,0.3), 5, 0, 0, 0);
+}
+
+/* Card styles */
+.program-card {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8px;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-transition: all 0.3s ease;
+}
+
+.program-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 3);
+    -fx-background-color: #f8f9fa;
+}
+
+.program-card .title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a86e8;
+}
+
+.program-card .description {
+    -fx-font-size: 13px;
+    -fx-text-fill: #666666;
+    -fx-wrap-text: true;
+}
+
+.program-card .amount {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #28a745;
+}
+
+/* Status indicators */
+.status-approved {
+    -fx-text-fill: #28a745;
+    -fx-font-weight: bold;
+}
+
+.status-pending {
+    -fx-text-fill: #ffc107;
+    -fx-font-weight: bold;
+}
+
+.status-rejected {
+    -fx-text-fill: #dc3545;
+    -fx-font-weight: bold;
+}
+
+.status-expired {
+    -fx-text-fill: #6c757d;
+    -fx-font-style: italic;
+}
+
+/* Auth form - enhanced */
+.auth-form {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 10px;
+    -fx-padding: 25px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 5);
+    -fx-max-width: 450px;
+}
+
+.auth-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a86e8;
+    -fx-padding: 0 0 15px 0;
+}
+
+.auth-button {
+    -fx-background-color: #4a86e8;
+    -fx-text-fill: white;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-border-color: #3a76d8;
+    -fx-padding: 8px 15px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.auth-button:hover {
+    -fx-background-color: #3a76d8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+.auth-button:pressed {
+    -fx-background-color: #2a66c8;
+}
+
+.back-button {
+    -fx-background-color: #f8f9fa;
+    -fx-text-fill: #666666;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-border-color: #dddddd;
+    -fx-padding: 8px 15px;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+}
+
+.back-button:hover {
+    -fx-background-color: #e9ecef;
+    -fx-text-fill: #333333;
+}
+
+/* Profile section - enhanced */
+.profile-section {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-margin: 10px 0;
+}
+
+.profile-section-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a86e8;
+    -fx-padding: 0 0 10px 0;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.profile-name {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.profile-role {
+    -fx-font-size: 14px;
+    -fx-text-fill: #4a86e8;
+    -fx-font-style: italic;
+}
+
+.form-field-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #555555;
+}
+
+/* Gradient backgrounds */
+.gradient-header {
+    -fx-background-color: linear-gradient(to right, #4a86e8, #6ca6fd);
+}
+
+.gradient-sidebar {
+    -fx-background-color: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+}
+
+/* Animation for buttons */
+.animated-button {
+    -fx-transition: all 0.3s ease;
+}
+
+.animated-button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Dashboard quick actions */
+.quick-action-button {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8px;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease;
+}
+
+.quick-action-button:hover {
+    -fx-background-color: #f5f9ff;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 3);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.quick-action-button .icon {
+    -fx-font-size: 24px;
+    -fx-text-fill: #4a86e8;
+}
+
+.quick-action-button .label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+/* Fund allocation specific styles */
+.fund-allocation-table {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.amount-column {
+    -fx-alignment: CENTER_RIGHT;
+    -fx-font-weight: bold;
+}
+
+.fund-card {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8px;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.fund-amount {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #28a745;
+}
+
+/* Footer styles */
+.footer-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #888888;
+}
+
+/* Login and Register Screen Styles */
+.auth-form {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5px;
+    -fx-padding: 20px;
+    -fx-spacing: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 3);
+    -fx-max-width: 400px;
+}
+
+.auth-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a86e8;
+    -fx-padding: 0 0 10px 0;
+}
+
+.auth-button {
+    -fx-background-color: #4a86e8;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-min-width: 100px;
+}
+
+.auth-link {
+    -fx-text-fill: #4a86e8;
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+/* Scholarship Program Styles */
+.program-card {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5px;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-spacing: 10px;
+}
+
+.program-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.program-description {
+    -fx-font-size: 14px;
+    -fx-text-fill: #666666;
+    -fx-wrap-text: true;
+}
+
+.program-details {
+    -fx-font-size: 12px;
+    -fx-text-fill: #888888;
+}
+
+.program-amount {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34a853;
+}
+
+/* Application Styles */
+.application-form {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5px;
+    -fx-padding: 20px;
+    -fx-spacing: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.form-section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a86e8;
+    -fx-padding: 5px 0;
+    -fx-border-color: transparent transparent #e0e0e0 transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.form-field-label {
+    -fx-font-weight: bold;
+}
+
+.required-field {
+    -fx-text-fill: #ea4335;
+}
+
+/* Dialog Styles */
+.dialog-pane {
+    -fx-background-color: white;
+    -fx-padding: 20px;
+}
+
+.dialog-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.dialog-content {
+    -fx-padding: 15px 0;
+}
+
+.dialog-buttons {
+    -fx-spacing: 10px;
+    -fx-alignment: CENTER_RIGHT;
+    -fx-padding: 10px 0 0 0;
+}
+
+/* Profile Screen Styles */
+.profile-header {
+    -fx-background-color: #4a86e8;
+    -fx-padding: 20px;
+    -fx-spacing: 10px;
+}
+
+.profile-name {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.profile-role {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-opacity: 0.8;
+}
+
+.profile-section {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5px;
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.profile-section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a86e8;
+    -fx-padding: 0 0 5px 0;
+    -fx-border-color: transparent transparent #e0e0e0 transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+/* Fund Allocation Styles */
+.fund-card {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5px;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.fund-amount {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34a853;
+}
+
+.fund-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #666666;
+}
+
+.fund-allocation-table .table-column {
+    -fx-alignment: CENTER;
+}
+
+.fund-allocation-table .amount-column {
+    -fx-alignment: CENTER_RIGHT;
+    -fx-font-weight: bold;
+}
+
+/* Title styles */
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.center-title-label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.nav-title-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.center-placeholder-label {
+    -fx-font-size: 16px;
+    -fx-font-style: italic;
+}
+
+/* Text styles */
+.bold-label {
+    -fx-font-weight: bold;
+}
+
+.footer-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #666666;
+}
+
+/* Navigation pane */
+.nav-pane {
+    -fx-background-color: #f0f0f0;
+}
+
+/* Logout button */
+.logout-button {
+    -fx-background-color: #ea4335;
+    -fx-text-fill: white;
+    -fx-background-radius: 3px;
+    -fx-padding: 8px 16px;
+}
+
+.logout-button:hover {
+    -fx-background-color: #d32f2f;
+}
+
+/* Header and Footer styles */
+.header-box {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1px 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+.footer-box {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px 0 0 0;
+}
+
+/* Section styles */
+.section-box {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5px;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a86e8;
+    -fx-padding: 0 0 5px 0;
+}
+
+/* Filter styles */
+.filter-box {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 5px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+}
+
+.filter-combo {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 3px;
+}
+
+.checkbox {
+    -fx-cursor: hand;
+}
+
+/* Table column styles */
+.table-column {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 5px;
+}
+
+.placeholder-label {
+    -fx-text-fill: #888888;
+    -fx-font-style: italic;
+}
+
+/* Action box styles */
+.action-box {
+    -fx-padding: 10px 0;
+}
+
+/* Sidebar styles */
+.sidebar-box {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 1px 0 0;
+}
+
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333333;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10px;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #e0e0e0;
+    -fx-cursor: hand;
+}
+
+.sidebar-button:hover {
+    -fx-background-color: #e8f0fe;
+    -fx-text-fill: #4a86e8;
+}
+
+.sidebar-button:pressed {
+    -fx-background-color: #d8e5fd;
+}
+
+/* Content styles */
+.center-content {
+    -fx-background-color: #f5f5f5;
+}
+
+.content-box {
+    -fx-background-color: #f5f5f5;
+}
+
+/* Auth form styles */
+.auth-field {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 3px;
+    -fx-padding: 8px;
+}
+
+.auth-field:focused {
+    -fx-border-color: #4a86e8;
+    -fx-effect: dropshadow(gaussian, rgba(74,134,232,0.3), 3, 0, 0, 0);
+}
+
+.auth-grid {
+    -fx-padding: 10px 0;
+}
+
+.auth-buttons {
+    -fx-padding: 10px 0;
+}
+
+.auth-links {
+    -fx-padding: 5px 0;
+}
+
+.auth-text {
+    -fx-text-fill: #666666;
+}
+
+/* Profile styles */
+.profile-grid {
+    -fx-padding: 10px 0;
+}
+
+.profile-field-value {
+    -fx-font-weight: normal;
+    -fx-text-fill: #333333;
+}
+
+.transparent-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+}
+
+.transparent-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Fund styles */
+.fund-grid {
+    -fx-padding: 10px 0;
+}
+
+.fund-field-value {
+    -fx-font-weight: normal;
+    -fx-text-fill: #333333;
+}
+
+/* Separator styles */
+.separator {
+    -fx-opacity: 0.6;
+}
+
+/* Status label */
+.status-label {
+    -fx-font-style: italic;
+    -fx-text-fill: #666666;
+}
+
+/* Admin Dashboard specific styles */
+.card-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a86e8;
+    -fx-padding: 0 0 5px 0;
+}
+
+.card-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #666666;
+    -fx-padding: 5px 0 0 0;
+}
+
+.stat-number {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.action-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a86e8;
+}
+
+.action-description {
+    -fx-font-size: 12px;
+    -fx-text-fill: #666666;
+    -fx-wrap-text: true;
+}
+
+/* App title */
+.app-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a86e8;
+}

@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kasperovich.ui.ScholarshipApplicationDialogController">
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kasperovich.ui.ScholarshipApplicationDialogController" spacing="10" prefWidth="400" prefHeight="300" stylesheets="@../css/application.css">
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>

@@ -3,76 +3,78 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.kasperovich.ui.ScholarshipProgramsController"
-            prefHeight="600.0" prefWidth="800.0">
+            prefHeight="600.0" prefWidth="800.0"
+            stylesheets="@../css/application.css">
     <top>
-        <VBox spacing="10">
+        <VBox>
             <padding>
-                <Insets top="20" right="20" bottom="10" left="20"/>
+                <Insets top="15" right="20" bottom="10" left="20"/>
             </padding>
-            <HBox alignment="CENTER_LEFT" spacing="20">
-                <Label text="%scholarship.title" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            <HBox alignment="CENTER_LEFT" spacing="20" styleClass="gradient-header">
+                <padding>
+                    <Insets top="10" right="15" bottom="10" left="15"/>
+                </padding>
+                <Button fx:id="backButton" text="%dashboard.back" onAction="#handleBackAction" styleClass="back-button, animated-button"/>
+                <Label text="%scholarship_programs.title" styleClass="title-label" style="-fx-text-fill: white; -fx-font-size: 18px;"/>
                 <Region HBox.hgrow="ALWAYS" />
-                <Button fx:id="backButton" text="%dashboard.back" onAction="#handleBackAction" />
+                <Label fx:id="userNameLabel" styleClass="bold-label" style="-fx-text-fill: white;"/>
             </HBox>
-            <Separator/>
+            <Separator styleClass="separator"/>
         </VBox>
     </top>
     
     <center>
         <VBox spacing="15">
             <padding>
-                <Insets top="10" right="20" bottom="20" left="20"/>
+                <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
             
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label text="%scholarship.filter" />
-                <ComboBox fx:id="filterComboBox" promptText="%scholarship.filter.all">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="%scholarship.filter.all" />
-                            <String fx:value="%scholarship.filter.active" />
-                            <String fx:value="%scholarship.filter.accepting" />
-                        </FXCollections>
-                    </items>
-                </ComboBox>
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="filter-box">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+<!--                <CheckBox fx:id="showInactiveCheckbox" text="%admin.programs.show_inactive" onAction="#han" styleClass="checkbox"/>-->
+                <ComboBox fx:id="filterComboBox" promptText="%scholarship.filter" styleClass="filter-combo"/>
                 <Region HBox.hgrow="ALWAYS" />
-                <Button fx:id="refreshButton" text="%dashboard.refresh" onAction="#handleRefreshAction" />
+                <Button fx:id="refreshButton" text="%dashboard.refresh" onAction="#handleRefreshAction" styleClass="button, animated-button"/>
             </HBox>
             
-            <TableView fx:id="programsTableView" VBox.vgrow="ALWAYS">
+            <TableView fx:id="programsTableView" VBox.vgrow="ALWAYS" styleClass="table-view">
                 <columns>
-                    <TableColumn fx:id="nameColumn" text="%scholarship.column.name" prefWidth="200" />
-                    <TableColumn fx:id="descriptionColumn" text="%scholarship.column.description" prefWidth="250" />
-                    <TableColumn fx:id="amountColumn" text="%scholarship.column.amount" prefWidth="100" />
-                    <TableColumn fx:id="startDateColumn" text="%scholarship.column.startdate" prefWidth="100" />
-                    <TableColumn fx:id="endDateColumn" text="%scholarship.column.enddate" prefWidth="100" />
-                    <TableColumn fx:id="statusColumn" text="%scholarship.column.status" prefWidth="100" />
+                    <TableColumn fx:id="nameColumn" text="%scholarship.column.name" prefWidth="200" styleClass="table-column"/>
+                    <TableColumn fx:id="descriptionColumn" text="%scholarship.column.description" prefWidth="250" styleClass="table-column"/>
+                    <TableColumn fx:id="amountColumn" text="%scholarship.column.amount" prefWidth="100" styleClass="amount-column"/>
+                    <TableColumn fx:id="startDateColumn" text="%scholarship.column.startdate" prefWidth="100" styleClass="table-column"/>
+                    <TableColumn fx:id="endDateColumn" text="%scholarship.column.enddate" prefWidth="100" styleClass="table-column"/>
+                    <TableColumn fx:id="statusColumn" text="%scholarship.column.status" prefWidth="100" styleClass="table-column"/>
                 </columns>
                 <placeholder>
-                    <Label text="%scholarship.placeholder.none" />
+                    <Label text="%scholarship.placeholder.none" styleClass="placeholder-label"/>
                 </placeholder>
             </TableView>
             
-            <HBox spacing="10" alignment="CENTER_RIGHT">
-                <Label fx:id="statusLabel" text="" />
-                <Region HBox.hgrow="ALWAYS" />
-                <Button fx:id="applyButton" text="%scholarship.apply" onAction="#handleApplyAction" disable="true" />
+            <HBox spacing="10" alignment="CENTER_RIGHT" styleClass="action-box">
+                <padding>
+                    <Insets top="15" right="0" bottom="0" left="0"/>
+                </padding>
+                <Label fx:id="statusLabel" text="" styleClass="status-label"/>
+                <Button fx:id="applyButton" text="%scholarship.apply" onAction="#handleApplyAction" disable="true" styleClass="auth-button, animated-button"/>
             </HBox>
         </VBox>
     </center>
     
     <bottom>
-        <HBox alignment="CENTER_RIGHT">
+        <HBox alignment="CENTER_RIGHT" style="-fx-padding: 10;">
             <padding>
-                <Insets top="10" right="20" bottom="20" left="20"/>
+                <Insets top="10" right="20" bottom="10" left="20"/>
             </padding>
-            <Label text="%dashboard.footer" style="-fx-font-size: 12px;"/>
+            <Label text=" 2025 Grant Flow System" styleClass="footer-label"/>
         </HBox>
     </bottom>
 </BorderPane>

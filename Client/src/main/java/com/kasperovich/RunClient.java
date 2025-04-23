@@ -76,7 +76,13 @@ public class RunClient extends Application {
 
             // Set up and show the stage
             stage.setTitle("Grant Flow");
-            stage.setScene(new Scene(root, 800, 600));
+            Scene scene = new Scene(root, 800, 600);
+            
+            // Apply CSS
+            scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
+            logger.debug("Applied application CSS stylesheet");
+            
+            stage.setScene(scene);
             stage.show();
             logger.info("Client application UI initialized and displayed");
         } catch (Exception e) {

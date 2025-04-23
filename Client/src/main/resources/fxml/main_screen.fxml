@@ -7,7 +7,8 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.kasperovich.ui.MainScreenController"
-            prefHeight="600.0" prefWidth="800.0">
+            prefHeight="600.0" prefWidth="800.0"
+            stylesheets="@../css/application.css">
     <top>
         <VBox spacing="10">
             <padding>
@@ -36,7 +37,7 @@
             <padding>
                 <Insets top="10" right="20" bottom="20" left="20"/>
             </padding>
-            <Label text="© 2025 Grant Flow System" style="-fx-font-size: 12px;"/>
+            <Label text=" 2025 Grant Flow System" style="-fx-font-size: 12px;"/>
         </HBox>
     </bottom>
 </BorderPane>

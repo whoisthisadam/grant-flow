@@ -7,48 +7,63 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.kasperovich.ui.AdminScholarshipProgramsController"
-            prefHeight="600.0" prefWidth="800.0">
+            prefHeight="600.0" prefWidth="800.0"
+            stylesheets="@../css/application.css">
     <top>
-        <VBox spacing="10">
+        <VBox>
             <padding>
-                <Insets top="20" right="20" bottom="10" left="20"/>
+                <Insets top="15" right="20" bottom="10" left="20"/>
             </padding>
-            <HBox alignment="CENTER_LEFT" spacing="20">
-                <Label text="%admin.programs.title" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            <HBox alignment="CENTER_LEFT" spacing="20" styleClass="gradient-header">
+                <padding>
+                    <Insets top="10" right="15" bottom="10" left="15"/>
+                </padding>
+                <Button fx:id="backButton" text="%dashboard.back" onAction="#handleBackAction" styleClass="back-button, animated-button"/>
+                <Label text="%admin.programs.title" styleClass="title-label" style="-fx-text-fill: white; -fx-font-size: 18px;"/>
                 <Region HBox.hgrow="ALWAYS" />
-                <Button fx:id="backButton" text="%button.back" onAction="#handleBackAction" />
+                <Label fx:id="userNameLabel" styleClass="bold-label" style="-fx-text-fill: white;"/>
             </HBox>
-            <Separator/>
+            <Separator styleClass="separator"/>
         </VBox>
     </top>
     
     <center>
-        <VBox spacing="10">
+        <VBox spacing="15" styleClass="content-box">
             <padding>
-                <Insets top="10" right="20" bottom="10" left="20"/>
+                <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
             
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <Button fx:id="createButton" text="%admin.programs.create" onAction="#handleCreateAction" />
-                <Button fx:id="refreshButton" text="%admin.programs.refresh" onAction="#handleRefreshAction" />
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="filter-box">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+                <CheckBox fx:id="showInactiveCheckbox" text="%admin.programs.show_inactive" onAction="#handleShowInactiveAction" styleClass="checkbox"/>
+<!--                <ComboBox fx:id="filterComboBox" promptText="%" styleClass="filter-combo"/>-->
                 <Region HBox.hgrow="ALWAYS" />
-                <CheckBox fx:id="showInactiveCheckbox" text="%admin.programs.show_inactive" onAction="#handleShowInactiveAction" />
+                <Button fx:id="refreshButton" text="%dashboard.refresh" onAction="#handleRefreshAction" styleClass="button, animated-button"/>
+                <Button fx:id="addButton" text="%admin.programs.create" onAction="#handleCreateAction" styleClass="auth-button, animated-button"/>
             </HBox>
             
-            <TableView fx:id="programsTable" VBox.vgrow="ALWAYS">
+            <TableView fx:id="programsTable" VBox.vgrow="ALWAYS" styleClass="table-view">
                 <columns>
-                    <TableColumn fx:id="idColumn" text="%admin.programs.column.id" prefWidth="50" />
-                    <TableColumn fx:id="nameColumn" text="%admin.programs.column.name" prefWidth="150" />
-                    <TableColumn fx:id="fundingColumn" text="%admin.programs.column.funding" prefWidth="100" />
-                    <TableColumn fx:id="minGpaColumn" text="%admin.programs.column.min_gpa" prefWidth="80" />
-                    <TableColumn fx:id="deadlineColumn" text="%admin.programs.column.deadline" prefWidth="120" />
-                    <TableColumn fx:id="statusColumn" text="%admin.programs.column.status" prefWidth="80" />
-                    <TableColumn fx:id="actionsColumn" text="%admin.programs.column.actions" prefWidth="150" />
+                    <TableColumn fx:id="idColumn" text="%admin.programs.column.id" prefWidth="50" styleClass="table-column"/>
+                    <TableColumn fx:id="nameColumn" text="%admin.programs.column.name" prefWidth="150" styleClass="table-column"/>
+                    <TableColumn fx:id="fundingColumn" text="%admin.programs.column.funding" prefWidth="100" styleClass="amount-column"/>
+                    <TableColumn fx:id="minGpaColumn" text="%admin.programs.column.min_gpa" prefWidth="80" styleClass="table-column"/>
+                    <TableColumn fx:id="deadlineColumn" text="%admin.programs.column.deadline" prefWidth="120" styleClass="table-column"/>
+                    <TableColumn fx:id="statusColumn" text="%admin.programs.column.status" prefWidth="100" styleClass="table-column"/>
+                    <TableColumn fx:id="actionsColumn" text="%admin.programs.column.actions" prefWidth="150" styleClass="table-column"/>
                 </columns>
+                <placeholder>
+                    <Label text="%scholarship.placeholder.none" styleClass="placeholder-label"/>
+                </placeholder>
             </TableView>
             
-            <HBox spacing="10" alignment="CENTER_RIGHT">
-                <Label fx:id="totalCountLabel" text="%admin.programs.total_count" />
+            <HBox spacing="10" alignment="CENTER_RIGHT" styleClass="action-box">
+                <padding>
+                    <Insets top="15" right="0" bottom="0" left="0"/>
+                </padding>
+                <Label fx:id="statusLabel" text="" styleClass="status-label"/>
             </HBox>
         </VBox>
     </center>

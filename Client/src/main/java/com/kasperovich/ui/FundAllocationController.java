@@ -9,7 +9,6 @@ import com.kasperovich.entities.AllocationStatus;
 import com.kasperovich.i18n.LangManager;
 import com.kasperovich.operations.ChangeScene;
 import com.kasperovich.utils.LoggerUtil;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -198,9 +197,9 @@ public class FundAllocationController extends BaseController {
 
         // Setup filter combo box
         filterComboBox.setItems(FXCollections.observableArrayList(
-            "All Allocations",
-            "By Current Budget",
-            "By Selected Program"
+            LangManager.getBundle().getString("fund.allocation.filter.all"),
+            LangManager.getBundle().getString("fund.allocation.filter.by_budget"),
+            LangManager.getBundle().getString("fund.allocation.filter.by_program")
         ));
         filterComboBox.getSelectionModel().selectFirst();
         filterComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
@@ -289,9 +288,9 @@ public class FundAllocationController extends BaseController {
      */
     private void applyFilter(String filterType) {
         try {
-            if (filterType.equals("All Allocations")) {
+            if (filterType.equals(LangManager.getBundle().getString("fund.allocation.filter.all"))) {
                 loadAllAllocations();
-            } else if (filterType.equals("By Current Budget")) {
+            } else if (filterType.equals(LangManager.getBundle().getString("fund.allocation.filter.by_budget"))) {
                 BudgetDTO selectedBudget = budgetComboBox.getValue();
                 if (selectedBudget != null) {
                     loadAllocationsByBudget(selectedBudget.getId());
@@ -301,7 +300,7 @@ public class FundAllocationController extends BaseController {
                         LangManager.getBundle().getString("fund.allocation.error.select_budget")
                     );
                 }
-            } else if (filterType.equals("By Selected Program")) {
+            } else if (filterType.equals(LangManager.getBundle().getString("fund.allocation.filter.by_program"))) {
                 ScholarshipProgramDTO selectedProgram = programComboBox.getValue();
                 if (selectedProgram != null) {
                     loadAllocationsByProgram(selectedProgram.getId());
@@ -316,7 +315,7 @@ public class FundAllocationController extends BaseController {
             logger.error("Error applying filter", e);
             AlertManager.showErrorAlert(
                 LangManager.getBundle().getString("error.title"),
-                "Error applying filter: " + e.getMessage()
+                LangManager.getBundle().getString("error.message") + e.getMessage()
             );
         }
     }
@@ -687,11 +686,43 @@ public class FundAllocationController extends BaseController {
         dashboardButton.setText(LangManager.getBundle().getString("admin.button.dashboard"));
         programsButton.setText(LangManager.getBundle().getString("admin.button.programs"));
         applicationsButton.setText(LangManager.getBundle().getString("admin.button.applications"));
-        budgetsButton.setText(LangManager.getBundle().getString("admin.button.budgets"));
+//        budgetsButton.setText(LangManager.getBundle().getString("admin.button.budgets"));
         fundAllocationButton.setText(LangManager.getBundle().getString("admin.button.fund-allocation"));
         profileButton.setText(LangManager.getBundle().getString("dashboard.button.profile"));
-        allocateButton.setText(LangManager.getBundle().getString("fund.allocation.allocate"));
+        versionLabel.setText(LangManager.getBundle().getString("dashboard.version"));
+        
+        // Update form labels and buttons
+        allocateButton.setText(LangManager.getBundle().getString("fund.allocation.allocate_funds"));
         refreshButton.setText(LangManager.getBundle().getString("fund.allocation.refresh"));
+        
+        // Update filter ComboBox
+        String currentSelection = filterComboBox.getValue();
+        filterComboBox.setItems(FXCollections.observableArrayList(
+            LangManager.getBundle().getString("fund.allocation.filter.all"),
+            LangManager.getBundle().getString("fund.allocation.filter.by_budget"),
+            LangManager.getBundle().getString("fund.allocation.filter.by_program")
+        ));
+        filterComboBox.setPromptText(LangManager.getBundle().getString("fund.allocation.select_filter"));
+        
+        // Try to select the same filter option after language change
+        if (currentSelection != null) {
+            // Find the corresponding localized option
+            if (currentSelection.equals(LangManager.getBundle().getString("fund.allocation.filter.all")) ||
+                currentSelection.contains("All") || currentSelection.contains("Все")) {
+                filterComboBox.setValue(LangManager.getBundle().getString("fund.allocation.filter.all"));
+            } else if (currentSelection.equals(LangManager.getBundle().getString("fund.allocation.filter.by_budget")) ||
+                       currentSelection.contains("Budget") || currentSelection.contains("бюджет")) {
+                filterComboBox.setValue(LangManager.getBundle().getString("fund.allocation.filter.by_budget"));
+            } else if (currentSelection.equals(LangManager.getBundle().getString("fund.allocation.filter.by_program")) ||
+                       currentSelection.contains("Program") || currentSelection.contains("программ")) {
+                filterComboBox.setValue(LangManager.getBundle().getString("fund.allocation.filter.by_program"));
+            } else {
+                // Default to first option if no match
+                filterComboBox.getSelectionModel().selectFirst();
+            }
+        } else {
+            filterComboBox.getSelectionModel().selectFirst();
+        }
         
         // Update table column headers
         idColumn.setText(LangManager.getBundle().getString("fund.allocation.id"));
