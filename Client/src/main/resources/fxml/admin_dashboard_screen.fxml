@@ -65,82 +65,23 @@
                 <!-- Statistics Cards Row -->
                 <HBox spacing="15" alignment="CENTER">
                     <VBox styleClass="program-card" prefWidth="200" prefHeight="120" alignment="CENTER">
-                        <Label text="Active Programs" styleClass="card-title"/>
-                        <Label fx:id="activeProgramsCount" text="12" styleClass="stat-number"/>
-                        <Label text="Current active scholarship programs" styleClass="card-subtitle"/>
+                        <Label text="%admin.dashboard.active.programs" styleClass="card-title"/>
+                        <Label fx:id="activeProgramsCount" text="0" styleClass="stat-number"/>
+                        <Label text="%admin.dashboard.active.programs.subtitle" styleClass="card-subtitle"/>
                     </VBox>
                     
                     <VBox styleClass="program-card" prefWidth="200" prefHeight="120" alignment="CENTER">
-                        <Label text="Pending Applications" styleClass="card-title"/>
-                        <Label fx:id="pendingApplicationsCount" text="28" styleClass="stat-number"/>
-                        <Label text="Applications awaiting review" styleClass="card-subtitle"/>
+                        <Label text="%admin.dashboard.pending.applications" styleClass="card-title"/>
+                        <Label fx:id="pendingApplicationsCount" text="0" styleClass="stat-number"/>
+                        <Label text="%admin.dashboard.pending.applications.subtitle" styleClass="card-subtitle"/>
                     </VBox>
                     
                     <VBox styleClass="program-card" prefWidth="200" prefHeight="120" alignment="CENTER">
-                        <Label text="Total Allocated" styleClass="card-title"/>
-                        <Label fx:id="totalAllocatedAmount" text="125000" styleClass="stat-number"/>
-                        <Label text="Funds allocated this period" styleClass="card-subtitle"/>
+                        <Label text="%admin.dashboard.total.allocated" styleClass="card-title"/>
+                        <Label fx:id="totalAllocatedAmount" text="0" styleClass="stat-number"/>
+                        <Label text="%admin.dashboard.total.allocated.subtitle" styleClass="card-subtitle"/>
                     </VBox>
                 </HBox>
-                
-                <!-- Quick Actions Section -->
-                <Label text="Quick Actions" styleClass="section-title"/>
-                <GridPane hgap="15" vgap="15">
-                    <columnConstraints>
-                        <ColumnConstraints percentWidth="33.3" />
-                        <ColumnConstraints percentWidth="33.3" />
-                        <ColumnConstraints percentWidth="33.3" />
-                    </columnConstraints>
-                    
-                    <VBox styleClass="quick-action-button" GridPane.columnIndex="0" GridPane.rowIndex="0" onMouseClicked="#handleProgramsAction">
-                        <padding>
-                            <Insets top="15" right="15" bottom="15" left="15"/>
-                        </padding>
-                        <Label text="Manage Programs" styleClass="action-title"/>
-                        <Label text="Create or edit scholarship programs" styleClass="action-description"/>
-                    </VBox>
-                    
-                    <VBox styleClass="quick-action-button" GridPane.columnIndex="1" GridPane.rowIndex="0" onMouseClicked="#handleApplicationsAction">
-                        <padding>
-                            <Insets top="15" right="15" bottom="15" left="15"/>
-                        </padding>
-                        <Label text="Review Applications" styleClass="action-title"/>
-                        <Label text="Process pending scholarship applications" styleClass="action-description"/>
-                    </VBox>
-                    
-                    <VBox styleClass="quick-action-button" GridPane.columnIndex="2" GridPane.rowIndex="0" onMouseClicked="#handleFundAllocationAction">
-                        <padding>
-                            <Insets top="15" right="15" bottom="15" left="15"/>
-                        </padding>
-                        <Label text="Allocate Funds" styleClass="action-title"/>
-                        <Label text="Manage budget and allocate funds" styleClass="action-description"/>
-                    </VBox>
-                    
-                    <VBox styleClass="quick-action-button" GridPane.columnIndex="0" GridPane.rowIndex="1" onMouseClicked="#handleAcademicPeriodsAction">
-                        <padding>
-                            <Insets top="15" right="15" bottom="15" left="15"/>
-                        </padding>
-                        <Label text="Academic Periods" styleClass="action-title"/>
-                        <Label text="Manage academic periods and deadlines" styleClass="action-description"/>
-                    </VBox>
-                    
-                    <VBox styleClass="quick-action-button" GridPane.columnIndex="1" GridPane.rowIndex="1" onMouseClicked="#handleReportsAction">
-                        <padding>
-                            <Insets top="15" right="15" bottom="15" left="15"/>
-                        </padding>
-                        <Label text="Generate Reports" styleClass="action-title"/>
-                        <Label text="View analytics and export reports" styleClass="action-description"/>
-                    </VBox>
-                    
-                    <VBox styleClass="quick-action-button" GridPane.columnIndex="2" GridPane.rowIndex="1">
-<!--                          onMouseClicked="#handleUsersAction">-->
-                        <padding>
-                            <Insets top="15" right="15" bottom="15" left="15"/>
-                        </padding>
-                        <Label text="User Management" styleClass="action-title"/>
-                        <Label text="Manage system users and roles" styleClass="action-description"/>
-                    </VBox>
-                </GridPane>
                 
                 <!-- Recent Activity Section -->
                 <Label text="Recent Activity" styleClass="section-title"/>

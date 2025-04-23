@@ -29,6 +29,7 @@ import org.apache.logging.log4j.Logger;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -82,6 +83,26 @@ public class AdminScholarshipProgramsController extends BaseController {
     private ObservableList<ScholarshipProgramDTO> programsList = FXCollections.observableArrayList();
     
     /**
+     * Sets the scholarship programs list and updates the UI.
+     * 
+     * @param programs the list of scholarship programs to set
+     */
+    public void setScholarshipPrograms(ArrayList<ScholarshipProgramDTO> programs) {
+        programsList.clear();
+        if (programs != null) {
+            programsList.addAll(programs);
+        }
+        
+        // Update UI if it's already initialized
+        if (programsTable != null) {
+            programsTable.setItems(programsList);
+            updateTotalCount();
+        }
+        
+        logger.info("Scholarship programs set: {}", programs != null ? programs.size() : 0);
+    }
+    
+    /**
      * Initializes the controller.
      */
     @Override
@@ -96,7 +117,9 @@ public class AdminScholarshipProgramsController extends BaseController {
         }
         
         setupTable();
-        loadData();
+        if(programsList.isEmpty()){
+            loadData();
+        }
         updateTexts();
         
         logger.info("Admin scholarship programs screen initialized for user: {}", user.getUsername());

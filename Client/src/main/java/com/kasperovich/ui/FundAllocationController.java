@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -119,6 +120,7 @@ public class FundAllocationController extends BaseController {
     private ObservableList<ScholarshipProgramDTO> programs = FXCollections.observableArrayList();
     private ObservableList<FundAllocationDTO> allocations = FXCollections.observableArrayList();
 
+
     /**
      * Initializes the controller.
      */
@@ -135,7 +137,7 @@ public class FundAllocationController extends BaseController {
             );
         }
 
-        versionLabel.setText(LangManager.getBundle().getString("dashboard.version") + ": 1.0.0");
+        versionLabel.setText(LangManager.getBundle().getString("dashboard.version") + ": " + LangManager.getBundle().getString("app.version"));
 
         // Set up UI components
         setupUIComponents();
@@ -689,8 +691,8 @@ public class FundAllocationController extends BaseController {
 //        budgetsButton.setText(LangManager.getBundle().getString("admin.button.budgets"));
         fundAllocationButton.setText(LangManager.getBundle().getString("admin.button.fund-allocation"));
         profileButton.setText(LangManager.getBundle().getString("dashboard.button.profile"));
-        versionLabel.setText(LangManager.getBundle().getString("dashboard.version"));
-        
+        versionLabel.setText(LangManager.getBundle().getString("dashboard.version") + ": " + LangManager.getBundle().getString("app.version"));
+
         // Update form labels and buttons
         allocateButton.setText(LangManager.getBundle().getString("fund.allocation.allocate_funds"));
         refreshButton.setText(LangManager.getBundle().getString("fund.allocation.refresh"));

@@ -5,6 +5,7 @@ import com.kasperovich.dto.auth.UserDTO;
 import com.kasperovich.dto.scholarship.ScholarshipApplicationDTO;
 import com.kasperovich.i18n.LangManager;
 import com.kasperovich.operations.ChangeScene;
+import com.kasperovich.utils.LoggerUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,9 +18,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Setter;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -28,6 +31,8 @@ import java.util.ResourceBundle;
  * Controller for the admin application review dashboard.
  */
 public class AdminApplicationReviewController extends BaseController {
+
+    private static final Logger logger = LoggerUtil.getLogger(AdminApplicationReviewController.class);
 
     @FXML
     private Label titleLabel;
@@ -83,11 +88,33 @@ public class AdminApplicationReviewController extends BaseController {
     private final ObservableList<ScholarshipApplicationDTO> applicationsList = FXCollections.observableArrayList();
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     
+    /**
+     * Sets the applications list and updates the UI.
+     * 
+     * @param applications the list of applications to set
+     */
+    public void setApplications(ArrayList<ScholarshipApplicationDTO> applications) {
+        applicationsList.clear();
+        if (applications != null) {
+            applicationsList.addAll(applications);
+        }
+        
+        // Update the table if it's already initialized
+        if (applicationsTable != null && statusFilterComboBox != null && statusFilterComboBox.getValue() != null) {
+            filterApplications();
+        } else if (applicationsTable != null) {
+            // If filter is not initialized yet, just show all applications
+            applicationsTable.setItems(applicationsList);
+        }
+        
+        logger.info("Applications set: {}", (applications != null ? applications.size() : 0));
+    }
+    
     @Override
     public void initializeData() {
         setupUIComponents();
         
-        if (getClientConnection() != null) {
+        if (getClientConnection() != null && applicationsList.isEmpty()) {
             loadApplications();
         }
         
@@ -125,8 +152,13 @@ public class AdminApplicationReviewController extends BaseController {
         applicationsTable.setItems(applicationsList);
         
         // Set up status filter
-        statusFilterComboBox.getItems().addAll("All", "Pending", "Approved", "Rejected");
-        statusFilterComboBox.setValue("All");
+        statusFilterComboBox.getItems().addAll(
+            LangManager.getBundle().getString("application.filter.all"),
+            LangManager.getBundle().getString("application.filter.pending"),
+            LangManager.getBundle().getString("application.filter.approved"),
+            LangManager.getBundle().getString("application.filter.rejected")
+        );
+        statusFilterComboBox.setValue(LangManager.getBundle().getString("application.filter.all"));
         statusFilterComboBox.setOnAction(event -> filterApplications());
         
         // Configure button states
@@ -166,7 +198,7 @@ public class AdminApplicationReviewController extends BaseController {
     private void filterApplications() {
         String filter = statusFilterComboBox.getValue();
         
-        if ("All".equals(filter)) {
+        if (LangManager.getBundle().getString("application.filter.all").equals(filter)) {
             applicationsTable.setItems(applicationsList);
         } else {
             ObservableList<ScholarshipApplicationDTO> filteredList = FXCollections.observableArrayList();
@@ -345,10 +377,10 @@ public class AdminApplicationReviewController extends BaseController {
         String currentValue = statusFilterComboBox.getValue();
         statusFilterComboBox.getItems().clear();
         statusFilterComboBox.getItems().addAll(
-                bundle.getString("application.status.all"),
-                bundle.getString("application.status.pending"),
-                bundle.getString("application.status.approved"),
-                bundle.getString("application.status.rejected")
+            LangManager.getBundle().getString("application.filter.all"),
+            LangManager.getBundle().getString("application.filter.pending"),
+            LangManager.getBundle().getString("application.filter.approved"),
+            LangManager.getBundle().getString("application.filter.rejected")
         );
         statusFilterComboBox.setValue(currentValue);
     }
