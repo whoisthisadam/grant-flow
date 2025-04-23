@@ -6,6 +6,9 @@ import com.kasperovich.config.ConnectedClientConfig;
 import com.kasperovich.dto.auth.LoginRequest;
 import com.kasperovich.dto.auth.RegistrationRequest;
 import com.kasperovich.dto.auth.UserDTO;
+import com.kasperovich.dto.report.ApplicationStatusDTO;
+import com.kasperovich.dto.report.ScholarshipDistributionDTO;
+import com.kasperovich.dto.report.UserActivityDTO;
 import com.kasperovich.dto.scholarship.*;
 import com.kasperovich.service.*;
 import com.kasperovich.utils.LoggerUtil;
@@ -33,6 +36,7 @@ public class ClientProcessingThread extends Thread {
     private final AcademicPeriodService academicPeriodService;
     private final UserService userService;
     private final FundManagementService fundManagementService;
+    private final ReportService reportService;
     private Long authenticatedUserId;
 
     /**
@@ -52,6 +56,7 @@ public class ClientProcessingThread extends Thread {
         this.academicPeriodService = new AcademicPeriodService();
         this.userService = new UserService();
         this.fundManagementService = new FundManagementService();
+        this.reportService = new ReportService();
         logger.debug("Created new client processing thread for client: {}", clientInfo.getConnectionSocket().getInetAddress());
     }
 
@@ -257,6 +262,15 @@ public class ClientProcessingThread extends Thread {
                 break;
             case DELETE_ACADEMIC_PERIOD:
                 handleDeleteAcademicPeriod(commandWrapper);
+                break;
+            case GET_SCHOLARSHIP_DISTRIBUTION_REPORT:
+                handleGetScholarshipDistributionReport(commandWrapper);
+                break;
+            case GET_APPLICATION_STATUS_REPORT:
+                handleGetApplicationStatusReport(commandWrapper);
+                break;
+            case GET_USER_ACTIVITY_REPORT:
+                handleGetUserActivityReport(commandWrapper);
                 break;
             default: {
                 logger.warn("Received unknown command: {}", commandWrapper.getCommand());
@@ -1341,6 +1355,107 @@ public class ClientProcessingThread extends Thread {
             logger.error("Error handling DELETE_ACADEMIC_PERIOD command", e);
             var response = new ResponseWrapper(ResponseFromServer.ERROR, e.getMessage());
             response.setMessage("Error deleting academic period");
+            sendObject(response);
+        }
+    }
+
+    /**
+     * Handles the GET_SCHOLARSHIP_DISTRIBUTION_REPORT command.
+     *
+     * @param commandWrapper the command wrapper
+     */
+    private void handleGetScholarshipDistributionReport(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling GET_SCHOLARSHIP_DISTRIBUTION_REPORT command");
+
+        try {
+            // Validate user is admin
+            if (authenticatedUserId == null) {
+                logger.warn("User not authenticated");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "User not authenticated"));
+                return;
+            }
+
+            var command = (GetScholarshipDistributionReportCommand)commandWrapper.getData();
+            // Get scholarship distribution report
+            var report = reportService.getScholarshipDistributionReport(command.getStartDate(), command.getEndDate());
+
+            // Send response
+            ScholarshipDistributionReportResponse response = new ScholarshipDistributionReportResponse(report);
+            sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
+            logger.info("Sent scholarship distribution report to user: {}", authenticatedUserId);
+
+        } catch (Exception e) {
+            logger.error("Error handling GET_SCHOLARSHIP_DISTRIBUTION_REPORT command", e);
+            var response = new ResponseWrapper(ResponseFromServer.ERROR, e.getMessage());
+            response.setMessage(e.getMessage());
+            sendObject(response);
+        }
+    }
+
+    /**
+     * Handles the GET_APPLICATION_STATUS_REPORT command.
+     *
+     * @param commandWrapper the command wrapper
+     */
+    private void handleGetApplicationStatusReport(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling GET_APPLICATION_STATUS_REPORT command");
+
+        try {
+            // Validate user is admin
+            if (authenticatedUserId == null) {
+                logger.warn("User not authenticated");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "User not authenticated"));
+                return;
+            }
+
+            var command = (GetApplicationStatusReportCommand)commandWrapper.getData();
+
+            // Get application status report
+            var report = reportService.getApplicationStatusReport(command.getProgramId(), command.getPeriodId());
+
+            // Send response
+            ApplicationStatusReportResponse response = new ApplicationStatusReportResponse(report);
+            sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
+            logger.info("Sent application status report to user: {}", authenticatedUserId);
+
+        } catch (Exception e) {
+            logger.error("Error handling GET_APPLICATION_STATUS_REPORT command", e);
+            var response = new ResponseWrapper(ResponseFromServer.ERROR, e.getMessage());
+            response.setMessage(e.getMessage());
+            sendObject(response);
+        }
+    }
+
+    /**
+     * Handles the GET_USER_ACTIVITY_REPORT command.
+     *
+     * @param commandWrapper the command wrapper
+     */
+    private void handleGetUserActivityReport(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling GET_USER_ACTIVITY_REPORT command");
+
+        try {
+            // Validate user is admin
+            if (authenticatedUserId == null) {
+                logger.warn("User not authenticated");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "User not authenticated"));
+                return;
+            }
+
+            var command = (GetUserActivityReportCommand)commandWrapper.getData();
+
+            // Get user activity report
+            var report = reportService.getUserActivityReport(command.getStartDate(), command.getEndDate());
+
+            // Send response
+            UserActivityReportResponse response = new UserActivityReportResponse(report);
+            sendObject(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
+            logger.info("Sent user activity report to user: {}", authenticatedUserId);
+
+        } catch (Exception e) {
+            logger.error("Error handling GET_USER_ACTIVITY_REPORT command", e);
+            var response = new ResponseWrapper(ResponseFromServer.ERROR, e.getMessage());
+            response.setMessage(e.getMessage());
             sendObject(response);
         }
     }

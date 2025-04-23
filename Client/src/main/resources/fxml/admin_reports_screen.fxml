@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.kasperovich.ui.AdminReportController"
+            prefHeight="600.0" prefWidth="800.0"
+            stylesheets="@../css/application.css">
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT" styleClass="dashboard-card">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Button fx:id="backButton" text="%button.back" onAction="#handleBackAction" styleClass="back-button"/>
+            <Label text="%reports.title" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <ComboBox fx:id="reportTypeComboBox" promptText="%reports.select_type"/>
+            <Button fx:id="exportButton" text="%button.export" onAction="#handleExport" styleClass="export-button"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox spacing="15">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <!-- Filter controls based on report type -->
+            <HBox fx:id="filterContainer" spacing="10" alignment="CENTER_LEFT" styleClass="report-controls">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+                <!-- Dynamically populated based on report type -->
+            </HBox>
+            <!-- Report data table -->
+            <TableView fx:id="reportTable" VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </center>
+</BorderPane>
