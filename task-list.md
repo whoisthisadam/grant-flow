@@ -123,10 +123,11 @@ A Full Stack application with JavaFX Client and Server components for calculatin
 - <input type="checkbox" class="task-list-item-checkbox"> Implement user profile view and update functionality (UC-R8)
 
 ### 13. Admin Flow Implementation - Client Side
-- <input type="checkbox" class="task-list-item-checkbox" checked> Create scholarship program management interface (UC-A1)
-- <input type="checkbox" class="task-list-item-checkbox" checked> Implement application review dashboard (UC-A2)
-- <input type="checkbox" class="task-list-item-checkbox"> Design user account management interface (UC-A3)
-- <input type="checkbox" class="task-list-item-checkbox" checked> Create fund allocation and tracking UI (UC-A4)
+- <input type="checkbox" class="task-list-item-checkbox" checked> Create admin dashboard (UC-A0)
+- <input type="checkbox" class="task-list-item-checkbox" checked> Implement scholarship program management interface (UC-A1)
+- <input type="checkbox" class="task-list-item-checkbox" checked> Design application review dashboard (UC-A2)
+- <input type="checkbox" class="task-list-item-checkbox"> Implement user account management interface (UC-A3)
+- <input type="checkbox" class="task-list-item-checkbox" checked> Create fund allocation interface (UC-A4)
 - <input type="checkbox" class="task-list-item-checkbox"> Implement system configuration interface (UC-A5)
 - <input type="checkbox" class="task-list-item-checkbox"> Design reporting and analytics dashboard (UC-A6)
 - <input type="checkbox" class="task-list-item-checkbox"> Create batch processing interface (UC-A7)
@@ -137,6 +138,13 @@ A Full Stack application with JavaFX Client and Server components for calculatin
   - Foreign key constraint handling to prevent deletion of periods in use
   - Navigation between admin dashboard and period management
   - Proper error handling and user feedback
+- <input type="checkbox" class="task-list-item-checkbox" checked> Enhance admin dashboard with real-time data and activity tracking (UC-A0) - Completed enhancements to the admin dashboard, including:
+  - Implemented real counter values for active programs, pending applications, and total allocated amount
+  - Added Recent Activity section with localized text and dynamic data
+  - Fixed navigation issues between admin screens
+  - Improved data passing between screens to avoid redundant server calls
+  - Ensured proper localization for all UI elements
+  - Fixed encoding issues in Russian language resources
 
 ### 14. Internationalization and Localization
 - <input type="checkbox" class="task-list-item-checkbox" checked> Create resource bundles for English and Russian languages
