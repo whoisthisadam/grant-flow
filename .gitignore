@@ -40,3 +40,6 @@ build/
 *log.txt
 *.log
 *.log.gz
+
+# Configuration files with sensitive data
+Server/src/main/resources/config.properties
