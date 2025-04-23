@@ -47,6 +47,8 @@ public class EditProfileDialogController extends BaseController {
     
     private UserDTO originalUser;
     private UserDTO updatedUser;
+    private UserDTO currentUser; // The currently logged-in user (admin)
+    private UserDTO user;
     
     // Callback interface for updating the parent controller
     public interface ProfileUpdatedCallback {
@@ -80,6 +82,7 @@ public class EditProfileDialogController extends BaseController {
      * @param user The user data to edit
      */
     public void setup(UserDTO user) {
+        this.user = user;
         this.originalUser = user;
         
         // Populate fields with current user data
@@ -88,6 +91,25 @@ public class EditProfileDialogController extends BaseController {
             emailField.setText(user.getEmail());
             firstNameField.setText(user.getFirstName());
             lastNameField.setText(user.getLastName());
+        }
+    }
+    
+    /**
+     * Sets up the dialog with the user data and the current logged-in user.
+     *
+     * @param userToEdit The user data to edit
+     * @param currentUser The current logged-in user (admin)
+     */
+    public void setup(UserDTO userToEdit, UserDTO currentUser) {
+        this.originalUser = userToEdit;
+        this.currentUser = currentUser;
+        
+        // Populate fields with user data to edit
+        if (userToEdit != null) {
+            usernameField.setText(userToEdit.getUsername());
+            emailField.setText(userToEdit.getEmail());
+            firstNameField.setText(userToEdit.getFirstName());
+            lastNameField.setText(userToEdit.getLastName());
         }
     }
     
@@ -159,9 +181,20 @@ public class EditProfileDialogController extends BaseController {
         
         // Send update request to server
         try {
-            UserDTO updatedUserDTO = getClientConnection().updateUserProfile(
-                newUsername, newFirstName, newLastName, newEmail
-            );
+            UserDTO updatedUserDTO;
+            
+            // Check if this is an admin updating another user's profile
+            if (currentUser != null && "ADMIN".equals(currentUser.getRole()) && !originalUser.getId().equals(currentUser.getId())) {
+                // Admin updating another user's profile
+                updatedUserDTO = getClientConnection().updateUserProfileAsAdmin(
+                    originalUser.getId(), newUsername, newFirstName, newLastName, newEmail
+                );
+            } else {
+                // User updating their own profile
+                updatedUserDTO = getClientConnection().updateUserProfile(
+                    newUsername, newFirstName, newLastName, newEmail
+                );
+            }
             
             if (updatedUserDTO != null) {
                 updatedUser = updatedUserDTO;

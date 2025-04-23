@@ -42,8 +42,7 @@
             <Button fx:id="fundAllocationButton" text="%admin.button.fund.allocation" maxWidth="Infinity" styleClass="sidebar-button" onAction="#handleFundAllocationAction" />
             <Button fx:id="academicPeriodsButton" text="%admin.button.academic-periods" maxWidth="Infinity" styleClass="sidebar-button" onAction="#handleAcademicPeriodsAction" />
             <Button fx:id="reportsButton" text="%admin.button.reports" maxWidth="Infinity" styleClass="sidebar-button" onAction="#handleReportsAction" />
-            <Button fx:id="usersButton" text="%admin.button.users" maxWidth="Infinity" styleClass="sidebar-button"/>
-<!--                    onAction="#handleUsersAction" />-->
+            <Button fx:id="usersButton" text="%admin.button.users" maxWidth="Infinity" styleClass="sidebar-button" onAction="#handleUsersAction" />
             <Button fx:id="profileButton" text="%dashboard.button.profile" maxWidth="Infinity" styleClass="sidebar-button" onAction="#handleProfileAction" />
             
             <Region VBox.vgrow="ALWAYS" />

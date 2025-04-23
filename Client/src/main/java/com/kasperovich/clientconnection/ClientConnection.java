@@ -510,6 +510,73 @@ public class ClientConnection {
     }
 
     /**
+     * Updates a user's profile with the provided information.
+     * This method is intended for administrators to update other users' profiles.
+     *
+     * @param userId the ID of the user to update
+     * @param username the new username, or null to keep current
+     * @param firstName the new first name, or null to keep current
+     * @param lastName the new last name, or null to keep current
+     * @param email the new email, or null to keep current
+     * @return the updated user DTO
+     * @throws Exception if an error occurs
+     */
+    public UserDTO updateUserProfileAsAdmin(Long userId, String username, String firstName, String lastName, String email) 
+            throws IOException, ClassNotFoundException, Exception {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to update user profile but no user is authenticated");
+            throw new Exception("User not authenticated");
+        }
+        
+        if (!currentUser.getRole().equals(UserRole.ADMIN.name())) {
+            logger.warn("Non-admin user attempted to update another user's profile");
+            throw new Exception("Only administrators can update other users' profiles");
+        }
+        
+        try {
+            logger.debug("Admin (ID: {}) updating profile for user ID: {}", currentUser.getId(), userId);
+            
+            // Create the update profile command with the user ID and fields to update
+            UpdateProfileCommand command = new UpdateProfileCommand();
+            command.setUserId(userId);
+            command.setUsername(username);
+            command.setFirstName(firstName);
+            command.setLastName(lastName);
+            command.setEmail(email);
+            
+            // Create and send command wrapper
+            CommandWrapper wrapper = new CommandWrapper(Command.UPDATE_USER_PROFILE, command);
+            wrapper.setAuthToken(authToken);
+            
+            sendObject(wrapper);
+            
+            // Receive response
+            ResponseWrapper response = receiveObject();
+            
+            if (response.getResponse() == ResponseFromServer.SUCCESS) {
+                // Extract updated user from response
+                UpdateProfileResponse updateResponse = response.getData();
+                
+                if (updateResponse != null && updateResponse.isSuccess()) {
+                    UserDTO updatedUser = updateResponse.getUser();
+                    logger.info("User profile updated successfully for user ID: {}", updatedUser.getId());
+                    return updatedUser;
+                } else {
+                    String errorMessage = updateResponse != null ? updateResponse.getMessage() : "Unknown error";
+                    logger.warn("Failed to update user profile: {}", errorMessage);
+                    throw new Exception(errorMessage);
+                }
+            } else {
+                logger.warn("Failed to update user profile: {}", response.getMessage());
+                throw new Exception(response.getMessage());
+            }
+        } catch (Exception e) {
+            logger.error("Error updating user profile", e);
+            throw e;
+        }
+    }
+
+    /**
      * Checks if a user is currently authenticated.
      * 
      * @return true if a user is authenticated, false otherwise
@@ -1869,6 +1936,75 @@ public class ClientConnection {
         } catch (Exception e) {
             logger.error("Error getting academic performance report", e);
             throw e;
+        }
+    }
+
+    /**
+     * Gets all users in the system.
+     * This method is intended for administrators to manage user accounts.
+     *
+     * @return a list of all users, or null if an error occurred
+     * @throws Exception if an error occurs during the operation
+     */
+    public List<UserDTO> getAllUsers() throws Exception {
+        logger.info("Getting all users for admin management");
+        
+        // Create and send the command
+        CommandWrapper commandWrapper = new CommandWrapper(Command.GET_ALL_USERS, new GetAllUsersCommand());
+        commandWrapper.setAuthToken(authToken);
+        
+        // Send the command and wait for response
+        sendObject(commandWrapper);
+        ResponseWrapper responseWrapper = (ResponseWrapper) receiveObject();
+        
+        // Check if the response is successful
+        if (responseWrapper.getResponse() == ResponseFromServer.USERS_LIST_RETRIEVED) {
+            GetAllUsersResponse response = responseWrapper.getData();
+            logger.info("Received {} users", response.getUsers().size());
+            return response.getUsers();
+        } else if (responseWrapper.getResponse() == ResponseFromServer.ERROR) {
+            String errorMessage = responseWrapper.getMessage();
+            logger.error("Error getting users: {}", errorMessage);
+            throw new Exception(errorMessage);
+        } else {
+            logger.error("Unexpected response: {}", responseWrapper.getResponse());
+            throw new Exception("Unexpected response from server");
+        }
+    }
+    
+    /**
+     * Updates a user's active status.
+     * This method is intended for administrators to activate or deactivate user accounts.
+     *
+     * @param userId the ID of the user to update
+     * @param active the new active status
+     * @return the updated user, or null if an error occurred
+     * @throws Exception if an error occurs during the operation
+     */
+    public UserDTO updateUserStatus(Long userId, boolean active) throws Exception {
+        logger.info("Updating status for user ID: {} to active={}", userId, active);
+        
+        // Create and send the command
+        UpdateUserStatusCommand command = new UpdateUserStatusCommand(userId, active);
+        CommandWrapper commandWrapper = new CommandWrapper(Command.UPDATE_USER_STATUS, command);
+        commandWrapper.setAuthToken(authToken);
+        
+        // Send the command and wait for response
+        sendObject(commandWrapper);
+        ResponseWrapper responseWrapper = (ResponseWrapper) receiveObject();
+        
+        // Check if the response is successful
+        if (responseWrapper.getResponse() == ResponseFromServer.USER_STATUS_UPDATED) {
+            UpdateUserStatusResponse response = responseWrapper.getData();
+            logger.info("User status updated successfully");
+            return response.getUser();
+        } else if (responseWrapper.getResponse() == ResponseFromServer.ERROR) {
+            String errorMessage = responseWrapper.getMessage();
+            logger.error("Error updating user status: {}", errorMessage);
+            throw new Exception(errorMessage);
+        } else {
+            logger.error("Unexpected response: {}", responseWrapper.getResponse());
+            throw new Exception("Unexpected response from server");
         }
     }
 }

@@ -10,6 +10,8 @@ import com.kasperovich.dto.report.ApplicationStatusDTO;
 import com.kasperovich.dto.report.ScholarshipDistributionDTO;
 import com.kasperovich.dto.report.UserActivityDTO;
 import com.kasperovich.dto.scholarship.*;
+import com.kasperovich.entities.User;
+import com.kasperovich.entities.UserRole;
 import com.kasperovich.service.*;
 import com.kasperovich.utils.LoggerUtil;
 import org.apache.logging.log4j.Logger;
@@ -276,6 +278,14 @@ public class ClientProcessingThread extends Thread {
                 handleGetAcademicPerformanceReport(commandWrapper);
                 break;
             }
+            case GET_ALL_USERS: {
+                handleGetAllUsers(commandWrapper);
+                break;
+            }
+            case UPDATE_USER_STATUS: {
+                handleUpdateUserStatus(commandWrapper);
+                break;
+            }
             default: {
                 logger.warn("Received unknown command: {}", commandWrapper.getCommand());
                 sendObject(new ResponseWrapper(ResponseFromServer.UNKNOWN_COMMAND));
@@ -535,9 +545,25 @@ public class ClientProcessingThread extends Thread {
                 return;
             }
 
+            // Determine which user ID to update
+            Long userIdToUpdate = authenticatedUserId;
+            
+            // If a specific user ID is provided and the authenticated user is an admin, use that ID
+            if (command.getUserId() != null) {
+                User currentUser = userService.getUserById(authenticatedUserId);
+                if (currentUser != null && currentUser.getRole().equals(UserRole.ADMIN)) {
+                    userIdToUpdate = command.getUserId();
+                    logger.info("Admin (ID: {}) is updating user with ID: {}", authenticatedUserId, userIdToUpdate);
+                } else {
+                    logger.warn("Non-admin user attempting to update another user's profile");
+                    sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "You do not have permission to update another user's profile"));
+                    return;
+                }
+            }
+
             // Update the user profile
             UserDTO updatedUserDTO = userService.updateUserProfile(
-                    authenticatedUserId,
+                    userIdToUpdate,
                     command.getUsername(),
                     command.getFirstName(),
                     command.getLastName(),
@@ -571,7 +597,7 @@ public class ClientProcessingThread extends Thread {
             logger.error("Error updating user profile", e);
             UpdateProfileResponse response = new UpdateProfileResponse(
                     false,
-                    "Error updating user profile: " + e.getMessage(),
+                    "Error updating profile: " + e.getMessage(),
                     null
             );
             sendObject(new ResponseWrapper(ResponseFromServer.ERROR, response));
@@ -1493,6 +1519,90 @@ public class ClientProcessingThread extends Thread {
             var response = new ResponseWrapper(ResponseFromServer.ERROR, e.getMessage());
             response.setMessage(e.getMessage());
             sendObject(response);
+        }
+    }
+
+    /**
+     * Handles the GET_ALL_USERS command.
+     *
+     * @param commandWrapper the command wrapper
+     */
+    private void handleGetAllUsers(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling GET_ALL_USERS command");
+
+        try {
+            // Validate user is admin
+            if (authenticatedUserId == null) {
+                logger.warn("User not authenticated");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "User not authenticated"));
+                return;
+            }
+
+            // Get all users
+            List<UserDTO> users = userService.getAllUsersForAdminManagement();
+
+            // Send response
+            GetAllUsersResponse response = new GetAllUsersResponse(users);
+            sendObject(new ResponseWrapper(ResponseFromServer.USERS_LIST_RETRIEVED, response));
+            logger.info("Sent {} users to admin: {}", users.size(), authenticatedUserId);
+
+        } catch (Exception e) {
+            logger.error("Error handling GET_ALL_USERS command", e);
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Error retrieving users: " + e.getMessage()));
+        }
+    }
+
+    /**
+     * Handles the UPDATE_USER_STATUS command.
+     *
+     * @param commandWrapper the command wrapper
+     */
+    private void handleUpdateUserStatus(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling UPDATE_USER_STATUS command");
+
+        try {
+            // Validate user is admin
+            if (authenticatedUserId == null) {
+                logger.warn("User not authenticated");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "User not authenticated"));
+                return;
+            }
+
+            UpdateUserStatusCommand command = commandWrapper.getData();
+
+            if (command == null) {
+                logger.warn("Command data is missing");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Command data is missing"));
+                return;
+            }
+            
+            // Don't allow admins to deactivate themselves
+            if (command.getUserId().equals(authenticatedUserId) && !command.isActive()) {
+                logger.warn("Admin attempting to deactivate own account: {}", authenticatedUserId);
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "You cannot deactivate your own account"));
+                return;
+            }
+
+            // Update user status
+            UserDTO updatedUser = userService.updateUserStatus(command.getUserId(), command.isActive());
+
+            // Send response
+            if (updatedUser != null) {
+                UpdateUserStatusResponse response = new UpdateUserStatusResponse(
+                    true, 
+                    "User status updated successfully", 
+                    updatedUser
+                );
+                sendObject(new ResponseWrapper(ResponseFromServer.USER_STATUS_UPDATED, response));
+                logger.info("User status updated successfully. ID: {}", command.getUserId());
+            } else {
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Failed to update user status"));
+                logger.warn("Failed to update user status. ID: {}", command.getUserId());
+            }
+
+        } catch (Exception e) {
+            logger.error("Error handling UPDATE_USER_STATUS command", e);
+            sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "Error updating user status: " + e.getMessage()));
         }
     }
 

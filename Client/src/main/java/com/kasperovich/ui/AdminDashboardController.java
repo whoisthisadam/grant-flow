@@ -132,6 +132,7 @@ public class AdminDashboardController extends BaseController {
         fundAllocationButton.setOnAction(this::handleFundAllocationAction);
         academicPeriodsButton.setOnAction(this::handleAcademicPeriodsAction);
         reportsButton.setOnAction(this::handleReportsAction);
+        usersButton.setOnAction(this::handleUsersAction);
         profileButton.setOnAction(this::handleProfileAction);
         
         // Set up the activity table
@@ -520,6 +521,32 @@ public class AdminDashboardController extends BaseController {
             );
         } catch (Exception e) {
             logger.error("Error navigating to reports screen", e);
+            AlertManager.showErrorAlert(
+                LangManager.getBundle().getString("error.title"),
+                LangManager.getBundle().getString("error.navigation")
+            );
+        }
+    }
+    
+    /**
+     * Handles the users button action.
+     * 
+     * @param event The action event
+     */
+    @FXML
+    private void handleUsersAction(ActionEvent event) {
+        try {
+            ChangeScene.changeScene(
+                event,
+                "/fxml/user_management_screen.fxml",
+                LangManager.getBundle().getString("admin.user.management.title"),
+                getClientConnection(),
+                user
+            );
+            
+            logger.debug("Navigated to user management screen from admin dashboard");
+        } catch (Exception e) {
+            logger.error("Error navigating to user management screen", e);
             AlertManager.showErrorAlert(
                 LangManager.getBundle().getString("error.title"),
                 LangManager.getBundle().getString("error.navigation")

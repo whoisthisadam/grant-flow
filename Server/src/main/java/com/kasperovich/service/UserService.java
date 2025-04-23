@@ -11,6 +11,7 @@ import com.kasperovich.utils.PasswordUtils;
 import org.apache.logging.log4j.Logger;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Service class for user-related operations.
@@ -201,6 +202,20 @@ public class UserService {
     }
     
     /**
+     * Gets all users in the system.
+     * This method is intended for administrators to manage user accounts.
+     *
+     * @return a list of DTOs for all users
+     */
+    public List<UserDTO> getAllUsersForAdminManagement() {
+        logger.info("Getting all users for admin management");
+        List<User> users = userDao.findAll();
+        return users.stream()
+                .map(dtoConverter::convertToDTO)
+                .collect(Collectors.toList());
+    }
+    
+    /**
      * Updates a user's profile with the provided information.
      * Only updates the fields that are not null.
      *
@@ -244,6 +259,32 @@ public class UserService {
         if (email != null && !email.trim().isEmpty()) {
             user.setEmail(email);
         }
+        
+        User updatedUser = userDao.save(user);
+        return dtoConverter.convertToDTO(updatedUser);
+    }
+    
+    /**
+     * Updates a user's active status.
+     * This method is intended for administrators to activate or deactivate user accounts.
+     *
+     * @param userId the ID of the user to update
+     * @param active the new active status
+     * @return the updated user DTO, or null if the update failed
+     */
+    public UserDTO updateUserStatus(Long userId, boolean active) {
+        logger.info("Updating status for user ID: {} to active={}", userId, active);
+        
+        Optional<User> userOpt = userDao.findById(userId);
+        if (userOpt.isEmpty()) {
+            logger.warn("User not found: {}", userId);
+            return null;
+        }
+        
+        User user = userOpt.get();
+        
+        // Update the active status
+        user.setActive(active);
         
         User updatedUser = userDao.save(user);
         return dtoConverter.convertToDTO(updatedUser);
