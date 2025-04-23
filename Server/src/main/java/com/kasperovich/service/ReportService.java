@@ -1,12 +1,13 @@
 package com.kasperovich.service;
 
-import com.kasperovich.dto.report.ApplicationStatusDTO;
-import com.kasperovich.dto.report.ScholarshipDistributionDTO;
-import com.kasperovich.dto.report.UserActivityDTO;
+import com.kasperovich.dto.auth.UserDTO;
+import com.kasperovich.dto.report.*;
 import com.kasperovich.dto.scholarship.AcademicPeriodDTO;
 import com.kasperovich.dto.scholarship.ScholarshipApplicationDTO;
 import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
+import com.kasperovich.entities.User;
 import com.kasperovich.entities.UserRole;
+import com.kasperovich.utils.DTOConverter;
 import com.kasperovich.utils.LoggerUtil;
 import org.apache.logging.log4j.Logger;
 
@@ -27,6 +28,7 @@ public class ReportService {
     private final ScholarshipApplicationService applicationService;
     private final UserService userService;
     private final AcademicPeriodService academicPeriodService;
+    private final DTOConverter dtoConverter;
 
     /**
      * Creates a new report service
@@ -36,6 +38,7 @@ public class ReportService {
         this.applicationService = new ScholarshipApplicationService();
         this.userService = new UserService();
         this.academicPeriodService = new AcademicPeriodService();
+        this.dtoConverter = new DTOConverter();
         logger.debug("ReportService initialized");
     }
 
@@ -227,5 +230,105 @@ public class ReportService {
         
         logger.debug("Generated user activity report with {} entries", reportData.size());
         return reportData;
+    }
+    
+    /**
+     * Generates an academic performance report for the specified user
+     *
+     * @param userId the ID of the user to generate the report for
+     * @return the academic performance report data
+     * @throws Exception if an error occurs while generating the report
+     */
+    public AcademicPerformanceReportDTO getAcademicPerformanceReport(Long userId) throws Exception {
+        logger.debug("Generating academic performance report for user ID: {}", userId);
+        
+        // Get user information
+        User u= userService.getUserById(userId);
+        UserDTO user = dtoConverter.convertToDTO(u);
+        if (user == null) {
+            throw new Exception("User not found");
+        }
+        
+        // Create a new report DTO
+        AcademicPerformanceReportDTO report = new AcademicPerformanceReportDTO();
+        report.setUser(user);
+        
+        try {
+            // Get student profile information
+            // In a real implementation, this would fetch from a StudentProfileRepository
+            // For now, we'll use placeholder data based on the user
+            report.setStudentId("STU" + userId);
+            report.setMajor("Computer Science");
+            report.setDepartment("Information Technology");
+            report.setAcademicYear(3);
+            report.setEnrollmentDate(LocalDate.now().minusYears(3));
+            report.setExpectedGraduationDate(LocalDate.now().plusYears(1));
+            report.setCurrentGpa(3.75);
+            
+            // Get course grades
+            // In a real implementation, this would fetch from a CourseGradeRepository
+            // For now, we'll use placeholder data
+            List<CourseGradeDTO> courseGrades = new ArrayList<>();
+            courseGrades.add(new CourseGradeDTO("CS101", "Introduction to Programming", 4, 4.0, "A", "Fall 2022", LocalDate.of(2022, 12, 15), true));
+            courseGrades.add(new CourseGradeDTO("CS201", "Data Structures", 4, 3.7, "A-", "Spring 2023", LocalDate.of(2023, 5, 10), true));
+            courseGrades.add(new CourseGradeDTO("CS301", "Algorithms", 3, 3.3, "B+", "Fall 2023", LocalDate.of(2023, 12, 15), true));
+            courseGrades.add(new CourseGradeDTO("CS401", "Database Systems", 4, 3.7, "A-", "Spring 2024", LocalDate.of(2024, 5, 10), true));
+            report.setCourseGrades(courseGrades);
+            
+            // Get scholarship applications
+            List<ScholarshipApplicationDTO> applications = applicationService.getUserApplications(userId);
+            report.setScholarshipApplications(applications);
+            
+            // Get payment information
+            // In a real implementation, this would fetch from a PaymentRepository
+            // For now, we'll use placeholder data based on approved applications
+            List<PaymentDTO> payments = new ArrayList<>();
+            for (ScholarshipApplicationDTO app : applications) {
+                if ("APPROVED".equals(app.getStatus())) {
+                    ScholarshipProgramDTO program = scholarshipService.getScholarshipProgramById(app.getProgramId());
+                    if (program != null) {
+                        payments.add(new PaymentDTO(
+                            (long) payments.size() + 1,
+                            program.getName(),
+                            program.getFundingAmount(),
+                            app.getDecisionDate() != null ? app.getDecisionDate().plusDays(7) : LocalDateTime.now(),
+                            "PROCESSED",
+                            "REF" + (1000 + payments.size())
+                        ));
+                    }
+                }
+            }
+            report.setPayments(payments);
+            
+            // Calculate summary statistics
+            int totalCredits = courseGrades.stream().mapToInt(CourseGradeDTO::getCredits).sum();
+            report.setTotalCreditsCompleted(totalCredits);
+            report.setTotalCreditsInProgress(0); // Placeholder
+            
+            double averageGpa = courseGrades.stream()
+                .filter(CourseGradeDTO::isIncludedInGpa)
+                .mapToDouble(grade -> grade.getGradeValue() * grade.getCredits())
+                .sum() / courseGrades.stream()
+                    .filter(CourseGradeDTO::isIncludedInGpa)
+                    .mapToInt(CourseGradeDTO::getCredits)
+                    .sum();
+            report.setAverageGpa(averageGpa);
+            
+            report.setScholarshipsApplied(applications.size());
+            report.setScholarshipsApproved((int) applications.stream()
+                .filter(app -> "APPROVED".equals(app.getStatus()))
+                .count());
+            
+            BigDecimal totalAmount = payments.stream()
+                .map(PaymentDTO::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+            report.setTotalScholarshipAmount(totalAmount);
+            
+            logger.debug("Generated academic performance report for user ID: {}", userId);
+            return report;
+        } catch (Exception e) {
+            logger.error("Error generating academic performance report", e);
+            throw new Exception("Error generating academic performance report: " + e.getMessage());
+        }
     }
 }

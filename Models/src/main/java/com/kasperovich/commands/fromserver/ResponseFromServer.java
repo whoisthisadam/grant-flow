@@ -35,5 +35,8 @@ public enum ResponseFromServer implements Serializable {
     APPLICATION_REVIEWED,
     
     // Scholarship responses
-    SCHOLARSHIP_PROGRAMS_FOUND
+    SCHOLARSHIP_PROGRAMS_FOUND,
+    
+    // Report responses
+    ACADEMIC_PERFORMANCE_REPORT_GENERATED
 }

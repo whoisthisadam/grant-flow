@@ -481,4 +481,27 @@ public class DashboardScreenController extends BaseController {
         // Profile button shows profile screen
         profileButton.setOnAction(this::handleProfileAction);
     }
+    
+    /**
+     * Handles the reports button action.
+     *
+     * @param event the action event
+     */
+    @FXML
+    private void handleReportsButtonAction(ActionEvent event) {
+        try {
+            logger.info("Navigating to academic performance report screen");
+            ChangeScene.changeScene(event, 
+                "/fxml/academic_performance_report_screen.fxml", 
+                LangManager.getBundle().getString("report.academic.performance.title"), 
+                getClientConnection(), 
+                user);
+        } catch (Exception e) {
+            logger.error("Error navigating to academic performance report screen", e);
+            AlertManager.showErrorAlert(
+                LangManager.getBundle().getString("error.title"),
+                e.getMessage()
+            );
+        }
+    }
 }

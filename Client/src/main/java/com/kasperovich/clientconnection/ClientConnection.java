@@ -5,6 +5,7 @@ import com.kasperovich.commands.toserver.*;
 import com.kasperovich.dto.auth.LoginRequest;
 import com.kasperovich.dto.auth.RegistrationRequest;
 import com.kasperovich.dto.auth.UserDTO;
+import com.kasperovich.dto.report.AcademicPerformanceReportDTO;
 import com.kasperovich.dto.report.ApplicationStatusDTO;
 import com.kasperovich.dto.report.ScholarshipDistributionDTO;
 import com.kasperovich.dto.report.UserActivityDTO;
@@ -1821,6 +1822,53 @@ public class ClientConnection {
         } catch (Exception e) {
             logger.error("Error getting user activity report", e);
             throw new IOException("Error getting user activity report: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Gets the academic performance report for the current user.
+     * 
+     * @return the academic performance report, or null if an error occurs
+     * @throws IOException if an I/O error occurs during communication
+     * @throws ClassNotFoundException if the class of the received object cannot be found
+     */
+    public AcademicPerformanceReportDTO getAcademicPerformanceReport() throws IOException, ClassNotFoundException {
+        if (!isAuthenticated()) {
+            logger.warn("Attempted to get academic performance report but no user is authenticated");
+            return null;
+        }
+        
+        try {
+            logger.debug("Getting academic performance report for user {}", currentUser.getUsername());
+            
+            // Create and send command to get academic performance report
+            CommandWrapper command = new CommandWrapper(Command.GET_ACADEMIC_PERFORMANCE_REPORT, new GetAcademicPerformanceReportCommand());
+            command.setAuthToken(authToken);
+            sendObject(command);
+            
+            // Receive response
+            ResponseWrapper response = receiveObject();
+            
+            if (response.getResponse() == ResponseFromServer.ACADEMIC_PERFORMANCE_REPORT_GENERATED) {
+                // Extract report from response
+                AcademicPerformanceReportResponse reportResponse = response.getData();
+                
+                if (reportResponse != null && reportResponse.getReport() != null) {
+                    AcademicPerformanceReportDTO report = reportResponse.getReport();
+                    logger.info("Retrieved academic performance report for user {}", currentUser.getUsername());
+                    return report;
+                } else {
+                    logger.warn("Received empty report response");
+                    return null;
+                }
+            } else {
+                logger.warn("Failed to get academic performance report: {}", response.getResponse());
+                throw new IOException("Failed to get academic performance report: " + 
+                    (response.getMessage() != null ? response.getMessage() : response.getResponse()));
+            }
+        } catch (Exception e) {
+            logger.error("Error getting academic performance report", e);
+            throw e;
         }
     }
 }

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.kasperovich.ui.AcademicPerformanceReportController"
+            prefHeight="700.0" prefWidth="900.0"
+            styleClass="main-container">
+
+    <top>
+        <VBox spacing="10" alignment="CENTER">
+            <padding>
+                <Insets top="20" right="20" bottom="10" left="20"/>
+            </padding>
+            
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Button fx:id="backButton" text="%button.back" onAction="#handleBackButtonAction"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="%report.academic.performance.title" styleClass="screen-title">
+                    <font>
+                        <Font name="System Bold" size="24.0"/>
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS"/>
+            </HBox>
+            
+            <Separator/>
+        </VBox>
+    </top>
+    
+    <center>
+        <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE">
+            <Tab text="%report.tab.student.info">
+                <VBox spacing="15" styleClass="content-container">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                    
+                    <GridPane hgap="15" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="NEVER" minWidth="150"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
+                        
+                        <Label text="%report.student.name" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <Label fx:id="studentNameLabel" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        
+                        <Label text="%report.student.id" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <Label fx:id="studentIdLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        
+                        <Label text="%report.student.major" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <Label fx:id="majorLabel" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        
+                        <Label text="%report.student.department" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                        <Label fx:id="departmentLabel" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                        
+                        <Label text="%report.student.academic.year" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                        <Label fx:id="academicYearLabel" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                        
+                        <Label text="%report.student.enrollment.date" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                        <Label fx:id="enrollmentDateLabel" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                        
+                        <Label text="%report.student.graduation.date" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                        <Label fx:id="graduationDateLabel" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                        
+                        <Label text="%report.student.current.gpa" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+                        <Label fx:id="currentGpaLabel" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                    </GridPane>
+                </VBox>
+            </Tab>
+            
+            <Tab text="%report.tab.courses">
+                <VBox spacing="15" styleClass="content-container">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                    
+                    <TableView fx:id="coursesTableView" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="courseCodeColumn" text="%report.course.code"/>
+                            <TableColumn fx:id="courseNameColumn" text="%report.course.name"/>
+                            <TableColumn fx:id="courseCreditsColumn" text="%report.course.credits"/>
+                            <TableColumn fx:id="courseGradeColumn" text="%report.course.grade"/>
+                            <TableColumn fx:id="courseLetterColumn" text="%report.course.letter"/>
+                            <TableColumn fx:id="coursePeriodColumn" text="%report.course.period"/>
+                            <TableColumn fx:id="courseCompletionColumn" text="%report.course.completion"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+            
+            <Tab text="%report.tab.scholarships">
+                <VBox spacing="15" styleClass="content-container">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                    
+                    <TableView fx:id="scholarshipsTableView" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="scholarshipProgramColumn" text="%report.scholarship.program"/>
+                            <TableColumn fx:id="scholarshipPeriodColumn" text="%report.scholarship.period"/>
+                            <TableColumn fx:id="scholarshipSubmissionColumn" text="%report.scholarship.submission"/>
+                            <TableColumn fx:id="scholarshipStatusColumn" text="%report.scholarship.status"/>
+                            <TableColumn fx:id="scholarshipDecisionColumn" text="%report.scholarship.decision"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+            
+            <Tab text="%report.tab.payments">
+                <VBox spacing="15" styleClass="content-container">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                    
+                    <TableView fx:id="paymentsTableView" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="paymentProgramColumn" text="%report.payment.program"/>
+                            <TableColumn fx:id="paymentAmountColumn" text="%report.payment.amount"/>
+                            <TableColumn fx:id="paymentDateColumn" text="%report.payment.date"/>
+                            <TableColumn fx:id="paymentStatusColumn" text="%report.payment.status"/>
+                            <TableColumn fx:id="paymentReferenceColumn" text="%report.payment.reference"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+            
+            <Tab text="%report.tab.summary">
+                <VBox spacing="15" styleClass="content-container">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                    
+                    <GridPane hgap="15" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="NEVER" minWidth="200"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
+                        
+                        <Label text="%report.summary.credits.completed" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <Label fx:id="totalCreditsCompletedLabel" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        
+                        <Label text="%report.summary.credits.progress" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <Label fx:id="totalCreditsInProgressLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        
+                        <Label text="%report.summary.average.gpa" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <Label fx:id="averageGpaLabel" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        
+                        <Label text="%report.summary.scholarships.applied" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                        <Label fx:id="scholarshipsAppliedLabel" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                        
+                        <Label text="%report.summary.scholarships.approved" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                        <Label fx:id="scholarshipsApprovedLabel" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                        
+                        <Label text="%report.summary.total.amount" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                        <Label fx:id="totalScholarshipAmountLabel" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                    </GridPane>
+                </VBox>
+            </Tab>
+        </TabPane>
+    </center>
+    
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="10">
+            <padding>
+                <Insets top="10" right="20" bottom="20" left="20"/>
+            </padding>
+            <Button fx:id="printButton" text="%button.print" onAction="#handlePrintButtonAction"/>
+        </HBox>
+    </bottom>
+</BorderPane>

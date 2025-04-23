@@ -36,6 +36,7 @@
             <Button fx:id="scholarshipsButton" text="%dashboard.button.scholarships" maxWidth="Infinity" styleClass="nav-button" />
             <Button fx:id="applicationsButton" text="%dashboard.button.applications" maxWidth="Infinity" styleClass="nav-button" />
             <Button fx:id="profileButton" text="%dashboard.button.profile" maxWidth="Infinity" styleClass="nav-button" />
+            <Button fx:id="reportsButton" text="%dashboard.button.reports" maxWidth="Infinity" styleClass="nav-button" onAction="#handleReportsButtonAction" />
             
             <Region VBox.vgrow="ALWAYS" />
             

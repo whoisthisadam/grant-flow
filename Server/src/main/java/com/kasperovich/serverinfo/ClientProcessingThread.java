@@ -272,6 +272,10 @@ public class ClientProcessingThread extends Thread {
             case GET_USER_ACTIVITY_REPORT:
                 handleGetUserActivityReport(commandWrapper);
                 break;
+            case GET_ACADEMIC_PERFORMANCE_REPORT: {
+                handleGetAcademicPerformanceReport(commandWrapper);
+                break;
+            }
             default: {
                 logger.warn("Received unknown command: {}", commandWrapper.getCommand());
                 sendObject(new ResponseWrapper(ResponseFromServer.UNKNOWN_COMMAND));
@@ -1454,6 +1458,38 @@ public class ClientProcessingThread extends Thread {
 
         } catch (Exception e) {
             logger.error("Error handling GET_USER_ACTIVITY_REPORT command", e);
+            var response = new ResponseWrapper(ResponseFromServer.ERROR, e.getMessage());
+            response.setMessage(e.getMessage());
+            sendObject(response);
+        }
+    }
+
+    /**
+     * Handles the GET_ACADEMIC_PERFORMANCE_REPORT command.
+     *
+     * @param commandWrapper the command wrapper
+     */
+    private void handleGetAcademicPerformanceReport(CommandWrapper commandWrapper) throws IOException {
+        logger.debug("Handling GET_ACADEMIC_PERFORMANCE_REPORT command");
+
+        try {
+            // Validate user is authenticated
+            if (authenticatedUserId == null) {
+                logger.warn("User not authenticated");
+                sendObject(new ResponseWrapper(ResponseFromServer.ERROR, "User not authenticated"));
+                return;
+            }
+
+            // Get academic performance report for the authenticated user
+            var report = reportService.getAcademicPerformanceReport(authenticatedUserId);
+
+            // Send response
+            AcademicPerformanceReportResponse response = new AcademicPerformanceReportResponse(report);
+            sendObject(new ResponseWrapper(ResponseFromServer.ACADEMIC_PERFORMANCE_REPORT_GENERATED, response));
+            logger.info("Sent academic performance report to user: {}", authenticatedUserId);
+
+        } catch (Exception e) {
+            logger.error("Error handling GET_ACADEMIC_PERFORMANCE_REPORT command", e);
             var response = new ResponseWrapper(ResponseFromServer.ERROR, e.getMessage());
             response.setMessage(e.getMessage());
             sendObject(response);
