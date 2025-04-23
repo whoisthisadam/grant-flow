@@ -1,6 +1,7 @@
 package com.kasperovich.ui;
 
 import com.kasperovich.config.AlertManager;
+import com.kasperovich.dto.admin.ActivityDTO;
 import com.kasperovich.dto.auth.UserDTO;
 import com.kasperovich.dto.scholarship.BudgetDTO;
 import com.kasperovich.dto.scholarship.ScholarshipApplicationDTO;
@@ -8,15 +9,20 @@ import com.kasperovich.dto.scholarship.ScholarshipProgramDTO;
 import com.kasperovich.i18n.LangManager;
 import com.kasperovich.operations.ChangeScene;
 import com.kasperovich.utils.LoggerUtil;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,6 +78,18 @@ public class AdminDashboardController extends BaseController {
     @FXML
     private Label totalAllocatedAmount;
     
+    @FXML
+    private TableView<ActivityDTO> recentActivityTable;
+    
+    @FXML
+    private TableColumn<ActivityDTO, String> activityDateColumn;
+    
+    @FXML
+    private TableColumn<ActivityDTO, String> activityTypeColumn;
+    
+    @FXML
+    private TableColumn<ActivityDTO, String> activityDetailsColumn;
+    
     @Setter
     private UserDTO user;
     
@@ -84,6 +102,8 @@ public class AdminDashboardController extends BaseController {
     
     @Getter
     private List<BudgetDTO> budgets;
+    
+    private ObservableList<ActivityDTO> activityData = FXCollections.observableArrayList();
     
     /**
      * Initializes the controller.
@@ -114,12 +134,23 @@ public class AdminDashboardController extends BaseController {
         reportsButton.setOnAction(this::handleReportsAction);
         profileButton.setOnAction(this::handleProfileAction);
         
+        // Set up the activity table
+        setupActivityTable();
+        
         // Load dashboard data
         loadDashboardData();
         
         updateTexts();
         
         logger.info("Admin dashboard initialized for user: {}", user != null ? user.getUsername() : "unknown");
+    }
+    
+    /**
+     * Sets up the activity table.
+     */
+    private void setupActivityTable() {
+        // Initialize the activity table
+        recentActivityTable.setItems(activityData);
     }
     
     /**
@@ -139,6 +170,9 @@ public class AdminDashboardController extends BaseController {
             // Update UI with counts
             updateDashboardCounts();
             
+            // Update recent activity
+            updateRecentActivity();
+            
             logger.info("Admin dashboard data loaded successfully");
         } catch (Exception e) {
             logger.error("Error loading admin dashboard data", e);
@@ -147,6 +181,86 @@ public class AdminDashboardController extends BaseController {
                 LangManager.getBundle().getString("dashboard.error.loading_data") + ": " + e.getMessage()
             );
         }
+    }
+    
+    /**
+     * Updates the recent activity table with data.
+     */
+    private void updateRecentActivity() {
+        // Clear existing data
+        activityData.clear();
+        
+        // Add login activity
+        activityData.add(new ActivityDTO(
+            LocalDateTime.now(),
+            LangManager.getBundle().getString("activity.login"),
+            LangManager.getBundle().getString("activity.admin.login")
+        ));
+        
+        // Add recent application activities
+        if (applications != null && !applications.isEmpty()) {
+            // Sort applications by submission date (newest first)
+            applications.sort((a1, a2) -> a2.getSubmissionDate().compareTo(a1.getSubmissionDate()));
+            
+            // Add up to 5 most recent applications
+            int count = Math.min(applications.size(), 5);
+            for (int i = 0; i < count; i++) {
+                ScholarshipApplicationDTO app = applications.get(i);
+                activityData.add(new ActivityDTO(
+                    app.getSubmissionDate(),
+                    LangManager.getBundle().getString("activity.application"),
+                    String.format(
+                        LangManager.getBundle().getString("activity.new.application"),
+                        app.getProgramName(),
+                        app.getApplicantFullName()
+                    )
+                ));
+            }
+        }
+        
+        // Add recent program activities if any
+        if (scholarshipPrograms != null && !scholarshipPrograms.isEmpty()) {
+            // Add up to 3 most recent program activities
+            int count = Math.min(scholarshipPrograms.size(), 3);
+            for (int i = 0; i < count; i++) {
+                ScholarshipProgramDTO program = scholarshipPrograms.get(i);
+                String activeStatus = program.isActive() 
+                    ? LangManager.getBundle().getString("activity.program.active")
+                    : LangManager.getBundle().getString("activity.program.inactive");
+                    
+                activityData.add(new ActivityDTO(
+                    LocalDateTime.now().minusDays(i + 1), // Use a placeholder date
+                    LangManager.getBundle().getString("activity.program"),
+                    String.format(
+                        LangManager.getBundle().getString("activity.scholarship.program"),
+                        program.getName(),
+                        activeStatus,
+                        program.getFundingAmount()
+                    )
+                ));
+            }
+        }
+        
+        // Add budget allocation activities
+        if (budgets != null && !budgets.isEmpty()) {
+            // Add up to 3 most recent budget allocations
+            int count = Math.min(budgets.size(), 3);
+            for (int i = 0; i < count; i++) {
+                BudgetDTO budget = budgets.get(i);
+                activityData.add(new ActivityDTO(
+                    LocalDateTime.now().minusDays(i), // Placeholder date
+                    LangManager.getBundle().getString("activity.budget"),
+                    String.format(
+                        LangManager.getBundle().getString("activity.budget.allocated"),
+                        budget.getAllocatedAmount(),
+                        budget.getAllocatedAmount()
+                    )
+                ));
+            }
+        }
+        
+        // Sort all activities by timestamp (newest first)
+        activityData.sort((a1, a2) -> a2.getTimestamp().compareTo(a1.getTimestamp()));
     }
     
     /**

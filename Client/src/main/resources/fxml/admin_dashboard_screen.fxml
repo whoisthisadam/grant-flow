@@ -84,21 +84,21 @@
                 </HBox>
                 
                 <!-- Recent Activity Section -->
-                <Label text="Recent Activity" styleClass="section-title"/>
+                <Label text="%dashboard.recent.activity" styleClass="section-title"/>
                 <VBox styleClass="section-box">
                     <TableView fx:id="recentActivityTable" VBox.vgrow="ALWAYS" prefHeight="200" styleClass="table-view">
                         <columns>
-                            <TableColumn fx:id="activityDateColumn" text="Date" prefWidth="150" styleClass="table-column">
+                            <TableColumn fx:id="activityDateColumn" text="%reports.column.date" prefWidth="150" styleClass="table-column">
                                 <cellValueFactory>
                                     <PropertyValueFactory property="date" />
                                 </cellValueFactory>
                             </TableColumn>
-                            <TableColumn fx:id="activityTypeColumn" text="Activity" prefWidth="150" styleClass="table-column">
+                            <TableColumn fx:id="activityTypeColumn" text="%reports.column.activity" prefWidth="150" styleClass="table-column">
                                 <cellValueFactory>
                                     <PropertyValueFactory property="type" />
                                 </cellValueFactory>
                             </TableColumn>
-                            <TableColumn fx:id="activityDetailsColumn" text="Details" prefWidth="300" styleClass="table-column">
+                            <TableColumn fx:id="activityDetailsColumn" text="%reports.column.details" prefWidth="300" styleClass="table-column">
                                 <cellValueFactory>
                                     <PropertyValueFactory property="details" />
                                 </cellValueFactory>
