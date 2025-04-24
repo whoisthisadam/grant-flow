@@ -43,3 +43,6 @@ build/
 
 # Configuration files with sensitive data
 Server/src/main/resources/config.properties
+
+# Specific files to ignore
+ucs.jpg

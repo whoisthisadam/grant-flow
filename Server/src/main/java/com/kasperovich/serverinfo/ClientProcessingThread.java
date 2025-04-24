@@ -68,7 +68,7 @@ public class ClientProcessingThread extends Thread {
      * @param object the object to send
      * @throws IOException if an I/O error occurs
      */
-    private void sendObject(Serializable object) throws IOException {
+    protected void sendObject(Serializable object) throws IOException {
         logger.debug("Sending object to client {}: {}",
                 clientInfo.getConnectionSocket().getInetAddress(), object);
         objectOutputStream.writeObject(object);

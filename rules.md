@@ -271,6 +271,125 @@ public class MyScreenController extends BaseController {
 - User DTO is injected via reflection in `ChangeScene` if the controller has a `setUser` method
 - Other dependencies should be set before calling `initializeData()`
 
+## Testing Guidelines
+
+### Unit Testing Command Handlers
+
+When testing command handlers in the `ClientProcessingThread` class, follow these guidelines:
+
+1. **Focus on testing the business logic, not the networking**:
+   - Create a test class for each command handler method
+   - Create a standalone handler class that implements only the business logic
+   - Example naming: `HandleApplyForScholarshipTest` for testing `handleApplyForScholarship`
+
+2. **Create a simplified test handler class**:
+   ```java
+   private class TestScholarshipHandler {
+       private final List<ResponseWrapper> sentResponses = new ArrayList<>();
+       private final ScholarshipApplicationService scholarshipApplicationService;
+       private final Long authenticatedUserId;
+       
+       public TestScholarshipHandler(ScholarshipApplicationService service, Long userId) {
+           this.scholarshipApplicationService = service;
+           this.authenticatedUserId = userId;
+       }
+       
+       public void handleApplyForScholarship(CommandWrapper commandWrapper) {
+           try {
+               // Extract application data
+               SubmitScholarshipApplicationCommand command = commandWrapper.getData();
+               
+               if (command == null) {
+                   ScholarshipApplicationResponse response = new ScholarshipApplicationResponse(
+                           false,
+                           "Scholarship application data is missing",
+                           null
+                   );
+                   sendResponse(new ResponseWrapper(ResponseFromServer.ERROR, response));
+                   return;
+               }
+               
+               // Submit the application
+               ScholarshipApplicationDTO application = scholarshipApplicationService.submitApplication(
+                       authenticatedUserId,
+                       command.getProgramId(),
+                       command.getPeriodId(),
+                       command.getAdditionalInfo()
+               );
+               
+               // Create success response
+               ScholarshipApplicationResponse response = new ScholarshipApplicationResponse(
+                       true,
+                       "Application submitted successfully",
+                       application
+               );
+               
+               sendResponse(new ResponseWrapper(ResponseFromServer.SUCCESS, response));
+               
+           } catch (Exception e) {
+               // Create error response
+               ScholarshipApplicationResponse response = new ScholarshipApplicationResponse(
+                       false,
+                       e.getMessage(),
+                       null
+               );
+               
+               sendResponse(new ResponseWrapper(ResponseFromServer.ERROR, response));
+           }
+       }
+       
+       private void sendResponse(ResponseWrapper response) {
+           sentResponses.add(response);
+       }
+       
+       public ResponseWrapper getLastSentResponse() {
+           if (sentResponses.isEmpty()) {
+               return null;
+           }
+           return sentResponses.get(sentResponses.size() - 1);
+       }
+   }
+   ```
+
+3. **Create test implementations of services**:
+   ```java
+   private class TestScholarshipApplicationService extends ScholarshipApplicationService {
+       private boolean throwException = false;
+       private String exceptionMessage = "";
+       private ScholarshipApplicationDTO returnValue = null;
+       
+       public void setThrowException(boolean throwException, String message) {
+           this.throwException = throwException;
+           this.exceptionMessage = message;
+       }
+       
+       public void setReturnValue(ScholarshipApplicationDTO returnValue) {
+           this.returnValue = returnValue;
+       }
+       
+       @Override
+       public ScholarshipApplicationDTO submitApplication(Long userId, Long programId, Long periodId, String additionalInfo) 
+               throws Exception {
+           if (throwException) {
+               throw new Exception(exceptionMessage);
+           }
+           return returnValue;
+       }
+   }
+   ```
+
+4. **Test both success and error scenarios**:
+   - Test with valid input data
+   - Test with null or invalid input data
+   - Test service exceptions
+   - Verify the correct response is sent
+
+5. **Advantages of this approach**:
+   - Avoids issues with mocking complex dependencies like sockets and streams
+   - Works with any Java version, including Java 22
+   - Focuses on testing the actual business logic
+   - Simpler and more maintainable tests
+
 ## Notes About Scholarship Functionality
 
 The scholarship-related functionality has been temporarily disabled in the client application. The UI buttons for this functionality are still present but will display informational messages when clicked.
